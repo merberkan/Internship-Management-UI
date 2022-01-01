@@ -1,0 +1,15 @@
+.Home-Container{
+    display: flex;
+    flex: 1;
+}
+
+.Navbar-Part{
+    display: flex;
+    flex: 1;
+    max-width: 10%;
+}
+
+.Home-Content{
+    display: flex;
+    flex: 1;
+}

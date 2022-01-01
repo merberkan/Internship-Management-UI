@@ -1,0 +1,46 @@
+.users-container{
+    display: flex;
+    flex: 1;
+    min-height: 100vh;
+}
+
+.Navbar-Part{
+    display: flex;
+    flex: 1;
+    max-width: 10%;
+}
+
+.user-content{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.user-content-top{
+    display: flex;
+    flex: 3;
+    flex-direction: column;
+}
+
+.user-content-bottom{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.content-header{
+    display: flex;
+    flex: 1;
+    max-height: 100px;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.datagrid-container{
+    display: flex;
+    flex: 1;
+    margin: 0 auto;
+    width: 40%;
+    max-height: 60%;
+}

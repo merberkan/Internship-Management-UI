@@ -1,0 +1,64 @@
+.stakeholder-container{
+    display: flex;
+    flex: 1;
+    min-height: 100vh;
+}
+
+.Navbar-Part{
+    display: flex;
+    flex: 1;
+    max-width: 10%;
+}
+
+.stakeholder-content{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 5rem;
+}
+
+  .stakeholder-content label {
+    text-align: left;
+    display: block;
+  }
+  .stakeholder-content h2 {
+    font-size: 20px;
+    color: #FBB400;
+    margin-bottom: 30px;
+  }
+  .stakeholder-content input, .stakeholder-content textarea, .stakeholder-content select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    display: block;
+  }
+  .stakeholder-content button {
+    background: #FBB400;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .stakeholder-update-part{
+    margin-top: 2rem;
+  }
+
+  .update-button{
+    background: #FBB400;
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 10px;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
