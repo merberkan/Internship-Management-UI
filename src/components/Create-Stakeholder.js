@@ -27,6 +27,7 @@ const CreateStakeHolder = () => {
   const [successfulAlert, setSuccessfulAlert] = useState();
   const [failAlert, setFailfulAlert] = useState();
   const [display, setDisplay] = useState(true);
+  const [currentStakeholder, setCurrentStakeholder] = useState();
 
 
   const {
@@ -35,7 +36,8 @@ const CreateStakeHolder = () => {
     error,
   } = useFetch("http://localhost:3001/api/stakeholder/list/3e2975fa7b5241849ae88da8773cc1c9","GET");
   if(stakeholdersList && ifControl){
-    setStakeholders(stakeholdersList.data.data)
+    setStakeholders(stakeholdersList.data.data);
+    setCurrentStakeholder(stakeholdersList.data.currentStakeholder[0].fullname);
     setIfControl(false);
   }
 
@@ -77,10 +79,11 @@ const CreateStakeHolder = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({email: stakeholder}),
     }).then((data) => {
-      console.log(data)
       if(data.ok){
         console.log("new stakeholder has been updated",data);
         setIsPending(false);
+        const updatedStakeholder = stakeholders.find( w => w.email === stakeholder);
+        setCurrentStakeholder(updatedStakeholder.fullname);
         history.push("/stakeholder"); // send the home page
         setSuccessfulAlert(true)
         setDisplay(true);
@@ -139,7 +142,8 @@ const CreateStakeHolder = () => {
         </div>
         <div className="stakeholder-update-part">
           <h2>Choose Stakeholder</h2>
-          <Box sx={{ minWidth: 120 }}>
+          {currentStakeholder && <h5>Current Stakeholder: {currentStakeholder}</h5>}
+          <Box className="box" sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Stakeholders</InputLabel>
               {isPending && <div>Loading...</div>}
