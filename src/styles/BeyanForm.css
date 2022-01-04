@@ -1,0 +1,132 @@
+.beyan-container {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.Navbar-Part {
+  display: flex;
+  flex: 1;
+  max-width: 10%;
+}
+
+.beyan-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.content-logo-part {
+  display: flex;
+  flex: 1;
+  max-height: 150px;
+}
+
+.content-logo {
+  display: flex;
+  flex: 1;
+  margin: 0 0 0 3rem;
+}
+
+.content-logo-img {
+  max-width: 400px;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.content-form-part {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  margin: 0 2rem 2rem 3rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.content-form-part form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.form-header {
+  display: flex;
+  flex: 2 1;
+  max-height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 1rem;
+}
+
+.form-detail-part {
+  display: flex;
+  flex: 2;
+  margin: 3rem 3rem 0 3rem;
+}
+
+.form-detail-part p {
+  font-size: 17px;
+  text-align: justify;
+  text-justify: inter-word;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  word-spacing: 4px;
+}
+
+.desc-inputs {
+  height: 30px;
+  width: 20%;
+  border-radius: 5px;
+  border: solid 1.5px #d3d3d3;
+  -webkit-transition: 1s; /* Safari */
+  transition: 1s;
+}
+
+.form-student-inputs {
+  display: flex;
+  flex: 4;
+  flex-direction: column;
+}
+
+.form-student-inputs label {
+  margin: 2rem 0 1rem 2rem;
+  text-align: left;
+  float: left;
+}
+
+.input-part {
+  display: flex;
+  flex: 1;
+  max-height: 75px;
+  align-items: center;
+}
+
+.input-part label {
+  min-width: 101px;
+}
+
+.student-info-inputs {
+  height: 30px;
+  margin: 2rem 0 1rem 2rem;
+  width: 25%;
+  border-radius: 5px;
+  border: solid 1.5px #d3d3d3;
+  -webkit-transition: 1s; /* Safari */
+  transition: 1s;
+}
+input[type="text"]:hover {
+  box-shadow: 0 0 5pt 0.5pt #d3d3d3;
+}
+input[type="text"]:focus {
+  box-shadow: 0 0 5pt 2pt #d3d3d3;
+  outline-width: 0px;
+}
+
+.send-button {
+  display: flex;
+  flex: 1 1;
+  max-height: 2.75rem;
+  justify-content: flex-end;
+  margin: 4rem;
+}
