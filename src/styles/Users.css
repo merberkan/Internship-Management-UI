@@ -44,3 +44,11 @@
     width: 40%;
     max-height: 60%;
 }
+
+.datagrid-button{
+    display: flex;
+    flex: 1;
+    margin-top: 2.5rem;
+    max-height: 2.5rem;
+    justify-content: center;
+}
