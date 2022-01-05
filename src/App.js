@@ -8,6 +8,7 @@ import CreateStakeHolder from './components/Create-Stakeholder';
 import RegisterCompleteStakeholder from './components/Register-Complete-Stakeholder';
 import Forms from './components/Forms';
 import BeyanForm from './components/BeyanForm';
+import IsVerenForm from './components/IsVerenForm';
 
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path="/forms/beyan">
             <BeyanForm></BeyanForm>
+          </Route>
+          <Route path="/forms/isveren">
+            <IsVerenForm></IsVerenForm>
           </Route>
         </Switch>
       </div>

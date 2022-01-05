@@ -50,7 +50,7 @@ const BeyanForm = () => {
         //   window.localStorage.setItem("token", data.data.token);
           history.push("/forms");
         } else {
-          console.log("something happened wrong");
+          console.log(data.message);
         }
       })
       .catch((e) => {
