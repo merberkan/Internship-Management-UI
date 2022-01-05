@@ -1,0 +1,44 @@
+.forms-container{
+    display: flex;
+    flex: 1;
+    min-height: 100vh;
+}
+
+.Navbar-Part{
+    display: flex;
+    flex: 1;
+    max-width: 10%;
+}
+
+.forms-content{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding-top: 10%;
+}
+
+.forms-header{
+    display: flex;
+    flex: 1;
+    max-height: 100px;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+.forms-list{
+    display: flex;
+    flex: 1;
+    max-height: 150px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ul{
+    text-decoration: none;
+}
+
+.forms-item{
+    font-size: 22px;
+    text-align: start;
+}

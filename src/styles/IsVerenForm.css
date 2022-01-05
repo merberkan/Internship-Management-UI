@@ -1,0 +1,230 @@
+.isveren-container {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.Navbar-Part {
+  display: flex;
+  flex: 1;
+  max-width: 10%;
+}
+
+.isveren-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.isveren-content-logo-part {
+  display: flex;
+  flex: 1;
+  max-height: 100px;
+}
+
+.isveren-content-logo {
+  display: flex;
+  flex: 1;
+  margin: 0 0 0 3rem;
+}
+
+.isveren-content-logo-img {
+  opacity: 0.75;
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.isveren-header-part {
+  display: flex;
+  flex: 1;
+  margin-top: -3.5rem;
+  justify-content: center;
+}
+
+.isveren-header-part p {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.isveren-form-part {
+  display: flex;
+  flex: 12;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.isveren-form {
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+  margin: 1rem 3rem 1rem 3rem;
+}
+
+.isveren-company-part {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+}
+
+.isveren-company-part h3 {
+  text-align: left;
+}
+
+.isveren-company-details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.isveren-company-row {
+  display: flex;
+  flex: 1;
+  border: 1px solid black;
+}
+
+.isveren-company-label {
+  display: flex;
+  flex: 1;
+  max-width: 400px;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  border-right: 1px solid black;
+}
+
+.isveren-company-input {
+  display: flex;
+  flex: 1;
+}
+
+.isveren-company-row-left {
+  display: flex;
+  flex: 1;
+}
+
+.isveren-company-row-right {
+  display: flex;
+  flex: 1;
+}
+
+.isveren-part {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.isveren-part h3 {
+  text-align: left;
+}
+
+.isveren-part-details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.isveren-part-row {
+  display: flex;
+  flex: 1;
+  border: 1px solid black;
+}
+
+.isveren-part-label {
+  display: flex;
+  flex: 1;
+  max-width: 400px;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  border-right: 1px solid black;
+
+}
+
+.isveren-part-input {
+  display: flex;
+  flex: 1;
+}
+
+.isveren-student-detail-part {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.isveren-student-details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.isveren-student-row {
+  display: flex;
+  flex: 1;
+  border: 1px solid black;
+}
+
+.isveren-student-label {
+  display: flex;
+  flex: 3;
+  max-width: 700px;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  border-right: 1px solid black;
+
+}
+
+.isveren-student-input {
+  display: flex;
+  flex: 1;
+}
+
+.isveren-form-control {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.isveren-company-detail-part {
+  display: flex;
+  flex: 2;
+  margin-top: 1rem;
+}
+
+.input {
+  border: none;
+  padding-left: 1rem;
+  -webkit-transition: 1s; /* Safari */
+  transition: 1s;
+}
+
+input[type="text"]
+{
+    font-size:18px;
+}
+
+input[type="text"]:hover {
+  box-shadow: 0 0 5pt 0.5pt #d3d3d3;
+}
+input[type="text"]:focus {
+  box-shadow: 0 0 5pt 2pt #d3d3d3;
+  outline-width: 0px;
+}
+
+.border {
+    border-right: 1px solid black;
+  }
+
+.isveren-send-button{
+    display: flex;
+    flex: 1 1;
+    max-height: 3.75rem;
+    justify-content: flex-end;
+    margin: 1rem 1rem 0 0;
+}

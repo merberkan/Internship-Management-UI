@@ -19,8 +19,8 @@ const Input = styled("input")({
 const columns = [
   { field: "id", hide: true },
   { field: "schoolId", headerName: "School Id", width: 110 },
-  { field: "fullName", headerName: "Full Name", width: 180 },
-  { field: "email", headerName: "Email", width: 180 },
+  { field: "fullName", headerName: "Full Name", width: 250 },
+  { field: "email", headerName: "Email", width: 300 },
   { field: "role", headerName: "Role", width: 180 },
 ];
 

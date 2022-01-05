@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
-import logo from "../images/mesale.png";
+import logo from "../images/logo.png";
 import { IconButton } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useHistory } from "react-router-dom";

@@ -29,6 +29,7 @@
 }
 
 .content-logo-img {
+  opacity: 0.75;
   max-width: 400px;
   max-height: 400px;
   object-fit: contain;
