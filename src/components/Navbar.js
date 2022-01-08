@@ -55,7 +55,7 @@ const Navbar = (props) => {
           </div>
           <div className="item">
             <Link to={`/stakeholder`}>
-              <p>Create Stake Holder</p>
+              <p>Invite Stakeholder</p>
             </Link>
           </div>
         </div>

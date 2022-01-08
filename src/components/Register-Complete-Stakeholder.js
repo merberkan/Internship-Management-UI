@@ -60,6 +60,51 @@ const RegisterCompleteStakeholder = () => {
         </div>
         <div className="form-part">
           <form className="form" onSubmit={handleSubmit}>
+          <label>Job Title:</label>
+            <input
+              type="text"
+              required
+            ></input>
+            <label>Company Name:</label>
+            <input
+              type="text"
+              required
+            ></input>
+            <label>Company Address:</label>
+            <input
+              type="text"
+              required
+            ></input>
+            <label>Company Sector:</label>
+            <input
+              type="text"
+              required
+            ></input>
+            <label>Company Phone:</label>
+            <input
+              type="text"
+              required
+            ></input>
+            <label>Company Fax:</label>
+            <input
+              type="text"
+              required
+            ></input>
+            <label>Company Email:</label>
+            <input
+              type="text"
+              required
+            ></input>
+            <label>Company Website Address:</label>
+            <input
+              type="text"
+              required
+            ></input>
+            <label>Company Employee Number:</label>
+            <input
+              type="text"
+              required
+            ></input>
             <label>Password:</label>
             <input
               type="password"

@@ -13,7 +13,7 @@ import useFetch from "../helpers/useFetch";
 import Alert from '@mui/material/Alert';
 
 const CreateStakeHolder = () => {
-  const [companyName, setCompanyName] = useState("");
+  // const [companyName, setCompanyName] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -37,7 +37,11 @@ const CreateStakeHolder = () => {
   } = useFetch("http://localhost:3001/api/stakeholder/list/3e2975fa7b5241849ae88da8773cc1c9","GET");
   if(stakeholdersList && ifControl){
     setStakeholders(stakeholdersList.data.data);
-    setCurrentStakeholder(stakeholdersList.data.currentStakeholder[0].fullname);
+    setCurrentStakeholder("");
+    console.log(stakeholdersList.data.cu)
+    if(stakeholdersList.data.currentStakeholder.length > 0){
+      setCurrentStakeholder(stakeholdersList.data.currentStakeholder[0].fullname);
+    }
     setIfControl(false);
   }
 
@@ -54,7 +58,7 @@ const CreateStakeHolder = () => {
   const handleCreateSubmit = (e) => {
     e.preventDefault();
     const model = {
-      companyName: companyName,
+      // companyName: companyName,
       email: email,
       name: name,
       surname: surname,
@@ -62,7 +66,7 @@ const CreateStakeHolder = () => {
     console.log(JSON.stringify(model));
     setIsPending(true);
 
-    fetch("http://localhost:3001/api/user/add-stakeholder", {
+    fetch("http://localhost:3001/api/user/add-stakeholder/"+decoded.usercode, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(model),
@@ -106,15 +110,15 @@ const CreateStakeHolder = () => {
       </div>
       <div className="stakeholder-content">
         <div className="stakeholder-form-part">
-          <h2>Add a New Stakeholder</h2>
+          <h2>Invite a New Stakeholder</h2>
           <form onSubmit={handleCreateSubmit}>
-            <label>Company Name:</label>
+            {/* <label>Company Name:</label>
             <input
               type="text"
               required
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
-            ></input>
+            ></input> */}
             <label>Stakeholder Name:</label>
             <input
               type="text"
