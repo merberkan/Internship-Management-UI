@@ -10,6 +10,20 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+import useFetch from "../helpers/useFetch";
+
+import PropTypes from "prop-types";
+import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import PersonIcon from "@mui/icons-material/Person";
+import AddIcon from "@mui/icons-material/Add";
+import Typography from "@mui/material/Typography";
+import { blue } from "@mui/material/colors";
 
 const IsVerenForm = () => {
   const token = window.localStorage.getItem("token");
@@ -46,10 +60,94 @@ const IsVerenForm = () => {
   const [companyBankName, setCompanyBankName] = useState("");
   const history = useHistory();
 
+  const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+  const [isLoading, setIsPending] = useState(false);
+  const [ifControl, setIfControl] = useState(true);
+  const [stakeholders, setStakeholders] = useState();
+  const [isInputsDisabled, setIsInputsDisabled] = useState(false);
+
+  const {
+    data: stakeholdersList,
+    isPending,
+    error,
+  } = useFetch(
+    "http://localhost:3001/api/stakeholder/list/" + decoded.usercode,
+    "GET"
+  );
+  if (stakeholdersList && ifControl) {
+    console.log("deneme", stakeholdersList.data.data);
+    setStakeholders(stakeholdersList.data.data);
+    setIfControl(false);
+  }
+
+  function SimpleDialog(props) {
+    const { onClose, selectedValue, open } = props;
+
+    const handleClose = () => {
+      onClose(selectedValue);
+    };
+
+    const handleListItemClick = (value) => {
+      onClose(value);
+    };
+
+    return (
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Choose Stakeholder</DialogTitle>
+        <List sx={{ pt: 0 }}>
+          {stakeholders.map((stakeholder) => (
+            <ListItem
+              button
+              onClick={() => handleListItemClick(stakeholder.fullname)}
+              key={stakeholder.fullname}
+            >
+              <ListItemAvatar>
+                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                  <PersonIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={stakeholder.fullname} />
+            </ListItem>
+          ))}
+        </List>
+      </Dialog>
+    );
+  }
+  SimpleDialog.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    selectedValue: PropTypes.string.isRequired,
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setSelectedValue(value);
+    setOpen(false);
+    const selectedData = stakeholders.find((w) => w.fullname === value);
+    console.log("selected data is here:", selectedData);
+    setCompanyName(selectedData.companyName);
+    setCompanyAddress(selectedData.companyAddress);
+    setCompanySector(selectedData.companySector);
+    setCompanyPhone(selectedData.companyPhoneNo);
+    setCompanyFax(selectedData.companyFaxNo);
+    setCompanyMail(selectedData.companyEmail);
+    setCompanyWeb(selectedData.companyWebAddress);
+    setCompanyEmployeeNo(selectedData.companyCompanyEmployeeNo);
+    setCompanyPersonFullName(selectedData.companyEmployeeName);
+    setCompanyPersonTitle(selectedData.title);
+    setCompanyPersonMail(selectedData.email);
+    setCompanyPersonDate("09/01/2022");
+    setIsInputsDisabled(true);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("studentGetWage Value:",studentGetWage)
+    console.log("studentGetWage Value:", studentGetWage);
     const data = {
       companyName,
       companyAddress,
@@ -77,19 +175,19 @@ const IsVerenForm = () => {
       formType: 2,
     };
 
-    console.log("giden model:",JSON.stringify(data))
+    console.log("giden model:", JSON.stringify(data));
     fetch("http://localhost:3001/api/form", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.ok) {
-        //   window.localStorage.setItem("token", data.data.token);
+          //   window.localStorage.setItem("token", data.data.token);
           history.push("/forms");
         } else {
           console.log(data.message);
@@ -114,6 +212,7 @@ const IsVerenForm = () => {
               src={formFoto}
             ></img>
           </div>
+          <div className="isveren-dialog-part"></div>
         </div>
         <div className="isveren-header-part">
           <p>
@@ -128,6 +227,7 @@ const IsVerenForm = () => {
                 <div className="isveren-company-row">
                   <label className="isveren-company-label">Adı</label>
                   <input
+                    disabled={isInputsDisabled}
                     type="text"
                     className="isveren-company-input input"
                     value={companyName}
@@ -137,6 +237,7 @@ const IsVerenForm = () => {
                 <div className="isveren-company-row">
                   <label className="isveren-company-label">Adresi</label>
                   <input
+                    disabled={isInputsDisabled}
                     type="text"
                     className="isveren-company-input input"
                     value={companyAddress}
@@ -148,6 +249,7 @@ const IsVerenForm = () => {
                     Üretim/Hizmet Alanı
                   </label>
                   <input
+                    disabled={isInputsDisabled}
                     type="text"
                     className="isveren-company-input input"
                     value={companySector}
@@ -158,6 +260,7 @@ const IsVerenForm = () => {
                   <div className="isveren-company-row-left">
                     <label className="isveren-company-label">Telefon</label>
                     <input
+                      disabled={isInputsDisabled}
                       type="text"
                       className="isveren-company-input input border"
                       value={companyPhone}
@@ -167,6 +270,7 @@ const IsVerenForm = () => {
                   <div className="isveren-company-row-right">
                     <label className="isveren-company-label">Faks</label>
                     <input
+                      disabled={isInputsDisabled}
                       type="text"
                       className="isveren-company-input input"
                       value={companyFax}
@@ -180,6 +284,7 @@ const IsVerenForm = () => {
                       E-posta adresi
                     </label>
                     <input
+                      disabled={isInputsDisabled}
                       type="text"
                       className="isveren-company-input input border"
                       value={companyMail}
@@ -189,6 +294,7 @@ const IsVerenForm = () => {
                   <div className="isveren-company-row-right">
                     <label className="isveren-company-label">Web Adresi</label>
                     <input
+                      disabled={isInputsDisabled}
                       type="text"
                       className="isveren-company-input input"
                       value={companyWeb}
@@ -201,6 +307,7 @@ const IsVerenForm = () => {
                     Kurumda Çalışan Personel Sayısı
                   </label>
                   <input
+                    disabled={isInputsDisabled}
                     type="text"
                     className="isveren-company-input input"
                     value={companyEmployeeNo}
@@ -215,6 +322,7 @@ const IsVerenForm = () => {
                 <div className="isveren-part-row">
                   <label className="isveren-part-label ">Adı Soyadı</label>
                   <input
+                    disabled={isInputsDisabled}
                     type="text"
                     className="isveren-part-input input"
                     value={companyPersonFullName}
@@ -224,6 +332,7 @@ const IsVerenForm = () => {
                 <div className="isveren-part-row">
                   <label className="isveren-part-label">Görev ve Unvanı</label>
                   <input
+                    disabled={isInputsDisabled}
                     type="text"
                     className="isveren-part-input input"
                     value={companyPersonTitle}
@@ -233,6 +342,7 @@ const IsVerenForm = () => {
                 <div className="isveren-part-row">
                   <label className="isveren-part-label">E-posta adresi</label>
                   <input
+                    disabled={isInputsDisabled}
                     type="text"
                     className="isveren-part-input input"
                     value={companyPersonMail}
@@ -242,6 +352,7 @@ const IsVerenForm = () => {
                 <div className="isveren-part-row">
                   <label className="isveren-part-label">Tarih</label>
                   <input
+                    disabled={isInputsDisabled}
                     type="text"
                     className="isveren-part-input input"
                     value={companyPersonDate}
@@ -380,10 +491,28 @@ const IsVerenForm = () => {
                 </div>
               </div>
             </div>
-            <div className="isveren-send-button">
-              <Button type="submit" variant="contained" endIcon={<SendIcon />}>
-                Send For Approval
-              </Button>
+            <div className="isveren-send-button-part">
+              <div className="isveren-dialog">
+                <Button variant="contained" onClick={handleClickOpen}>
+                  Choose Stakeholder
+                </Button>
+                {stakeholders && (
+                  <SimpleDialog
+                    selectedValue={selectedValue}
+                    open={open}
+                    onClose={handleClose}
+                  />
+                )}
+              </div>
+              <div className="isveren-button">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                >
+                  Send For Approval
+                </Button>
+              </div>
             </div>
           </form>
         </div>
