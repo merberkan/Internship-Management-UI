@@ -1,0 +1,100 @@
+.register-complete-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.register-complete-top-part {
+  display: flex;
+  flex: 1;
+  max-height: 120px;
+  margin-top: 2%;
+}
+.register-complete-Header {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+.register-complete-logo-part {
+  display: flex;
+  max-width: 160px;
+  flex: 2;
+}
+
+.register-complete-content-part {
+  display: flex;
+  flex: 1;
+}
+
+.register-complete-photo {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  margin-left: 2rem;
+}
+
+.register-complete-company-box {
+  display: flex;
+  flex: 1;
+  max-width: 25rem;
+}
+
+.register-complete-form-part {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  min-height: 360px;
+  align-items: center;
+}
+.register-complete-form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  max-width: 550px;
+}
+
+.register-complete-form label {
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.register-complete-form input {
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  height: 2.5rem;
+}
+
+.register-complete-buttons {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.register-complete-form button {
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 30%;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.register-complete-clear-button {
+  background: #FBB400;
+}
+
+.register-complete-submit-button {
+  background: #1255e7;
+}
+
+.register-complete-footer-part {
+  display: flex;
+  flex: 2;
+}

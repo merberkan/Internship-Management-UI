@@ -34,7 +34,7 @@ const CreateStakeHolder = () => {
     data: stakeholdersList,
     isPending,
     error,
-  } = useFetch("http://localhost:3001/api/stakeholder/list/3e2975fa7b5241849ae88da8773cc1c9","GET");
+  } = useFetch("http://localhost:3001/api/stakeholder/list/"+decoded.usercode,"GET");
   if(stakeholdersList && ifControl){
     setStakeholders(stakeholdersList.data.data);
     setCurrentStakeholder("");
@@ -112,13 +112,6 @@ const CreateStakeHolder = () => {
         <div className="stakeholder-form-part">
           <h2>Invite a New Stakeholder</h2>
           <form onSubmit={handleCreateSubmit}>
-            {/* <label>Company Name:</label>
-            <input
-              type="text"
-              required
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-            ></input> */}
             <label>Stakeholder Name:</label>
             <input
               type="text"
