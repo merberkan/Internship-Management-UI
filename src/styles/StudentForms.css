@@ -1,0 +1,62 @@
+.student-forms-container{
+    display: flex;
+    flex: 1;
+    min-height: 100vh;
+}
+
+.Navbar-Part{
+    display: flex;
+    flex: 1;
+    max-width: 10%;
+}
+
+.student-forms-content{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.student-forms-content-top{
+    display: flex;
+    flex: 3;
+    flex-direction: column;
+}
+
+.student-forms-content-bottom{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.student-forms-content-header{
+    display: flex;
+    flex: 1;
+    max-height: 100px;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.student-forms-datagrid-container{
+    display: flex;
+    flex: 1;
+    margin: 0 auto;
+    width: 40%;
+    max-height: 60%;
+}
+
+.student-forms-datagrid-button{
+    display: flex;
+    flex: 1;
+    margin-top: 2.5rem;
+    max-height: 2.5rem;
+    justify-content: center;
+}
+
+.btn-delete{
+    margin-right: 2rem;
+}
+
+.btn-show{
+    margin-left: 2rem;
+}

@@ -58,6 +58,11 @@ const Navbar = (props) => {
               <p>Invite Stakeholder</p>
             </Link>
           </div>
+          <div className="item">
+            <Link to={`/studentforms`}>
+              <p>Student Forms</p>
+            </Link>
+          </div>
         </div>
         <div className="user-info">
           <div className="username">

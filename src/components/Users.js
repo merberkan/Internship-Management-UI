@@ -4,13 +4,14 @@ import Navbar from "./Navbar";
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import "../styles/Users.css";
-import DriveFolderUploadRoundedIcon from "@mui/icons-material/DriveFolderUploadRounded";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import SendIcon from "@mui/icons-material/Send";
 
 const Input = styled("input")({
   display: "none",
@@ -32,6 +33,7 @@ const Users = () => {
   } = useFetch("http://localhost:3001/api/users");
   const token = window.localStorage.getItem("token");
   var decoded = jwt_decode(token);
+  console.log("decoded code:",decoded)
   const history = useHistory();
   const [isFileSubmitted, setIsFileSubmitted] = React.useState(false);
   // const dataGridColumns = userList.data.columns;
@@ -46,7 +48,7 @@ const Users = () => {
   };
 
   const handleDelete = () => {
-    console.log("geliyor mu?",selectedRow)
+    console.log("geliyor mu?", selectedRow);
     const data = { email: selectedRow };
     fetch("http://localhost:3001/api/admin/delete-user", {
       method: "PUT",
@@ -61,13 +63,13 @@ const Users = () => {
           // history.push("/users");
           window.location.reload();
         } else {
-          console.log("aceyip birsey oldu")
+          console.log("aceyip birsey oldu");
         }
       })
       .catch((e) => {
         console.log("cannot logged:", e.message);
       });
-  }
+  };
 
   const handleFileSubmit = () => {
     fetch("http://localhost:3001/api/upload", {
@@ -142,7 +144,7 @@ const Users = () => {
             <h2>User Add</h2>
           </div>
           <div className="upload-file-part">
-            <label htmlFor="icon-button-file">
+            <label className="user-file" htmlFor="icon-button-file">
               <label htmlFor="icon-button-file">
                 <Input
                   id="icon-button-file"
@@ -154,11 +156,20 @@ const Users = () => {
                   aria-label="upload picture"
                   component="span"
                 >
-                  <DriveFolderUploadRoundedIcon />
+                  <AttachFileIcon fontSize="large" />
                 </IconButton>
-                <button onClick={handleFileSubmit}>Send File</button>
               </label>
             </label>
+            <div className="user-file-button">
+            <Button
+              onClick={handleFileSubmit}
+              variant="contained"
+              endIcon={<SendIcon />}
+            >
+              Submit
+            </Button>
+            </div>
+            
           </div>
         </div>
       </div>
