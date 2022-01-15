@@ -10,6 +10,7 @@ import Forms from './components/Forms';
 import BeyanForm from './components/BeyanForm';
 import IsVerenForm from './components/IsVerenForm';
 import StudentForms from './components/StudentForms';
+import NotFound from './components/NotFound';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/studentforms">
             <StudentForms></StudentForms>
           </Route>
+          <Route component={NotFound} />
         </Switch>
       </div>
     </div>
