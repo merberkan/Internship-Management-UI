@@ -9,10 +9,11 @@ import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import PreviewIcon from "@mui/icons-material/Preview";
+import ShowBeyanForm from "./ShowBeyanForm";
 
 const Input = styled("input")({
   display: "none",
@@ -37,6 +38,7 @@ const StudentForms = () => {
   const history = useHistory();
   // const dataGridColumns = userList.data.columns;
   const [selectedRow, setSelectedRow] = React.useState();
+  const [selectedRowFormTypeId, setSelectedRowFormTypeId ]= React.useState();
 
   const handleDelete = () => {
     console.log("geliyor mu?", selectedRow);
@@ -62,7 +64,13 @@ const StudentForms = () => {
       });
   };
   const handleDisplay = () => {
-    console.log("hop tıkladın:", selectedRow);
+    if(selectedRowFormTypeId === 3){
+      history.push(`/user/beyanform/${selectedRow}`)
+    }else{
+      console.log("hop tıkladın:", selectedRow);
+      console.log("tıklanan form type ıd:",selectedRowFormTypeId)
+    }
+
   };
 
   return (
@@ -96,6 +104,7 @@ const StudentForms = () => {
 
                   Object.keys(selectedRows).forEach(function eachKey(key) {
                     setSelectedRow(selectedRows[key].id);
+                    setSelectedRowFormTypeId(selectedRows[key].FormTypeId);
                   });
                 }}
               ></DataGrid>

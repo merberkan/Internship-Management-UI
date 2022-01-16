@@ -11,6 +11,7 @@ import BeyanForm from './components/BeyanForm';
 import IsVerenForm from './components/IsVerenForm';
 import StudentForms from './components/StudentForms';
 import NotFound from './components/NotFound';
+import ShowBeyanForm from './components/ShowBeyanForm';
 
 
 function App() {
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route path="/studentforms">
             <StudentForms></StudentForms>
+          </Route>
+          <Route path="/user/beyanform/:key">
+            <ShowBeyanForm></ShowBeyanForm>
           </Route>
           <Route component={NotFound} />
         </Switch>
