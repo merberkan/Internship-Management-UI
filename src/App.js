@@ -12,6 +12,9 @@ import IsVerenForm from './components/IsVerenForm';
 import StudentForms from './components/StudentForms';
 import NotFound from './components/NotFound';
 import ShowBeyanForm from './components/ShowBeyanForm';
+import ShowIsVerenForm from './components/ShowIsVerenForm';
+import ZorunluForm from './components/ZorunluForm';
+import ShowZorunluForm from './components/ShowZorunluForm';
 
 
 function App() {
@@ -44,11 +47,20 @@ function App() {
           <Route path="/forms/isveren">
             <IsVerenForm></IsVerenForm>
           </Route>
+          <Route path="/forms/staj">
+            <ZorunluForm></ZorunluForm>
+          </Route>
           <Route path="/studentforms">
             <StudentForms></StudentForms>
           </Route>
           <Route path="/user/beyanform/:key">
             <ShowBeyanForm></ShowBeyanForm>
+          </Route>
+          <Route path="/user/isverenform/:key">
+            <ShowIsVerenForm></ShowIsVerenForm>
+          </Route>
+          <Route path="/user/zorunluform/:key">
+            <ShowZorunluForm></ShowZorunluForm>
           </Route>
           <Route component={NotFound} />
         </Switch>

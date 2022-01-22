@@ -1,0 +1,285 @@
+.show-isveren-container {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.Navbar-Part {
+  display: flex;
+  flex: 1;
+  max-width: 10%;
+}
+
+.show-isveren-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.show-isveren-content-logo-part {
+  display: flex;
+  flex: 1;
+  max-height: 100px;
+}
+
+.show-isveren-content-logo {
+  display: flex;
+  flex: 1;
+  margin: 0 0 0 3rem;
+}
+
+.show-isveren-content-logo-img {
+  opacity: 0.75;
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.show-isveren-header-part {
+  display: flex;
+  flex: 1;
+  margin-top: -3.5rem;
+  justify-content: center;
+}
+
+.show-isveren-header-part p {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.show-isveren-form-part {
+  display: flex;
+  flex: 12;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.show-isveren-form {
+  display: flex;
+  flex: 7;
+  flex-direction: column;
+  margin: 1rem 3rem 1rem 3rem;
+}
+
+.show-isveren-form p {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  margin-left: 1rem;
+  border-right: 1px solid black;
+}
+
+.show-isveren-company-part {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+}
+
+.show-isveren-company-part h3 {
+  text-align: left;
+}
+
+.show-isveren-company-details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.show-isveren-company-row {
+  display: flex;
+  flex: 1;
+  border: 1px solid black;
+}
+
+.show-isveren-company-label {
+  display: flex;
+  flex: 1;
+  max-width: 400px;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  border-right: 1px solid black;
+}
+
+.show-isveren-company-input {
+  display: flex;
+  flex: 1;
+}
+
+.show-isveren-company-row-left {
+  display: flex;
+  flex: 1;
+}
+
+.show-isveren-company-row-right {
+  display: flex;
+  flex: 1;
+}
+
+.show-isveren-part {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.show-isveren-part h3 {
+  text-align: left;
+}
+
+.show-isveren-part-details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.show-isveren-part-row {
+  display: flex;
+  flex: 1;
+  border: 1px solid black;
+}
+
+.show-isveren-part-label {
+  display: flex;
+  flex: 1;
+  max-width: 400px;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  border-right: 1px solid black;
+}
+
+.show-isveren-part-input {
+  display: flex;
+  flex: 1;
+}
+
+.show-isveren-student-detail-part {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.show-isveren-student-details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.show-isveren-student-row {
+  display: flex;
+  flex: 1;
+  border: 1px solid black;
+}
+
+.show-isveren-student-label {
+  display: flex;
+  flex: 3;
+  max-width: 700px;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  border-right: 1px solid black;
+}
+
+.show-isveren-student-input {
+  display: flex;
+  flex: 1;
+}
+
+.show-isveren-form-control {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.show-isveren-company-detail-part {
+  display: flex;
+  flex: 2;
+  margin-top: 1rem;
+}
+
+.input {
+  border: none;
+  padding-left: 1rem;
+  -webkit-transition: 1s; /* Safari */
+  transition: 1s;
+}
+
+input[type="text"] {
+  font-size: 18px;
+}
+
+input[type="text"]:hover {
+  box-shadow: 0 0 5pt 0.5pt #d3d3d3;
+}
+input[type="text"]:focus {
+  box-shadow: 0 0 5pt 2pt #d3d3d3;
+  outline-width: 0px;
+}
+
+.border {
+  border-right: 1px solid black;
+}
+
+
+.show-isveren-buttons-part{
+  display: flex;
+  flex: 1;
+}
+
+.show-isveren-send-button {
+display: flex;
+flex: 1 1;
+max-height: 2.75rem;
+margin: 4rem;
+}
+
+.show-isveren-approve{
+  display: flex;
+  flex: 1;
+  max-height: 3rem;
+  justify-content: center;
+
+}
+
+.show-isveren-reject{
+display: flex;
+flex: 1;
+max-height: 3rem;
+justify-content: center;
+}
+
+.show-isveren-approved-info{
+display: flex;
+flex: 1;
+justify-content: center;
+align-items: center;
+}
+
+.show-isveren-approved-info h2{
+color: green;
+}
+
+.show-isveren-rejected-info{
+display: flex;
+flex: 1;
+justify-content: center;
+align-items: center;
+}
+
+.show-isveren-rejected-info h2{
+color: red;
+}
+
+.isveren-button{
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  max-height: 70px;
+  margin: 0 6rem 0 0;
+}

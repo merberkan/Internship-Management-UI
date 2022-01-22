@@ -1,19 +1,39 @@
 import jwt_decode from "jwt-decode";
 import Navbar from "./Navbar";
-import '../styles/Home.css'
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import "../styles/Home.css";
+import Login from "./Login";
 
 const Home = () => {
+  const history = useHistory();
   const token = window.localStorage.getItem("token");
-  var decoded = jwt_decode(token);
-  console.log("token geldi:", decoded.email);
+  const [tokenData, setTokenData] = useState(null);
+  const [ifControl, setIfControl] = useState(true);
+  var decoded;
+  if (!token) {
+    history.push("/login");
+  } 
+  if(token && ifControl){
+    decoded = jwt_decode(token);
+    setTokenData(decoded);
+    setIfControl(false)
+  }
   return (
     <div className="Home-Container">
-      <div className="Navbar-Part">
-        <Navbar token={decoded}></Navbar>
-      </div>
-      <div className="Home-Content">
-        <h1>Home Page</h1>
-      </div>
+      {tokenData && (
+        <div>
+          <div className="Navbar-Part">
+            <Navbar token={tokenData}></Navbar>
+          </div>
+          <div className="Home-Content">
+            <h1>Home Page</h1>
+          </div>
+        </div>
+      )}
+      {!tokenData &&
+      <Login></Login>
+      }
     </div>
   );
 };

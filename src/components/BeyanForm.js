@@ -8,6 +8,10 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
 
 const BeyanForm = () => {
   const token = window.localStorage.getItem("token");
@@ -19,10 +23,12 @@ const BeyanForm = () => {
   const [faculty, setFaculty] = useState("");
   const [department2, setDepartment2] = useState("");
   const [company, setCompany] = useState("");
+  const [lessonCode, setLessonCode] = useState("");
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("lesson code geldi:", lessonCode);
     const data = {
       fullName: fullName,
       id: id,
@@ -32,22 +38,23 @@ const BeyanForm = () => {
       department2: department2,
       company: company,
       formType: 3,
+      lessonCode: lessonCode,
     };
 
-    console.log("giden model:",JSON.stringify(data))
+    console.log("giden model:", JSON.stringify(data));
 
     fetch("http://localhost:3001/api/form", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.ok) {
-        //   window.localStorage.setItem("token", data.data.token);
+          //   window.localStorage.setItem("token", data.data.token);
           history.push("/forms");
         } else {
           console.log(data.message);
@@ -84,15 +91,7 @@ const BeyanForm = () => {
                   value={faculty}
                   onChange={(e) => setFaculty(e.target.value)}
                 ></input>{" "}
-                Fakültesi/Enstitüsü{" "}
-                <input
-                  type="text"
-                  required
-                  className="desc-inputs"
-                  value={department1}
-                  onChange={(e) => setDepartment1(e.target.value)}
-                ></input>{" "}
-                Bölümü öğrencisiyim{" "}
+                Fakültesi/Enstitüsü {decoded.department} Bölümü öğrencisiyim{" "}
                 <input
                   type="text"
                   required
@@ -112,51 +111,64 @@ const BeyanForm = () => {
                 gecikme zammı ve gecikme faizinin tarafımca ödeneceğini taahhüt
                 ederim.
               </p>
-              <p></p>
             </div>
             <div className="form-student-inputs">
               <div className="input-part">
                 <label>Adı Soyad: </label>
-                <input
-                  type="text"
-                  required
-                  className="student-info-inputs"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                ></input>
+                <p>{decoded.fullName}</p>
               </div>
               <div className="input-part">
                 <label>T.C.Kimlik No: </label>
-                <input
-                  type="text"
-                  required
-                  className="student-info-inputs"
-                  value={id}
-                  onChange={(e) => setId(e.target.value)}
-                ></input>
+                <p>{decoded.citizenshipNo}</p>
               </div>
               <div className="input-part">
                 <label>Bölümü :</label>
-                <input
-                  type="text"
-                  required
-                  className="student-info-inputs"
-                  value={department2}
-                  onChange={(e) => setDepartment2(e.target.value)}
-                ></input>
+                <p>{decoded.department}</p>
               </div>
               <div className="input-part">
                 <label>Öğrenci No :</label>
-                <input
-                  type="text"
-                  required
+                <p>{decoded.studentNo}</p>
+              </div>
+              <div className="input-part">
+                <label>STAJ No:</label>
+                <FormControl
+                  component="fieldset"
                   className="student-info-inputs"
-                  value={schoolId}
-                  onChange={(e) => setSchoolId(e.target.value)}
-                ></input>
+                >
+                  <RadioGroup
+                    row
+                    aria-label="wage"
+                    name="row-radio-buttons-group"
+                  >
+                    <FormControlLabel
+                      value="190"
+                      control={<Radio />}
+                      label="190"
+                      onChange={(e) => setLessonCode("190")}
+                    />
+                    <FormControlLabel
+                      style={{ marginLeft: 100 }}
+                      value="290"
+                      control={<Radio />}
+                      label="290"
+                      onChange={(e) => setLessonCode("290")}
+                    />
+                    <FormControlLabel
+                      style={{ marginLeft: 100 }}
+                      value="390"
+                      control={<Radio />}
+                      label="390"
+                      onChange={(e) => setLessonCode("390")}
+                    />
+                  </RadioGroup>
+                </FormControl>
               </div>
               <div className="send-button">
-                <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                >
                   Send For Approval
                 </Button>
               </div>

@@ -147,6 +147,26 @@
     flex: 1;
     max-height: 3rem;
     justify-content: center;
-
 }
-  
+
+.show-beyan-content-approved-info{
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.show-beyan-content-approved-info h2{
+  color: green;
+}
+
+.show-beyan-content-rejected-info{
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.show-beyan-content-rejected-info h2{
+  color: red;
+}

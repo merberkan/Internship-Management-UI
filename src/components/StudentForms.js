@@ -21,9 +21,10 @@ const Input = styled("input")({
 
 const studentColumns = [
   { field: "id", hide: true },
-  { field: "FormName", headerName: "Student Name", width: 500 },
-  { field: "FormType", headerName: "Form Type", width: 500 },
-  { field: "InsertedDate", headerName: "Inserted Date", width: 500 },
+  { field: "FormName", headerName: "Student Name", width: 350 },
+  { field: "FormType", headerName: "Form Type", width: 350 },
+  { field: "LessonCode", headerName: "Lesson Code", width: 350 },
+  { field: "InsertedDate", headerName: "Inserted Date", width: 350 },
 ];
 
 const StudentForms = () => {
@@ -66,6 +67,10 @@ const StudentForms = () => {
   const handleDisplay = () => {
     if(selectedRowFormTypeId === 3){
       history.push(`/user/beyanform/${selectedRow}`)
+    }else if(selectedRowFormTypeId === 2){
+      history.push(`/user/isverenform/${selectedRow}`)
+    }else if(selectedRowFormTypeId === 1){
+      history.push(`/user/zorunluform/${selectedRow}`)
     }else{
       console.log("hop tıkladın:", selectedRow);
       console.log("tıklanan form type ıd:",selectedRowFormTypeId)

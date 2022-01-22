@@ -5,6 +5,7 @@ import loginImg from "../images/login.svg";
 import '../styles/Login.css'
 
 const Login = () => {
+  console.log("geldi")
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [isPending, setIsPending] = useState(false);

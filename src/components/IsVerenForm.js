@@ -67,6 +67,8 @@ const IsVerenForm = () => {
   const [stakeholders, setStakeholders] = useState();
   const [isInputsDisabled, setIsInputsDisabled] = useState(false);
 
+  const [lessonCode, setLessonCode] = useState("");
+
   const {
     data: stakeholdersList,
     isPending,
@@ -147,7 +149,6 @@ const IsVerenForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("studentGetWage Value:", studentGetWage);
     const data = {
       companyName,
       companyAddress,
@@ -173,6 +174,7 @@ const IsVerenForm = () => {
       companyAccountNo,
       companyBankName,
       formType: 2,
+      lessonCode,
     };
 
     console.log("giden model:", JSON.stringify(data));
@@ -368,16 +370,10 @@ const IsVerenForm = () => {
                     STAJYER ÖĞRENCİNİN ADI - SOYADI
                   </label>
                   <input
-                    type="text"
-                    className="isveren-student-input input border"
-                    value={studentName}
-                    onChange={(e) => setStudentName(e.target.value)}
-                  ></input>
-                  <input
+                    disabled={true}
                     type="text"
                     className="isveren-student-input input"
-                    value={studentSurname}
-                    onChange={(e) => setStudentSurname(e.target.value)}
+                    value={decoded.fullName}
                   ></input>
                 </div>
                 <div className="isveren-student-row">
@@ -386,15 +382,9 @@ const IsVerenForm = () => {
                   </label>
                   <input
                     type="text"
-                    className="isveren-student-input input border"
-                    value={studentBirth}
-                    onChange={(e) => setStudentBirth(e.target.value)}
-                  ></input>
-                  <input
-                    type="text"
                     className="isveren-student-input input"
-                    value={studentSchoolId}
-                    onChange={(e) => setStudentSchoolId(e.target.value)}
+                    disabled={true}
+                    value={`28/07/1999 - ${decoded.studentNo}`} 
                   ></input>
                 </div>
                 <div className="isveren-student-row">
@@ -441,6 +431,42 @@ const IsVerenForm = () => {
                         control={<Radio />}
                         label="No"
                         onChange={(e) => setStudentGetWage(0)}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+                <div className="isveren-student-row">
+                  <label className="isveren-student-label border">
+                    STAJ No:
+                  </label>
+                  <FormControl
+                    component="fieldset"
+                    className="isveren-form-control"
+                  >
+                    <RadioGroup
+                      row
+                      aria-label="wage"
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel
+                        value="190"
+                        control={<Radio />}
+                        label="190"
+                        onChange={(e) => setLessonCode("190")}
+                      />
+                      <FormControlLabel
+                        style={{ marginLeft: 100 }}
+                        value="290"
+                        control={<Radio />}
+                        label="290"
+                        onChange={(e) => setLessonCode("290")}
+                      />
+                      <FormControlLabel
+                        style={{ marginLeft: 100 }}
+                        value="390"
+                        control={<Radio />}
+                        label="390"
+                        onChange={(e) => setLessonCode("390")}
                       />
                     </RadioGroup>
                   </FormControl>

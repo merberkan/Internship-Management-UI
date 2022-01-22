@@ -1,0 +1,251 @@
+.staj-container {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.Navbar-Part {
+  display: flex;
+  flex: 1;
+  max-width: 10%;
+}
+
+.staj-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.staj-logo-part {
+  display: flex;
+  flex: 1;
+}
+
+.staj-content-logo {
+  display: flex;
+  flex: 1;
+  margin: 0 0 0 3rem;
+  max-width: 400px;
+}
+
+.staj-content-logo-img {
+  opacity: 0.75;
+  max-width: 400px;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.staj-header{
+    display: flex;
+    flex: 1 1;
+    margin-left: 20%;
+    align-items: center;
+}
+
+.staj-content-entry-part {
+  display: flex;
+  flex: 2;
+  padding: 0 1rem 0 1rem;
+  max-height: 100px;
+}
+
+.staj-content-entry-part p{
+    font-size: 17px;
+    text-align: justify;
+    text-justify: inter-word;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    word-spacing: 4px;
+  }
+
+.staj-student-info-part {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.staj-student-info-part h3 {
+    text-align: left;
+  }
+
+.staj-company-info-part {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+  padding: 0 1rem 0 1rem;
+}
+
+.staj-company-info-part h3 {
+    text-align: left;
+  }
+  
+  .staj-company-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+  
+  .staj-company-row {
+    display: flex;
+    flex: 1;
+    border: 1px solid black;
+  }
+  
+  .staj-company-label {
+    display: flex;
+    flex: 1;
+    max-width: 400px;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 600;
+    border-right: 1px solid black;
+  }
+  
+  .staj-company-input {
+    display: flex;
+    flex: 1;
+  }
+  
+  .staj-company-row-left {
+    display: flex;
+    flex: 1;
+    min-width: 50%;
+  }
+  
+  .staj-company-row-mid {
+    display: flex;
+    flex: 1;
+    border-right: 1px solid black;
+  }
+  .staj-company-row-right {
+    display: flex;
+    flex: 1;
+  }
+  .staj-form-control {
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
+
+.staj-stakeholder-part {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  margin: 1rem 1rem 0 1rem;
+}
+.staj-stakeholder-part h3{
+    text-align: left;
+}
+.staj-stakeholder-part-details{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+.staj-stakeholder-part-row {
+    display: flex;
+    flex: 1;
+    border: 1px solid black;
+  }
+  
+  .staj-stakeholder-part-label {
+    display: flex;
+    flex: 1;
+    max-width: 400px;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 600;
+    border-right: 1px solid black;
+  
+  }
+
+  .staj-stakeholder-part-input {
+    display: flex;
+    flex: 1;
+  }
+
+.border {
+    border-right: 1px solid black;
+  }
+
+  .entry-inputs {
+    height: 30px;
+    width: 10%;
+    border-radius: 5px;
+    border: solid 1.5px #d3d3d3;
+    -webkit-transition: 1s; /* Safari */
+    transition: 1s;
+  }
+  .entry-inputs2 {
+    height: 30px;
+    width: 3%;
+    border-radius: 5px;
+    border: solid 1.5px #d3d3d3;
+    -webkit-transition: 1s; /* Safari */
+    transition: 1s;
+  }
+
+  .staj-button-part{
+      display: flex;
+      flex: 1;
+  }
+
+  .staj-dialog{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    height: 60px;
+    margin: auto;
+  }
+  
+  .staj-button{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    height: 60px;
+    margin: auto;
+  }
+
+
+.show-staj-approve{
+  display: flex;
+  flex: 1;
+  margin-top: 1rem;
+  max-height: 3rem;
+  justify-content: center;
+
+}
+
+.show-staj-reject{
+display: flex;
+flex: 1;
+margin-top: 1rem;
+max-height: 3rem;
+justify-content: center;
+}
+
+.show-staj-approved-info{
+display: flex;
+flex: 1;
+margin-top: 1rem;
+justify-content: center;
+align-items: center;
+}
+
+.show-staj-approved-info h2{
+color: green;
+}
+
+.show-staj-rejected-info{
+display: flex;
+flex: 1;
+margin-top: 1rem;
+justify-content: center;
+align-items: center;
+}
+
+.show-staj-rejected-info h2{
+color: red;
+}
