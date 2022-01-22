@@ -15,6 +15,8 @@ import ShowBeyanForm from './components/ShowBeyanForm';
 import ShowIsVerenForm from './components/ShowIsVerenForm';
 import ZorunluForm from './components/ZorunluForm';
 import ShowZorunluForm from './components/ShowZorunluForm';
+import Rapor from './components/Rapor';
+import ShowRapor from './components/ShowRapor';
 
 
 function App() {
@@ -50,6 +52,9 @@ function App() {
           <Route path="/forms/staj">
             <ZorunluForm></ZorunluForm>
           </Route>
+          <Route path="/rapor">
+            <Rapor></Rapor>
+          </Route>
           <Route path="/studentforms">
             <StudentForms></StudentForms>
           </Route>
@@ -61,6 +66,9 @@ function App() {
           </Route>
           <Route path="/user/zorunluform/:key">
             <ShowZorunluForm></ShowZorunluForm>
+          </Route>
+          <Route path="/user/rapor/:key">
+            <ShowRapor></ShowRapor>
           </Route>
           <Route component={NotFound} />
         </Switch>

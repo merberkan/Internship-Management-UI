@@ -23,6 +23,7 @@ const Forms = () => {
             <Link to={`/forms/beyan`}><li className="forms-item">Beyan Formu</li></Link>
             <Link to={`/forms/isveren`}><li className="forms-item">Is Veren Formu</li></Link>
             <Link to={`/forms/staj`}><li className="forms-item">Staj Formu</li></Link>
+            <Link to={`/rapor`}><li className="forms-item">Staj Raporu</li></Link>
           </ul>
         </div>
       </div>

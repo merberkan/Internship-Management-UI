@@ -1,0 +1,117 @@
+.rapor-container {
+    display: flex;
+    flex: 1;
+    min-height: 100vh;
+  }
+  
+  .Navbar-Part {
+    display: flex;
+    flex: 1;
+    max-width: 10%;
+  }
+  
+  .rapor-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+  
+  .rapor-file-view{
+      display: flex;
+      flex: 5;
+  }
+
+  .rapor-upload-file-part{
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+  }
+
+  /* For pdf */
+.react-pdf__Page {
+    margin-top: 10px;
+    zoom: 1.5;
+  }
+  .react-pdf__Document{
+    max-height: 90vh;
+    overflow: auto;
+  }
+  .react-pdf__Page__textContent {
+    border: 1px solid darkgrey;
+    box-shadow: 5px 5px 5px 1px #ccc;
+    border-radius: 5px;
+  }
+  
+  .react-pdf__Page__annotations.annotationLayer {
+    padding: 20px;
+  }
+  
+  .react-pdf__Page__canvas {
+    margin: 0 auto;
+  }
+  
+  /* For all pages */
+  .all-page-container {
+    height: 100%;
+    max-height: 500px;
+    overflow: auto;
+  }
+
+  /* Show Rapor Part*/
+  .show-rapor-buttons-part{
+    display: flex;
+    flex: 1;
+    margin: 2rem 40rem;
+  }
+  
+  .show-rapor-send-button {
+  display: flex;
+  flex: 1 1;
+  max-height: 2.75rem;
+  margin: 4rem;
+  }
+  
+  .show-rapor-approve{
+    display: flex;
+    flex: 1;
+    max-height: 3rem;
+    justify-content: center;
+  
+  }
+  
+  .show-rapor-reject{
+  display: flex;
+  flex: 1;
+  max-height: 3rem;
+  justify-content: center;
+  }
+  
+  .show-rapor-approved-info{
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .show-rapor-approved-info h2{
+  color: green;
+  }
+  
+  .show-rapor-rejected-info{
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .show-rapor-rejected-info h2{
+  color: red;
+  }
+  
+  .rapor-button{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    max-height: 70px;
+    margin: 0 6rem 0 0;
+  }

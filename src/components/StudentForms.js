@@ -71,6 +71,8 @@ const StudentForms = () => {
       history.push(`/user/isverenform/${selectedRow}`)
     }else if(selectedRowFormTypeId === 1){
       history.push(`/user/zorunluform/${selectedRow}`)
+    }else if(selectedRowFormTypeId === 5){
+      history.push(`/user/rapor/${selectedRow}`)
     }else{
       console.log("hop tıkladın:", selectedRow);
       console.log("tıklanan form type ıd:",selectedRowFormTypeId)
