@@ -8,6 +8,24 @@ import Button from "@mui/material/Button";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import SendIcon from "@mui/icons-material/Send";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+
+import PropTypes from "prop-types";
+import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import PersonIcon from "@mui/icons-material/Person";
+import { blue } from "@mui/material/colors";
+
+
+const rejectReasons = ['Şirket Bilgileri Yetersiz','Bu Şirkette Staj Kabul Edilemez','Eksik Öğrenci Bilgisi']
 
 const ShowIsverenForm = () => {
   const token = window.localStorage.getItem("token");
@@ -24,6 +42,11 @@ const ShowIsverenForm = () => {
   const [companyIBAN, setCompanyIBAN] = useState("");
   const [companyAccountNo, setCompanyAccountNo] = useState("");
   const [companyBankName, setCompanyBankName] = useState("");
+  const [studentGetWage, setStudentGetWage] = useState();
+
+  const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+
 
   const [ifControl, setIfControl] = useState(true);
 
@@ -62,6 +85,77 @@ const ShowIsverenForm = () => {
     return () => abortCont.abort();
   }, [ifControl]);
 
+  function SimpleDialog(props) {
+    const { onClose, selectedValue, open } = props;
+
+    const handleClose = () => {
+      onClose(selectedValue);
+    };
+
+    const handleListItemClick = (value) => {
+      onClose(value);
+    };
+
+    return (
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Choose Reject Reason</DialogTitle>
+        <List sx={{ pt: 0 }}>
+          {rejectReasons.map((reason) => (
+            <ListItem
+              button
+              onClick={() => handleListItemClick(reason)}
+              key={reason}
+            >
+              <ListItemText primary={reason} />
+            </ListItem>
+          ))}
+        </List>
+      </Dialog>
+    );
+  }
+  SimpleDialog.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    selectedValue: PropTypes.string.isRequired,
+  };
+
+  const handleClickOpen = () => {
+    console.log("opened")
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    console.log("closed")
+    setSelectedValue(value);
+    setOpen(false);
+    if(value != ""){
+      const model = {
+        uniqueKey: key,
+        status: "0",
+        rejectReason: value
+      };
+      fetch("http://localhost:3001/api/form-status", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(model),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.ok) {
+            history.push("/studentforms");
+          }
+        })
+        .catch((e) => {
+          console.log("cannot logged:", e.message);
+        });
+      console.log("clicked reject");
+    }
+  };
+
   const handleApprove = () => {
     const model = {
       uniqueKey: key,
@@ -87,10 +181,10 @@ const ShowIsverenForm = () => {
       });
   };
   if (data && ifControl) {
-    console.log("deneme", data.Value);
+    console.log("deneme", data);
     setIfControl(false);
   }
-  if (!isUserStakeholder === null) {
+  if (isUserStakeholder === null) {
     if (decoded.role === 6) {
       setIsUserStakeholder(true);
     } else {
@@ -146,7 +240,7 @@ const ShowIsverenForm = () => {
       studentSchoolId: data.Value.studentSchoolId,
       studentInternStart: data.Value.studentInternStart,
       studentInternEnd: data.Value.studentInternEnd,
-      studentGetWage: data.Value.studentGetWage,
+      studentGetWage,
       companyTitle,
       companyIBAN,
       companyAccountNo,
@@ -305,7 +399,31 @@ const ShowIsverenForm = () => {
                     <label className="show-isveren-student-label border">
                       STAJYER ÖĞRENCİYE ÜCRET ÖDENECEK Mİ?
                     </label>
-                    <p>{data.Value.studentGetWage === 1 ? "Yes" : "No"}</p>
+                    {!data.StakeholderId && <FormControl
+                    component="fieldset"
+                    className="isveren-form-control"
+                  >
+                    <RadioGroup
+                      row
+                      aria-label="wage"
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel
+                        value="evet"
+                        control={<Radio />}
+                        label="Evet"
+                        onChange={(e) => setStudentGetWage(1)}
+                      />
+                      <FormControlLabel
+                        style={{ marginLeft: 300 }}
+                        value="hayır"
+                        control={<Radio />}
+                        label="Hayır"
+                        onChange={(e) => setStudentGetWage(0)}
+                      />
+                    </RadioGroup>
+                  </FormControl>}
+                  {data.StakeholderId && <p>{data.Value.studentGetWage == 1 ? 'Evet':'Hayır'}</p>}
                   </div>
                 </div>
               </div>
@@ -315,7 +433,7 @@ const ShowIsverenForm = () => {
                     <label className="show-isveren-company-label">
                       KURUMUN UNVANI
                     </label>
-                    {isUserStakeholder && (
+                    {isUserStakeholder && !data.StakeholderId &&(
                       <input
                         type="text"
                         className="isveren-company-input input"
@@ -323,13 +441,13 @@ const ShowIsverenForm = () => {
                         onChange={(e) => setCompanyTitle(e.target.value)}
                       ></input>
                     )}
-                    {!isUserStakeholder && <p>{data.Value.companyTitle}</p>}
+                    {(!isUserStakeholder || data.StakeholderId) && <p>{data.Value.companyTitle}</p>}
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
                       IBAN NO
                     </label>
-                    {isUserStakeholder && (
+                    {isUserStakeholder && !data.StakeholderId &&(
                       <input
                         type="text"
                         className="isveren-company-input input"
@@ -337,13 +455,13 @@ const ShowIsverenForm = () => {
                         onChange={(e) => setCompanyIBAN(e.target.value)}
                       ></input>
                     )}
-                    {!isUserStakeholder && <p>{data.Value.companyIBAN}</p>}
+                    {(!isUserStakeholder || data.StakeholderId) &&  <p>{data.Value.companyIBAN}</p>}
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
                       HESAP NO
                     </label>
-                    {isUserStakeholder && (
+                    {isUserStakeholder && !data.StakeholderId &&(
                       <input
                         type="text"
                         className="isveren-company-input input"
@@ -351,14 +469,13 @@ const ShowIsverenForm = () => {
                         onChange={(e) => setCompanyAccountNo(e.target.value)}
                       ></input>
                     )}
-                    {!isUserStakeholder && <p>{data.Value.companyAccountNo}</p>}
+                    {(!isUserStakeholder || data.StakeholderId) && <p>{data.Value.companyAccountNo}</p>}
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
                       BANKA ADI - ŞUBE KODU
                     </label>
-                    <p>
-                      {isUserStakeholder && (
+                      {isUserStakeholder && data.StakeholderId && (
                         <input
                           type="text"
                           className="isveren-company-input input"
@@ -366,18 +483,16 @@ const ShowIsverenForm = () => {
                           onChange={(e) => setCompanyBankName(e.target.value)}
                         ></input>
                       )}
-                      {!isUserStakeholder && (
+                      {(!isUserStakeholder || data.StakeholderId) && (
                         <p>
-                          {data.Value.companyBankName} -{" "}
                           {data.Value.companyBankName}
                         </p>
                       )}
-                    </p>
                   </div>
                 </div>
               </div>
             </form>
-            {isUserStakeholder && (
+            {isUserStakeholder && !data.IsConfirmed && (
               <div className="isveren-button">
                 <Button
                   type="submit"
@@ -392,14 +507,18 @@ const ShowIsverenForm = () => {
             {!data.IsConfirmed && !isUserStakeholder && (
               <div className="show-isveren-buttons-part">
                 <div className="show-isveren-reject">
-                  <Button
-                    variant="contained"
-                    color="error"
-                    endIcon={<ThumbDownIcon />}
-                    onClick={handleReject}
-                  >
-                    Reject
-                  </Button>
+                <div className="isveren-dialog">
+                <Button variant="contained" color="error" onClick={handleClickOpen}>
+                  Reject
+                </Button>
+                {data && (
+                  <SimpleDialog
+                    selectedValue={selectedValue}
+                    open={open}
+                    onClose={handleClose}
+                  />
+                )}
+              </div>
                 </div>
                 <div className="show-isveren-approve">
                   <Button

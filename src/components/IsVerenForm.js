@@ -162,10 +162,9 @@ const IsVerenForm = () => {
       companyPersonTitle,
       companyPersonMail,
       companyPersonDate,
-      studentName,
-      studentSurname,
-      studentBirth,
-      studentSchoolId,
+      fullName:decoded.fullName,
+      studentBirth : '28/07/1999',
+      studentSchoolId: decoded.studentNo,
       studentInternStart,
       studentInternEnd,
       studentGetWage,
@@ -413,6 +412,7 @@ const IsVerenForm = () => {
                   <FormControl
                     component="fieldset"
                     className="isveren-form-control"
+                    disabled = {true}
                   >
                     <RadioGroup
                       row
@@ -420,16 +420,16 @@ const IsVerenForm = () => {
                       name="row-radio-buttons-group"
                     >
                       <FormControlLabel
-                        value="yes"
+                        value="evet"
                         control={<Radio />}
-                        label="Yes"
+                        label="Evet"
                         onChange={(e) => setStudentGetWage(1)}
                       />
                       <FormControlLabel
                         style={{ marginLeft: 300 }}
-                        value="no"
+                        value="evet"
                         control={<Radio />}
-                        label="No"
+                        label="Evet"
                         onChange={(e) => setStudentGetWage(0)}
                       />
                     </RadioGroup>
@@ -437,7 +437,7 @@ const IsVerenForm = () => {
                 </div>
                 <div className="isveren-student-row">
                   <label className="isveren-student-label border">
-                    STAJ No:
+                    STAJ NO:
                   </label>
                   <FormControl
                     component="fieldset"
@@ -483,6 +483,7 @@ const IsVerenForm = () => {
                     type="text"
                     className="isveren-company-input input"
                     value={companyTitle}
+                    disabled={true}
                     onChange={(e) => setCompanyTitle(e.target.value)}
                   ></input>
                 </div>
@@ -492,6 +493,7 @@ const IsVerenForm = () => {
                     type="text"
                     className="isveren-company-input input"
                     value={companyIBAN}
+                    disabled={true}
                     onChange={(e) => setCompanyIBAN(e.target.value)}
                   ></input>
                 </div>
@@ -501,6 +503,7 @@ const IsVerenForm = () => {
                     type="text"
                     className="isveren-company-input input"
                     value={companyAccountNo}
+                    disabled={true}
                     onChange={(e) => setCompanyAccountNo(e.target.value)}
                   ></input>
                 </div>
@@ -512,6 +515,7 @@ const IsVerenForm = () => {
                     type="text"
                     className="isveren-company-input input"
                     value={companyBankName}
+                    disabled={true}
                     onChange={(e) => setCompanyBankName(e.target.value)}
                   ></input>
                 </div>
