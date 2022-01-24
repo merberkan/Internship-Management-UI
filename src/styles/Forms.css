@@ -1,44 +1,84 @@
-.forms-container{
-    display: flex;
-    flex: 1;
-    min-height: 100vh;
+.forms-page-container {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
 }
 
-.Navbar-Part{
-    display: flex;
-    flex: 1;
-    max-width: 10%;
+.Navbar-Part {
+  display: flex;
+  flex: 1;
+  max-width: 10%;
 }
 
-.forms-content{
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    padding-top: 10%;
+.forms-page-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
-.forms-header{
-    display: flex;
-    flex: 1;
-    max-height: 100px;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
+.forms-page-header {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  max-height: 50px;
+  font-size: 24px;
+  font-weight: 800;
+  align-items: center;
+  margin-top: 2rem;
 }
 
-.forms-list{
-    display: flex;
-    flex: 1;
-    max-height: 150px;
-    justify-content: center;
-    align-items: center;
+.forms-page-part {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
-.ul{
-    text-decoration: none;
+.forms-page-part-top {
+  display: flex;
+  flex: 1;
 }
 
-.forms-item{
-    font-size: 22px;
-    text-align: start;
+.forms-page-part-bottom {
+  display: flex;
+  flex: 1;
+}
+
+.forms-page-item {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.forms-page-box {
+  display: flex;
+  flex: 1;
+  max-width: 60%;
+  max-height: 50%;
+  min-width: 60%;
+  min-height: 50%;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  transition: transform .2s; /* Animation */
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.forms-page-box:hover{
+    transform: scale(1.15);
+}
+
+.forms-page-box-img{
+    width: 100%;
+    
+}
+
+.forms-page-text {
+  display: flex;
+  flex: 1;
+  max-height: 30px;
+  min-height: 30px;
+  margin-top: 1rem;
+  font-size: 19px;
+  font-weight: 500;
 }
