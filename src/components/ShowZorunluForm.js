@@ -187,7 +187,7 @@ const ShowZorunluForm = () => {
               </div>
               <div className="staj-company-row-right">
                 <label className="staj-company-label border">
-                  Staj Uygulama Türü:
+                  Staj Ders Kodu:
                 </label>
                 <input
                   disabled={true}
@@ -349,7 +349,7 @@ const ShowZorunluForm = () => {
                   disabled={true}
                   type="text"
                   className="staj-company-input input"
-                  value={data.Value.studentsInternDays}
+                  value={data.Value.studentInternInfo}
                 ></input>
               </div>
             </div>

@@ -51,9 +51,6 @@ const CreateStakeHolder = () => {
     }, 5000);
   }, [display])
 
-  const handleChange = (event) => {
-    setStakeholder(event.target.value);
-  };
 
   const handleCreateSubmit = (e) => {
     e.preventDefault();
@@ -136,31 +133,6 @@ const CreateStakeHolder = () => {
             {!isPending && <button>Add Stakeholder</button>}
             {isPending && <button disabled>Adding Stakeholder...</button>}
           </form>
-        </div>
-        <div className="stakeholder-update-part">
-          <h2>Choose Stakeholder</h2>
-          {currentStakeholder && <h5>Current Stakeholder: {currentStakeholder}</h5>}
-          <Box className="box" sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Stakeholders</InputLabel>
-              {isPending && <div>Loading...</div>}
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={stakeholder}
-                label="Stakeholders"
-                onChange={handleChange}
-              >
-                {/* {console.log(stakeholders)} */}
-                {stakeholders && stakeholders.map((stakeholder) => (   
-                  <MenuItem value={stakeholder.email} key={stakeholder.fullname}>{stakeholder.fullname}</MenuItem>
-                   ))}                
-              </Select>
-              <button className="update-button" onClick={handleUpdate}>Update</button>
-            </FormControl>
-            {successfulAlert && display&& <Alert severity="success">Updated Successfully!</Alert>}
-            {failAlert && display && <Alert severity="error">Cannot be updated!</Alert>}
-          </Box>
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@ const Rapor = () => {
   const [isFileSubmitted, setIsFileSubmitted] = React.useState(false);
   // const dataGridColumns = userList.data.columns;
   const [selectedRow, setSelectedRow] = React.useState();
-  const [isFileUploaded, setIsFileUploaded] = useState();
+  const [fileName, setFileName] = useState("");
   const [ifControl, setIfControl] = useState(true);
   const [stakeholders, setStakeholders] = useState();
   //* Company Person part
@@ -125,6 +125,7 @@ const Rapor = () => {
   const onFileChange = (e) => {
     console.log(e.target.files[0]);
     if (e.target && e.target.files[0]) {
+      setFileName(e.target.files[0].name);
       formData.append("file", e.target.files[0]);
       console.log("formdata:", formData);
     }
@@ -158,9 +159,9 @@ const Rapor = () => {
           <Navbar token={decoded}></Navbar>
         </div>
         <div className="rapor-content">
-         {companyPersonFullName && <h3>{companyPersonFullName}</h3>} 
           <div className="rapor-dialog">
-            <Button variant="contained" onClick={handleClickOpen}>
+          <label>Selected Stakeholder: {companyPersonFullName} </label>
+            <Button style={{marginTop:'1rem'}} variant="contained" className="dialog-button" onClick={handleClickOpen}>
               Choose Stakeholder
             </Button>
             {stakeholders && (
@@ -171,7 +172,8 @@ const Rapor = () => {
               />
             )}
           </div>
-          <div className="rapor-upload-file-part all-page-container">
+          <div className="rapor-upload-file-part">
+            <label style={{marginBottom:'1rem'}}>Uploaded File Name: {fileName}</label>
             <label className="user-file" htmlFor="icon-button-file">
               <label htmlFor="icon-button-file">
                 <Input

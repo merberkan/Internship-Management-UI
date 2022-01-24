@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import Navbar from "./Navbar";
@@ -24,6 +24,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
+import Alert from '@mui/material/Alert';
+
 
 const IsVerenForm = () => {
   const token = window.localStorage.getItem("token");
@@ -68,6 +70,10 @@ const IsVerenForm = () => {
   const [isInputsDisabled, setIsInputsDisabled] = useState(false);
 
   const [lessonCode, setLessonCode] = useState("");
+  const [isLoginFail, setIsLoginFail] = useState();
+  const [failAlert, setFailAlert] = useState();
+  const [display, setDisplay] = useState(true);
+
 
   const {
     data: stakeholdersList,
@@ -82,7 +88,11 @@ const IsVerenForm = () => {
     setStakeholders(stakeholdersList.data.data);
     setIfControl(false);
   }
-
+  useEffect(() => {
+    setTimeout(() => {
+      setDisplay(false);
+    }, 5000);
+  }, [display])
   function SimpleDialog(props) {
     const { onClose, selectedValue, open } = props;
 
@@ -142,7 +152,7 @@ const IsVerenForm = () => {
     setCompanyPersonFullName(selectedData.companyEmployeeName);
     setCompanyPersonTitle(selectedData.title);
     setCompanyPersonMail(selectedData.email);
-    setCompanyPersonDate("09/01/2022");
+    setCompanyPersonDate(null);
     setIsInputsDisabled(true);
   };
 
@@ -163,7 +173,7 @@ const IsVerenForm = () => {
       companyPersonMail,
       companyPersonDate,
       fullName:decoded.fullName,
-      studentBirth : '28/07/1999',
+      studentBirth : decoded.birth,
       studentSchoolId: decoded.studentNo,
       studentInternStart,
       studentInternEnd,
@@ -190,9 +200,10 @@ const IsVerenForm = () => {
         if (data.ok) {
           //   window.localStorage.setItem("token", data.data.token);
           history.push("/forms");
-        } else {
-          console.log(data.message);
-        }
+        }else{
+          setIsLoginFail(data.message);
+          setFailAlert(true);
+          setDisplay(true);        }
       })
       .catch((e) => {
         console.log("cannot logged:", e.message);
@@ -220,6 +231,7 @@ const IsVerenForm = () => {
             T.C. <br></br> FMV IŞIK ÜNİVERSİTESİ <br></br> İŞVEREN BİLGİ FORMU
           </p>
         </div>
+        {failAlert && display && <Alert severity="error">{isLoginFail}</Alert>}
         <div className="isveren-form-part">
           <form className="isveren-form" onSubmit={handleSubmit}>
             <div className="isveren-company-part">
@@ -383,7 +395,7 @@ const IsVerenForm = () => {
                     type="text"
                     className="isveren-student-input input"
                     disabled={true}
-                    value={`28/07/1999 - ${decoded.studentNo}`} 
+                    value={`${decoded.birth} - ${decoded.studentNo}`} 
                   ></input>
                 </div>
                 <div className="isveren-student-row">

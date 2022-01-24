@@ -36,6 +36,7 @@ const ShowIsverenForm = () => {
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const [isUserStakeholder, setIsUserStakeholder] = useState(null);
+  const [isUserStudent, setIsUserStudent] = useState(null);
 
   //* Company Bank Infos
   const [companyTitle, setCompanyTitle] = useState("");
@@ -191,6 +192,13 @@ const ShowIsverenForm = () => {
       setIsUserStakeholder(false);
     }
   }
+  if (isUserStudent === null) {
+    if (decoded.role === 1) {
+      setIsUserStudent(true);
+    } else {
+      setIsUserStudent(false);
+    }
+  }
 
   const handleReject = () => {
     const model = {
@@ -234,7 +242,7 @@ const ShowIsverenForm = () => {
       companyPersonTitle: data.Value.companyPersonTitle,
       companyPersonMail: data.Value.companyPersonMail,
       companyPersonDate: data.Value.companyPersonDate,
-      studentName: data.Value.studentName,
+      fullName: data.Value.fullName,
       studentSurname: data.Value.studentSurname,
       studentBirth: data.Value.studentBirth,
       studentSchoolId: data.Value.studentSchoolId,
@@ -379,7 +387,7 @@ const ShowIsverenForm = () => {
                     <label className="show-isveren-student-label">
                       STAJYER ÖĞRENCİNİN ADI - SOYADI
                     </label>
-                    <p>{data.Value.studentName}</p>
+                    <p>{data.Value.fullName}</p>
                   </div>
                   <div className="show-isveren-student-row">
                     <label className="show-isveren-student-label">
@@ -475,7 +483,7 @@ const ShowIsverenForm = () => {
                     <label className="show-isveren-company-label">
                       BANKA ADI - ŞUBE KODU
                     </label>
-                      {isUserStakeholder && data.StakeholderId && (
+                      {isUserStakeholder && !data.StakeholderId && (
                         <input
                           type="text"
                           className="isveren-company-input input"
@@ -492,7 +500,7 @@ const ShowIsverenForm = () => {
                 </div>
               </div>
             </form>
-            {isUserStakeholder && !data.IsConfirmed && (
+            {isUserStakeholder && !data.IsConfirmed && !isUserStudent && (
               <div className="isveren-button">
                 <Button
                   type="submit"
@@ -504,7 +512,7 @@ const ShowIsverenForm = () => {
                 </Button>
               </div>
             )}
-            {!data.IsConfirmed && !isUserStakeholder && (
+            {!data.IsConfirmed && !isUserStakeholder && !isUserStudent && (
               <div className="show-isveren-buttons-part">
                 <div className="show-isveren-reject">
                 <div className="isveren-dialog">

@@ -21,6 +21,19 @@
       flex: 5;
   }
 
+  .rapor-dialog{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .dialog-button{
+    max-height: 50px;
+    margin-top: 1rem;
+  }
+
   .rapor-upload-file-part{
       display: flex;
       flex: 1;

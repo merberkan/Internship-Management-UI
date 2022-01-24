@@ -30,12 +30,12 @@ const BeyanForm = () => {
     e.preventDefault();
     console.log("lesson code geldi:", lessonCode);
     const data = {
-      fullName: fullName,
-      id: id,
-      department1: department1,
-      schoolId: schoolId,
+      fullName: decoded.fullName,
+      id: decoded.citizenshipNo,
+      department1: decoded.department,
+      schoolId: decoded.studentNo,
       faculty: faculty,
-      department2: department2,
+      department2: decoded.department,
       company: company,
       formType: 3,
       lessonCode: lessonCode,

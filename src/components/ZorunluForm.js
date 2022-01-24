@@ -26,6 +26,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
+import Alert from '@mui/material/Alert';
 
 import useFetch from "../helpers/useFetch";
 
@@ -33,6 +34,11 @@ const ZorunluForm = () => {
   const history = useHistory();
   const [tokenData, setTokenData] = useState(null);
   const [ifControl, setIfControl] = useState(true);
+  const [isLoginFail, setIsLoginFail] = useState();
+  const [failAlert, setFailAlert] = useState();
+  const [display, setDisplay] = useState(true);
+
+
 
   //* Company Part
   const [companyName, setCompanyName] = useState("");
@@ -150,6 +156,12 @@ const ZorunluForm = () => {
     setIsInputsDisabled(true);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setDisplay(false);
+    }, 5000);
+  }, [display])
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -198,7 +210,9 @@ const ZorunluForm = () => {
           //   window.localStorage.setItem("token", data.data.token);
           history.push("/forms");
         } else {
-          console.log(data.message);
+          setIsLoginFail(data.message);
+          setFailAlert(true);
+          setDisplay(true);
         }
       })
       .catch((e) => {
@@ -223,6 +237,7 @@ const ZorunluForm = () => {
           <div className="staj-header">
             <h1>Zorunlu Staj Formu</h1>
           </div>
+          {failAlert && display && <Alert severity="error">{isLoginFail}</Alert>}
         </div>
         <div className="staj-content-entry-part">
           <p>

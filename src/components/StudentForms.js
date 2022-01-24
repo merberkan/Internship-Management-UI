@@ -143,7 +143,6 @@ const StudentForms = () => {
             </div>
           </div>
         </div>
-        {selectedRow && <h4>{selectedRow}</h4>}
       </div>
     </div>
   );
