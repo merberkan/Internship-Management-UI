@@ -17,6 +17,7 @@ import ZorunluForm from './components/ZorunluForm';
 import ShowZorunluForm from './components/ShowZorunluForm';
 import Rapor from './components/Rapor';
 import ShowRapor from './components/ShowRapor';
+import Profile from './components/Profile';
 
 
 function App() {
@@ -69,6 +70,9 @@ function App() {
           </Route>
           <Route path="/user/rapor/:key">
             <ShowRapor></ShowRapor>
+          </Route>
+          <Route path="/profile">
+            <Profile></Profile>
           </Route>
           <Route component={NotFound} />
         </Switch>

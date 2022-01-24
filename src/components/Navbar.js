@@ -63,6 +63,11 @@ const Navbar = (props) => {
               <p>Student Forms</p>
             </Link>
           </div>
+          <div className="item">
+            <Link to={`/profile`}>
+              <p>Profile</p>
+            </Link>
+          </div>
         </div>
         <div className="user-info">
           <div className="username">

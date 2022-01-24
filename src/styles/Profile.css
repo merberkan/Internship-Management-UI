@@ -1,0 +1,138 @@
+.profile-container {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.Navbar-Part {
+  display: flex;
+  flex: 1;
+  max-width: 10%;
+}
+
+.profile-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.profile-user-detail {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+}
+
+.profile-header {
+  display: flex;
+  flex: 1;
+  max-height: 100px;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+}
+
+.profile-user-form {
+  display: flex;
+  flex: 1;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  margin: 0 10rem 2rem 10rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  flex-direction: column;
+  background-color: rgba(243, 241, 241, 0.473);
+}
+
+.profile-user-form-detail {
+  display: flex;
+  flex: 1;
+  margin: 0 10rem;
+}
+
+.profile-user-form-left {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.profile-user-form-right {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.profile-form-row {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-form-input {
+  height: 30px;
+  width: 30%;
+  border-radius: 5px;
+  border: solid 1.5px #d3d3d3;
+  -webkit-transition: 1s; /* Safari */
+  transition: 1s;
+  margin-top: 5px;
+}
+
+.textarea {
+  height: 6rem;
+  width: 30rem;
+  resize: none;
+}
+
+.profile-form-input:hover {
+  box-shadow: 0 0 5pt 0.5pt #d3d3d3;
+}
+.profile-form-input:focus {
+  box-shadow: 0 0 5pt 2pt #d3d3d3;
+  outline-width: 0px;
+}
+
+.profile-user-form-buttons{
+    display: flex;
+    flex: 1;
+    max-height: 50px;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.user-forms-detail-part {
+  display: flex;
+  flex: 2;
+  margin-bottom: 1rem;
+}
+
+.user-forms-content-top{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.user-forms-content-header{
+    display: flex;
+    flex: 1;
+    max-height: 50px;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.user-forms-datagrid-container{
+    display: flex;
+    flex: 1;
+    margin: 0 auto;
+    width: 40%;
+    max-height: 60%;
+}
+
+.user-forms-datagrid-button{
+    display: flex;
+    flex: 1;
+    margin-top: 2.5rem;
+    max-height: 2.5rem;
+    justify-content: center;
+}
