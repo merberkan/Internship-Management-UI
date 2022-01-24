@@ -27,6 +27,17 @@ const studentColumns = [
   { field: "InsertedDate", headerName: "Inserted Date", width: 350 },
 ];
 
+const headColumns = [
+  { field: "id", hide: true },
+  { field: "FormName", headerName: "Öğrenci", width: 250 },
+  { field: "FormType", headerName: "Form İsmi", width: 300 },
+  { field: "LessonCode", headerName: "Ders Kodu", width: 100 },
+  { field: "InsertedDate", headerName: "Eklenme Tarihi", width: 150 },
+  { field: "FormStatus", headerName: "Belge Durumu", width: 300 },
+  { field: "ApproveStatus", headerName: "Onaylanma Durumu", width: 200 },
+  { field: "RejectReason", headerName: "Reddedilme Sebebi", width: 170 },
+];
+
 const StudentForms = () => {
   const token = window.localStorage.getItem("token");
   var decoded = jwt_decode(token);
@@ -40,6 +51,8 @@ const StudentForms = () => {
   // const dataGridColumns = userList.data.columns;
   const [selectedRow, setSelectedRow] = React.useState();
   const [selectedRowFormTypeId, setSelectedRowFormTypeId ]= React.useState();
+  const [isUserHead, setIsUserHead] = React.useState(null);
+  const [isUserGrader, setIsUserGrader] = React.useState(null);
 
   const handleDelete = () => {
     console.log("geliyor mu?", selectedRow);
@@ -80,6 +93,22 @@ const StudentForms = () => {
 
   };
 
+  if (isUserHead === null) {
+    if (decoded.role === 3) {
+      setIsUserHead(true);
+    } else {
+      setIsUserHead(false);
+    }
+  }
+
+  if (isUserGrader === null) {
+    if (decoded.role === 5) {
+      setIsUserGrader(true);
+    } else {
+      setIsUserGrader(false);
+    }
+  }
+
   return (
     <div className="student-forms-container">
       <div className="Navbar-Part">
@@ -91,7 +120,7 @@ const StudentForms = () => {
             <h1>Student Form List</h1>
           </div>
           {isPending && <div>Loading...</div>}
-          {formList && (
+          {formList && (!isUserHead && !isUserGrader) && (
             <div
               className="student-forms-datagrid-container"
               style={{ height: 600, width: "70%" }}
@@ -99,6 +128,32 @@ const StudentForms = () => {
               <DataGrid
                 rows={formList.list}
                 columns={studentColumns}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                // checkboxSelection
+                onSelectionModelChange={(ids) => {
+                  const selectedIDs = new Set(ids);
+                  const selectedRows = formList.list.filter((row) =>
+                    selectedIDs.has(row.id)
+                  );
+
+                  Object.keys(selectedRows).forEach(function eachKey(key) {
+                    setSelectedRow(selectedRows[key].id);
+                    setSelectedRowFormTypeId(selectedRows[key].FormTypeId);
+                  });
+                }}
+              ></DataGrid>
+            </div>
+          )}
+          {formList && (isUserHead||isUserGrader) && (
+            <div
+              className="student-forms-datagrid-container"
+              style={{ height: 600, width: "70%" }}
+            >
+              <DataGrid
+                rows={formList.list}
+                columns={headColumns}
                 components={{
                   Toolbar: GridToolbar,
                 }}

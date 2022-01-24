@@ -18,6 +18,8 @@ const ShowZorunluForm = () => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
+  const [isUserStudent, setIsUserStudent] = useState(null);
+
 
   const [ifControl, setIfControl] = useState(true);
 
@@ -111,6 +113,14 @@ const ShowZorunluForm = () => {
       });
     console.log("clicked reject");
   };
+
+  if (isUserStudent === null) {
+    if (decoded.role === 1) {
+      setIsUserStudent(true);
+    } else {
+      setIsUserStudent(false);
+    }
+  }
 
 
 
@@ -401,7 +411,7 @@ const ShowZorunluForm = () => {
               </div>
             </div>
           </div>
-          {!data.IsConfirmed && (
+          {!data.IsConfirmed && !isUserStudent && (
             <div className="staj-button-part">
               <div className="show-staj-reject">
                 <Button

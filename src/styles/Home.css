@@ -1,15 +1,17 @@
-.Home-Container{
+.home-container {
     display: flex;
     flex: 1;
-}
-
-.Navbar-Part{
+    min-height: 100vh;
+  }
+  
+  .Navbar-Part {
     display: flex;
     flex: 1;
     max-width: 10%;
-}
-
-.Home-Content{
+  }
+  
+  .home-content {
     display: flex;
     flex: 1;
-}
+    flex-direction: column;
+  }

@@ -447,6 +447,7 @@ const ZorunluForm = () => {
                   disabled={false}
                   type="text"
                   className="staj-company-input input border"
+                  placeholder="(GG/AA/YYYY)"
                   value={studentInternStart}
                   onChange={(e) => setStudentInternStart(e.target.value)}
                 ></input>
@@ -457,6 +458,7 @@ const ZorunluForm = () => {
                   disabled={false}
                   type="text"
                   className="staj-company-input input"
+                  placeholder="(GG/AA/YYYY)"
                   value={studentInternEnd}
                   onChange={(e) => setStudentInternEnd(e.target.value)}
                 ></input>

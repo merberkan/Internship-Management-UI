@@ -9,9 +9,10 @@ import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
+import Alert from "@mui/material/Alert";
 
 const Input = styled("input")({
   display: "none",
@@ -33,11 +34,31 @@ const Users = () => {
   } = useFetch("http://localhost:3001/api/users");
   const token = window.localStorage.getItem("token");
   var decoded = jwt_decode(token);
-  console.log("decoded code:",decoded)
+  console.log("decoded code:", decoded);
   const history = useHistory();
   const [isFileSubmitted, setIsFileSubmitted] = React.useState(false);
   // const dataGridColumns = userList.data.columns;
   const [selectedRow, setSelectedRow] = React.useState();
+
+  const [successfulAlert, setSuccessfulAlert] = React.useState();
+  const [failAlert, setFailAlert] = React.useState();
+  const [display, setDisplay] = React.useState(true);
+
+  const [successfulAlert2, setSuccessfulAlert2] = React.useState();
+  const [failAlert2, setFailAlert2] = React.useState();
+  const [display2, setDisplay2] = React.useState(true);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setDisplay(false);
+    }, 5000);
+  }, [display]);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setDisplay2(false);
+    }, 5000);
+  }, [display2]);
 
   let formData = new FormData();
   const onFileChange = (e) => {
@@ -59,15 +80,19 @@ const Users = () => {
       .then((data) => {
         console.log("gelen response data:", data);
         if (data.data.ok) {
-          // setIsFileSubmitted(true);
-          // history.push("/users");
+          setSuccessfulAlert(true);
+          setDisplay(true);
           window.location.reload();
         } else {
-          console.log("aceyip birsey oldu");
+          setFailAlert(true);
+          setDisplay(true);
+          window.location.reload();
         }
       })
       .catch((e) => {
-        console.log("cannot logged:", e.message);
+        setFailAlert(true);
+        setDisplay(true);
+        window.location.reload();
       });
   };
 
@@ -81,14 +106,19 @@ const Users = () => {
       .then((data) => {
         console.log("gelen response data:", data);
         if (data.ok) {
-          // setIsFileSubmitted(true);
-          // history.push("/users");
+          setSuccessfulAlert2(true);
+          setDisplay2(true);
           window.location.reload();
         } else {
+          setFailAlert2(true);
+          setDisplay2(true);
+          window.location.reload();
         }
       })
       .catch((e) => {
-        console.log("cannot logged:", e.message);
+        setFailAlert2(true);
+        setDisplay2(true);
+        window.location.reload();
       });
   };
 
@@ -137,8 +167,29 @@ const Users = () => {
               onClick={handleDelete}
             ></Button>
           </div>
+          {failAlert && display && (
+            <Alert severity="error">
+              Bir Hata ile Karşılaşıldı. Tekrar Deneyiniz
+            </Alert>
+          )}
+          {successfulAlert && display && (
+            <Alert severity="success">Kullanıcı Başarıyla Silindi</Alert>
+          )}
         </div>
-        {selectedRow && <h4>{selectedRow}</h4>}
+        <div className="user-content-mid">
+          <p>
+            Örnek Exceli indirmek için
+            <a
+              href="http://localhost:3001/api/download"
+              _blank
+              style={{ color: "black" }}
+            >
+              {" "}
+              buraya{" "}
+            </a>
+            tıklayınız
+          </p>
+        </div>
         <div className="user-content-bottom">
           <div className="bottom-header">
             <h2>User Add</h2>
@@ -161,15 +212,22 @@ const Users = () => {
               </label>
             </label>
             <div className="user-file-button">
-            <Button
-              onClick={handleFileSubmit}
-              variant="contained"
-              endIcon={<SendIcon />}
-            >
-              Submit
-            </Button>
+              <Button
+                onClick={handleFileSubmit}
+                variant="contained"
+                endIcon={<SendIcon />}
+              >
+                Submit
+              </Button>
             </div>
-            
+            {failAlert2 && display2 && (
+            <Alert severity="error">
+              Bir Hata ile Karşılaşıldı. Tekrar Deneyiniz
+            </Alert>
+          )}
+          {successfulAlert2 && display2 && (
+            <Alert severity="success">İşleminiz Başarıyla Tamamlandı</Alert>
+          )}
           </div>
         </div>
       </div>

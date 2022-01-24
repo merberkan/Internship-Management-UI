@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import AllPagesPDFViewer from "./all-pages";
 
@@ -26,6 +26,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
+import Alert from "@mui/material/Alert";
+
 
 const Input = styled("input")({
   display: "none",
@@ -39,7 +41,7 @@ const Rapor = () => {
   const [isFileSubmitted, setIsFileSubmitted] = React.useState(false);
   // const dataGridColumns = userList.data.columns;
   const [selectedRow, setSelectedRow] = React.useState();
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState();
   const [ifControl, setIfControl] = useState(true);
   const [stakeholders, setStakeholders] = useState();
   //* Company Person part
@@ -51,6 +53,18 @@ const Rapor = () => {
 
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
+  const [successfulAlert, setSuccessfulAlert] = useState();
+  const [failAlert, setFailAlert] = useState();
+  const [display, setDisplay] = useState(true);
+  const [successfulAlert2, setSuccessfulAlert2] = useState();
+
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDisplay(false);
+    }, 3000);
+  }, [display]);
 
   const {
     data: stakeholdersList,
@@ -123,11 +137,8 @@ const Rapor = () => {
 
   let formData = new FormData();
   const onFileChange = (e) => {
-    console.log(e.target.files[0]);
     if (e.target && e.target.files[0]) {
-      setFileName(e.target.files[0].name);
       formData.append("file", e.target.files[0]);
-      console.log("formdata:", formData);
     }
   };
 
@@ -141,14 +152,20 @@ const Rapor = () => {
       .then((data) => {
         console.log("gelen response data:", data);
         if (data.ok) {
-          // setIsFileSubmitted(true);
-          // history.push("/users");
-          window.location.reload();
+          setSuccessfulAlert(true);
+          setDisplay(true);
+          setTimeout(() => {
+            setDisplay(false);
+            window.location.reload();
+          }, 2000);
         } else {
+          setFailAlert(true);
+          setDisplay(true);
         }
       })
       .catch((e) => {
-        console.log("cannot logged:", e.message);
+        setFailAlert(true);
+        setDisplay(true);
       });
   };
 
@@ -173,7 +190,7 @@ const Rapor = () => {
             )}
           </div>
           <div className="rapor-upload-file-part">
-            <label style={{marginBottom:'1rem'}}>Uploaded File Name: {fileName}</label>
+            {/* <label style={{marginBottom:'1rem'}}>Uploaded File Name: {fileName}</label> */}
             <label className="user-file" htmlFor="icon-button-file">
               <label htmlFor="icon-button-file">
                 <Input
@@ -199,6 +216,16 @@ const Rapor = () => {
                 Submit
               </Button>
             </div>
+            {failAlert && display && (
+                <Alert severity="error">
+                  Bir Hata ile Karşılaşıldı. Bilgilerinizi Kontrol Ediniz
+                </Alert>
+              )}
+              {successfulAlert && display && (
+                <Alert severity="success">
+                  Formunuz Başarılı Bir Şekilde Kayıt Edildi
+                </Alert>
+              )}
           </div>
         </div>
       </div>

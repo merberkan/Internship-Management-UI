@@ -53,6 +53,8 @@ const ShowRapor = () => {
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
   const [isUserStakeholder, setIsUserStakeholder] = useState(null);
+  const [isUserStudent, setIsUserStudent] = useState(null);
+
 
   useEffect(() => {
     const abortCont = new AbortController(); // we use abort controller to stop the fetch
@@ -70,6 +72,7 @@ const ShowRapor = () => {
         return res.json();
       })
       .then((data) => {
+        console.log(data)
         setData(data.list[0]);
         setPdf(data.pdf);
         setIsPending(false);
@@ -163,6 +166,7 @@ const ShowRapor = () => {
       uniqueKey: key,
       status: "1",
     };
+    console.log("approved fired")
     fetch("http://localhost:3001/api/form-status", {
       method: "PUT",
       headers: {
@@ -196,6 +200,14 @@ const ShowRapor = () => {
     }
   }
 
+  if (isUserStudent === null) {
+    if (decoded.role === 1) {
+      setIsUserStudent(true);
+    } else {
+      setIsUserStudent(false);
+    }
+  }
+
   return (
     <div className="rapor-container">
       <div className="rapor-container">
@@ -205,7 +217,7 @@ const ShowRapor = () => {
         {data && (
           <div className="rapor-content">
             {pdf && <AllPagesPDFViewer pdf={pdf}></AllPagesPDFViewer>}
-            {!data.IsConfirmed && (
+            {!data.IsConfirmed && !isUserStudent && !data.IsRejected &&(
               <div className="show-rapor-buttons-part">
                 <div className="show-rapor-reject">
                   <div className="rapor-dialog">
@@ -237,7 +249,7 @@ const ShowRapor = () => {
                 </div>
               </div>
             )}
-            {data.IsConfirmed && !data.IsRejected && (
+            {data.IsConfirmed && (
               <div className="show-rapor-approved-info">
                 <h2>Approved</h2>
               </div>

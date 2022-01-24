@@ -20,13 +20,13 @@ const Home = () => {
     setIfControl(false)
   }
   return (
-    <div className="Home-Container">
+    <div className="home-container">
       {tokenData && (
-        <div>
+        <div className="home-container">
           <div className="Navbar-Part">
             <Navbar token={tokenData}></Navbar>
           </div>
-          <div className="Home-Content">
+          <div className="home-content">
             <h1>Home Page</h1>
           </div>
         </div>

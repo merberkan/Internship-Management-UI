@@ -18,20 +18,33 @@
 
 .user-content-top{
     display: flex;
-    flex: 3;
+    flex: 5;
     flex-direction: column;
+}
+
+.user-content-mid{
+    display: flex;
+    flex: 1;
+    max-height: 50px;
+    justify-content: center;
+}
+
+.user-content-mid h3{
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .user-content-bottom{
     display: flex;
-    flex: 1;
+    flex: 2;
     flex-direction: column;
 }
+
 
 .content-header{
     display: flex;
     flex: 1;
-    max-height: 100px;
+    max-height: 50px;
     justify-content: center;
     align-items: flex-end;
     margin-bottom: 2rem;

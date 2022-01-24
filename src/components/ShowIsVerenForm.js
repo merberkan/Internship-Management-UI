@@ -24,8 +24,11 @@ import Dialog from "@mui/material/Dialog";
 import PersonIcon from "@mui/icons-material/Person";
 import { blue } from "@mui/material/colors";
 
-
-const rejectReasons = ['Şirket Bilgileri Yetersiz','Bu Şirkette Staj Kabul Edilemez','Eksik Öğrenci Bilgisi']
+const rejectReasons = [
+  "Şirket Bilgileri Yetersiz",
+  "Bu Şirkette Staj Kabul Edilemez",
+  "Eksik Öğrenci Bilgisi",
+];
 
 const ShowIsverenForm = () => {
   const token = window.localStorage.getItem("token");
@@ -47,7 +50,6 @@ const ShowIsverenForm = () => {
 
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
-
 
   const [ifControl, setIfControl] = useState(true);
 
@@ -121,19 +123,19 @@ const ShowIsverenForm = () => {
   };
 
   const handleClickOpen = () => {
-    console.log("opened")
+    console.log("opened");
     setOpen(true);
   };
 
   const handleClose = (value) => {
-    console.log("closed")
+    console.log("closed");
     setSelectedValue(value);
     setOpen(false);
-    if(value != ""){
+    if (value != "") {
       const model = {
         uniqueKey: key,
         status: "0",
-        rejectReason: value
+        rejectReason: value,
       };
       fetch("http://localhost:3001/api/form-status", {
         method: "PUT",
@@ -147,7 +149,7 @@ const ShowIsverenForm = () => {
         .then((data) => {
           console.log(data);
           if (data.ok) {
-            history.push("/studentforms");
+            window.location.reload();
           }
         })
         .catch((e) => {
@@ -217,7 +219,7 @@ const ShowIsverenForm = () => {
       .then((data) => {
         console.log(data);
         if (data.ok) {
-          history.push("/studentforms");
+          window.location.reload();
         }
       })
       .catch((e) => {
@@ -257,11 +259,11 @@ const ShowIsverenForm = () => {
       lessonCode: data.Value.lessonCode,
     };
 
-    fetch("http://localhost:3001/api/user/form-update/"+key, {
+    fetch("http://localhost:3001/api/user/form-update/" + key, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(model),
     })
@@ -407,31 +409,35 @@ const ShowIsverenForm = () => {
                     <label className="show-isveren-student-label border">
                       STAJYER ÖĞRENCİYE ÜCRET ÖDENECEK Mİ?
                     </label>
-                    {!data.StakeholderId && <FormControl
-                    component="fieldset"
-                    className="isveren-form-control"
-                  >
-                    <RadioGroup
-                      row
-                      aria-label="wage"
-                      name="row-radio-buttons-group"
-                    >
-                      <FormControlLabel
-                        value="evet"
-                        control={<Radio />}
-                        label="Evet"
-                        onChange={(e) => setStudentGetWage(1)}
-                      />
-                      <FormControlLabel
-                        style={{ marginLeft: 300 }}
-                        value="hayır"
-                        control={<Radio />}
-                        label="Hayır"
-                        onChange={(e) => setStudentGetWage(0)}
-                      />
-                    </RadioGroup>
-                  </FormControl>}
-                  {data.StakeholderId && <p>{data.Value.studentGetWage == 1 ? 'Evet':'Hayır'}</p>}
+                    {!data.StakeholderId && (
+                      <FormControl
+                        component="fieldset"
+                        className="isveren-form-control"
+                      >
+                        <RadioGroup
+                          row
+                          aria-label="wage"
+                          name="row-radio-buttons-group"
+                        >
+                          <FormControlLabel
+                            value="evet"
+                            control={<Radio />}
+                            label="Evet"
+                            onChange={(e) => setStudentGetWage(1)}
+                          />
+                          <FormControlLabel
+                            style={{ marginLeft: 300 }}
+                            value="hayır"
+                            control={<Radio />}
+                            label="Hayır"
+                            onChange={(e) => setStudentGetWage(0)}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    )}
+                    {data.StakeholderId && (
+                      <p>{data.Value.studentGetWage == 1 ? "Evet" : "Hayır"}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -441,7 +447,7 @@ const ShowIsverenForm = () => {
                     <label className="show-isveren-company-label">
                       KURUMUN UNVANI
                     </label>
-                    {isUserStakeholder && !data.StakeholderId &&(
+                    {isUserStakeholder && !data.StakeholderId && (
                       <input
                         type="text"
                         className="isveren-company-input input"
@@ -449,13 +455,15 @@ const ShowIsverenForm = () => {
                         onChange={(e) => setCompanyTitle(e.target.value)}
                       ></input>
                     )}
-                    {(!isUserStakeholder || data.StakeholderId) && <p>{data.Value.companyTitle}</p>}
+                    {(!isUserStakeholder || data.StakeholderId) && (
+                      <p>{data.Value.companyTitle}</p>
+                    )}
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
                       IBAN NO
                     </label>
-                    {isUserStakeholder && !data.StakeholderId &&(
+                    {isUserStakeholder && !data.StakeholderId && (
                       <input
                         type="text"
                         className="isveren-company-input input"
@@ -463,13 +471,15 @@ const ShowIsverenForm = () => {
                         onChange={(e) => setCompanyIBAN(e.target.value)}
                       ></input>
                     )}
-                    {(!isUserStakeholder || data.StakeholderId) &&  <p>{data.Value.companyIBAN}</p>}
+                    {(!isUserStakeholder || data.StakeholderId) && (
+                      <p>{data.Value.companyIBAN}</p>
+                    )}
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
                       HESAP NO
                     </label>
-                    {isUserStakeholder && !data.StakeholderId &&(
+                    {isUserStakeholder && !data.StakeholderId && (
                       <input
                         type="text"
                         className="isveren-company-input input"
@@ -477,25 +487,25 @@ const ShowIsverenForm = () => {
                         onChange={(e) => setCompanyAccountNo(e.target.value)}
                       ></input>
                     )}
-                    {(!isUserStakeholder || data.StakeholderId) && <p>{data.Value.companyAccountNo}</p>}
+                    {(!isUserStakeholder || data.StakeholderId) && (
+                      <p>{data.Value.companyAccountNo}</p>
+                    )}
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
                       BANKA ADI - ŞUBE KODU
                     </label>
-                      {isUserStakeholder && !data.StakeholderId && (
-                        <input
-                          type="text"
-                          className="isveren-company-input input"
-                          value={companyBankName}
-                          onChange={(e) => setCompanyBankName(e.target.value)}
-                        ></input>
-                      )}
-                      {(!isUserStakeholder || data.StakeholderId) && (
-                        <p>
-                          {data.Value.companyBankName}
-                        </p>
-                      )}
+                    {isUserStakeholder && !data.StakeholderId && (
+                      <input
+                        type="text"
+                        className="isveren-company-input input"
+                        value={companyBankName}
+                        onChange={(e) => setCompanyBankName(e.target.value)}
+                      ></input>
+                    )}
+                    {(!isUserStakeholder || data.StakeholderId) && (
+                      <p>{data.Value.companyBankName}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -515,18 +525,22 @@ const ShowIsverenForm = () => {
             {!data.IsConfirmed && !isUserStakeholder && !isUserStudent && (
               <div className="show-isveren-buttons-part">
                 <div className="show-isveren-reject">
-                <div className="isveren-dialog">
-                <Button variant="contained" color="error" onClick={handleClickOpen}>
-                  Reject
-                </Button>
-                {data && (
-                  <SimpleDialog
-                    selectedValue={selectedValue}
-                    open={open}
-                    onClose={handleClose}
-                  />
-                )}
-              </div>
+                  <div className="isveren-dialog">
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={handleClickOpen}
+                    >
+                      Reject
+                    </Button>
+                    {data && (
+                      <SimpleDialog
+                        selectedValue={selectedValue}
+                        open={open}
+                        onClose={handleClose}
+                      />
+                    )}
+                  </div>
                 </div>
                 <div className="show-isveren-approve">
                   <Button

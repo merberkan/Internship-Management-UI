@@ -2,9 +2,8 @@ import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
 import logo from "../images/logo.png";
 import { IconButton } from "@mui/material";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useHistory } from "react-router-dom";
-
 
 const Navbar = (props) => {
   const usercode = props.token.usercode;
@@ -12,7 +11,6 @@ const Navbar = (props) => {
   const email = props.token.email;
   let role = props.token.role;
   const history = useHistory();
-
 
   if (role === 1) {
     role = "Student";
@@ -32,7 +30,7 @@ const Navbar = (props) => {
     e.preventDefault();
     window.localStorage.clear();
     history.push("/login");
-  }
+  };
 
   return (
     <div>
@@ -44,28 +42,45 @@ const Navbar = (props) => {
         </div>
         <div className="menu-items">
           <div className="item">
-            <Link to={`/forms`}>
-              <p>Forms</p>
+            <Link to={`/`}>
+              <p>Anasayfa</p>
             </Link>
           </div>
-          <div className="item">
-            <Link to={`/users`}>
-              <p>Users</p>
-            </Link>
-          </div>
-          <div className="item">
-            <Link to={`/stakeholder`}>
-              <p>Invite Stakeholder</p>
-            </Link>
-          </div>
-          <div className="item">
-            <Link to={`/studentforms`}>
-              <p>Student Forms</p>
-            </Link>
-          </div>
+          {role === "Student" ? (
+            <div className="item">
+              <Link to={`/forms`}>
+                <p>Formlar</p>
+              </Link>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {role === "Admin" ? (
+            <div className="item">
+              <Link to={`/users`}>
+                <p>Kullanıcı Paneli</p>
+              </Link>
+            </div>
+          ) : null}
+
+          {role === "Student" ? (
+            <div className="item">
+              <Link to={`/stakeholder`}>
+                <p>Paydaş Oluştur</p>
+              </Link>
+            </div>
+          ) : null}
+          {role === "Student" ? null : (
+            <div className="item">
+              <Link to={`/studentforms`}>
+                <p>Öğrenci Formları</p>
+              </Link>
+            </div>
+          )}
           <div className="item">
             <Link to={`/profile`}>
-              <p>Profile</p>
+              <p>Profilim</p>
             </Link>
           </div>
         </div>
@@ -78,7 +93,11 @@ const Navbar = (props) => {
               <p>{role}</p>
             </div>
             <div className="logout">
-              <IconButton onClick={handleLogout} aria-label="logout" size="small">
+              <IconButton
+                onClick={handleLogout}
+                aria-label="logout"
+                size="small"
+              >
                 <LogoutIcon htmlColor="#ffffff" fontSize="medium" />
               </IconButton>
             </div>

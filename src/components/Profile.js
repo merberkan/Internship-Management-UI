@@ -14,13 +14,13 @@ import Alert from "@mui/material/Alert";
 
 const studentColumns = [
   { field: "id", hide: true },
-  { field: "FormName", headerName: "Öğrenci", width: 350 },
-  { field: "FormType", headerName: "Form İsmi", width: 250 },
+  { field: "FormName", headerName: "Öğrenci", width: 250 },
+  { field: "FormType", headerName: "Form İsmi", width: 200 },
   { field: "LessonCode", headerName: "Ders Kodu", width: 100 },
   { field: "InsertedDate", headerName: "Eklenme Tarihi", width: 150 },
-  { field: "FormStatus", headerName: "Belge Durumu", width: 150 },
+  { field: "FormStatus", headerName: "Belge Durumu", width: 250 },
   { field: "ApproveStatus", headerName: "Onaylanma Durumu", width: 200 },
-  { field: "RejectReason", headerName: "Reddedilme Sebebi", width: 300 },
+  { field: "RejectReason", headerName: "Reddedilme Sebebi", width: 170 },
 ];
 
 const Profile = () => {

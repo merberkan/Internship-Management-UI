@@ -24,8 +24,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
-import Alert from '@mui/material/Alert';
-
+import Alert from "@mui/material/Alert";
 
 const IsVerenForm = () => {
   const token = window.localStorage.getItem("token");
@@ -71,9 +70,9 @@ const IsVerenForm = () => {
 
   const [lessonCode, setLessonCode] = useState("");
   const [isLoginFail, setIsLoginFail] = useState();
+  const [successfulAlert, setSuccessfulAlert] = useState();
   const [failAlert, setFailAlert] = useState();
   const [display, setDisplay] = useState(true);
-
 
   const {
     data: stakeholdersList,
@@ -92,7 +91,7 @@ const IsVerenForm = () => {
     setTimeout(() => {
       setDisplay(false);
     }, 5000);
-  }, [display])
+  }, [display]);
   function SimpleDialog(props) {
     const { onClose, selectedValue, open } = props;
 
@@ -172,8 +171,8 @@ const IsVerenForm = () => {
       companyPersonTitle,
       companyPersonMail,
       companyPersonDate,
-      fullName:decoded.fullName,
-      studentBirth : decoded.birth,
+      fullName: decoded.fullName,
+      studentBirth: decoded.birth,
       studentSchoolId: decoded.studentNo,
       studentInternStart,
       studentInternEnd,
@@ -199,11 +198,17 @@ const IsVerenForm = () => {
       .then((data) => {
         if (data.ok) {
           //   window.localStorage.setItem("token", data.data.token);
-          history.push("/forms");
-        }else{
+          setSuccessfulAlert(true);
+          setDisplay(true);
+          setTimeout(() => {
+            setDisplay(false);
+            history.push("/forms");
+          }, 2000);
+        } else {
           setIsLoginFail(data.message);
           setFailAlert(true);
-          setDisplay(true);        }
+          setDisplay(true);
+        }
       })
       .catch((e) => {
         console.log("cannot logged:", e.message);
@@ -231,7 +236,12 @@ const IsVerenForm = () => {
             T.C. <br></br> FMV IŞIK ÜNİVERSİTESİ <br></br> İŞVEREN BİLGİ FORMU
           </p>
         </div>
-        {failAlert && display && <Alert severity="error">{isLoginFail}</Alert>}
+        {successfulAlert && display && (
+          <Alert severity="success">
+            Formunuz Başarılı Bir Şekilde Kayıt Edildi
+          </Alert>
+        )}
+        {failAlert && display && <Alert severity="error">Bir hatayla karşılaşıldı. Tekrar Deneyiniz</Alert>}
         <div className="isveren-form-part">
           <form className="isveren-form" onSubmit={handleSubmit}>
             <div className="isveren-company-part">
@@ -395,7 +405,7 @@ const IsVerenForm = () => {
                     type="text"
                     className="isveren-student-input input"
                     disabled={true}
-                    value={`${decoded.birth} - ${decoded.studentNo}`} 
+                    value={`${decoded.birth} - ${decoded.studentNo}`}
                   ></input>
                 </div>
                 <div className="isveren-student-row">
@@ -405,14 +415,14 @@ const IsVerenForm = () => {
                   <input
                     type="text"
                     className="isveren-student-input input border"
-                    placeholder="Başlangıç"
+                    placeholder="Başlangıç(GG/AA/YYYY)"
                     value={studentInternStart}
                     onChange={(e) => setStudentInternStart(e.target.value)}
                   ></input>
                   <input
                     type="text"
                     className="isveren-student-input input"
-                    placeholder="Bitiş"
+                    placeholder="Bitiş(GG/AA/YYYY)"
                     value={studentInternEnd}
                     onChange={(e) => setStudentInternEnd(e.target.value)}
                   ></input>
@@ -424,7 +434,7 @@ const IsVerenForm = () => {
                   <FormControl
                     component="fieldset"
                     className="isveren-form-control"
-                    disabled = {true}
+                    disabled={true}
                   >
                     <RadioGroup
                       row

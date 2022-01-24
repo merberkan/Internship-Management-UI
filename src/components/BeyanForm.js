@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import Navbar from "./Navbar";
@@ -12,6 +12,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
+import Alert from "@mui/material/Alert";
 
 const BeyanForm = () => {
   const token = window.localStorage.getItem("token");
@@ -25,6 +26,15 @@ const BeyanForm = () => {
   const [company, setCompany] = useState("");
   const [lessonCode, setLessonCode] = useState("");
   const history = useHistory();
+  const [successfulAlert, setSuccessfulAlert] = useState();
+  const [failAlert, setFailAlert] = useState();
+  const [display, setDisplay] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDisplay(false);
+    }, 3000);
+  }, [display]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,13 +65,20 @@ const BeyanForm = () => {
       .then((data) => {
         if (data.ok) {
           //   window.localStorage.setItem("token", data.data.token);
-          history.push("/forms");
+          setSuccessfulAlert(true);
+          setDisplay(true);
+          setTimeout(() => {
+            setDisplay(false);
+            history.push("/forms");
+          }, 2000);
         } else {
-          console.log(data.message);
+          setFailAlert(true);
+          setDisplay(true);
         }
       })
       .catch((e) => {
-        console.log("cannot logged:", e.message);
+        setFailAlert(true);
+        setDisplay(true);
       });
   };
 
@@ -115,25 +132,25 @@ const BeyanForm = () => {
             <div className="form-student-inputs">
               <div className="input-part">
                 <label>Adı Soyad: </label>
-                <p>{decoded.fullName}</p>
+                <p className="form-student-text">{decoded.fullName}</p>
               </div>
               <div className="input-part">
                 <label>T.C.Kimlik No: </label>
-                <p>{decoded.citizenshipNo}</p>
+                <p className="form-student-text">{decoded.citizenshipNo}</p>
               </div>
               <div className="input-part">
                 <label>Bölümü :</label>
-                <p>{decoded.department}</p>
+                <p className="form-student-text">{decoded.department}</p>
               </div>
               <div className="input-part">
                 <label>Öğrenci No :</label>
-                <p>{decoded.studentNo}</p>
+                <p className="form-student-text">{decoded.studentNo}</p>
               </div>
               <div className="input-part">
                 <label>STAJ No:</label>
                 <FormControl
                   component="fieldset"
-                  className="student-info-inputs"
+                  required= {true}
                 >
                   <RadioGroup
                     row
@@ -172,6 +189,16 @@ const BeyanForm = () => {
                   Send For Approval
                 </Button>
               </div>
+              {failAlert && display && (
+                <Alert severity="error">
+                  Bir Hata ile Karşılaşıldı. Bilgilerinizi Kontrol Ediniz
+                </Alert>
+              )}
+              {successfulAlert && display && (
+                <Alert severity="success">
+                  Formunuz Başarılı Bir Şekilde Kayıt Edildi
+                </Alert>
+              )}
             </div>
           </form>
         </div>
