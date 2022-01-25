@@ -120,10 +120,22 @@ input[type="text"]:focus {
   outline-width: 0px;
 }
 
-.send-button {
+.beyan-form-buttons {
   display: flex;
   flex: 1 1;
-  max-height: 2.75rem;
-  justify-content: flex-end;
-  margin: 4rem;
+  margin: 6rem;
+}
+
+.beyan-form-dialog{
+  display: flex;
+  flex: 1;
+  max-height: 2.5rem;
+  justify-content: center;
+}
+
+.beyan-send-button{
+  display: flex;
+  flex: 1;
+  max-height: 2.5rem;
+  justify-content: center;
 }

@@ -7,6 +7,7 @@ import formFoto from "../images/photo-forms.png";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
+import useFetch from "../helpers/useFetch";
 
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -14,14 +15,28 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import Alert from "@mui/material/Alert";
 
+import PropTypes from "prop-types";
+import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import PersonIcon from "@mui/icons-material/Person";
+import AddIcon from "@mui/icons-material/Add";
+import Typography from "@mui/material/Typography";
+import { blue } from "@mui/material/colors";
+
 const BeyanForm = () => {
   const token = window.localStorage.getItem("token");
   var decoded = jwt_decode(token);
+  let companyData = window.localStorage.getItem("company")
+  companyData = companyData ? JSON.parse(companyData):null;
   const [fullName, setFullName] = useState("");
   const [id, setId] = useState("");
   const [department1, setDepartment1] = useState("");
   const [schoolId, setSchoolId] = useState("");
-  const [faculty, setFaculty] = useState("");
   const [department2, setDepartment2] = useState("");
   const [company, setCompany] = useState("");
   const [lessonCode, setLessonCode] = useState("");
@@ -29,6 +44,77 @@ const BeyanForm = () => {
   const [successfulAlert, setSuccessfulAlert] = useState();
   const [failAlert, setFailAlert] = useState();
   const [display, setDisplay] = useState(true);
+  const [stakeholders, setStakeholders] = useState();
+  const [ifControl, setIfControl] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const {
+    data: stakeholdersList,
+    isPending,
+    error,
+  } = useFetch(
+    "http://localhost:3001/api/stakeholder/list/" + decoded.usercode,
+    "GET"
+  );
+
+  if (stakeholdersList && ifControl) {
+    console.log("deneme", stakeholdersList.data.data);
+    setStakeholders(stakeholdersList.data.data);
+    setIfControl(false);
+  }
+
+  function SimpleDialog(props) {
+    const { onClose, selectedValue, open } = props;
+
+    const handleClose = () => {
+      onClose(selectedValue);
+    };
+
+    const handleListItemClick = (value) => {
+      onClose(value);
+    };
+
+    return (
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Choose Stakeholder</DialogTitle>
+        <List sx={{ pt: 0 }}>
+          {stakeholders.map((stakeholder) => (
+            <ListItem
+              button
+              onClick={() => handleListItemClick(stakeholder.fullname)}
+              key={stakeholder.fullname}
+            >
+              <ListItemAvatar>
+                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                  <PersonIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={stakeholder.fullname} />
+            </ListItem>
+          ))}
+        </List>
+      </Dialog>
+    );
+  }
+  SimpleDialog.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    selectedValue: PropTypes.string.isRequired,
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setSelectedValue(value);
+    setOpen(false);
+    const selectedData = stakeholders.find((w) => w.fullname === value);
+    console.log("selected data is here:", selectedData);
+    setCompany(selectedData.companyName);
+    window.localStorage.setItem("company", JSON.stringify(selectedData));
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -44,9 +130,9 @@ const BeyanForm = () => {
       id: decoded.citizenshipNo,
       department1: decoded.department,
       schoolId: decoded.studentNo,
-      faculty: faculty,
+      faculty: decoded.faculty,
       department2: decoded.department,
-      company: company,
+      company: companyData.companyName,
       formType: 3,
       lessonCode: lessonCode,
     };
@@ -100,20 +186,13 @@ const BeyanForm = () => {
             </div>
             <div className="form-detail-part">
               <p>
-                &nbsp;&nbsp; Üniversitemizin{" "}
-                <input
-                  type="text"
-                  required
-                  className="desc-inputs"
-                  value={faculty}
-                  onChange={(e) => setFaculty(e.target.value)}
-                ></input>{" "}
+                &nbsp;&nbsp; Üniversitemizin {decoded.faculty}
                 Fakültesi/Enstitüsü {decoded.department} Bölümü öğrencisiyim{" "}
                 <input
                   type="text"
                   required
                   className="desc-inputs"
-                  value={company}
+                  value={companyData ? companyData.companyName:""}
                   onChange={(e) => setCompany(e.target.value)}
                 ></input>{" "}
                 biriminde/işyerinde Kısmi Zamanlı Öğrenci olarak / Stajyer
@@ -148,10 +227,7 @@ const BeyanForm = () => {
               </div>
               <div className="input-part">
                 <label>STAJ No:</label>
-                <FormControl
-                  component="fieldset"
-                  required= {true}
-                >
+                <FormControl component="fieldset" required={true}>
                   <RadioGroup
                     row
                     aria-label="wage"
@@ -180,15 +256,30 @@ const BeyanForm = () => {
                   </RadioGroup>
                 </FormControl>
               </div>
-              <div className="send-button">
-                <Button
-                  type="submit"
-                  variant="contained"
-                  endIcon={<SendIcon />}
-                >
-                  Send For Approval
-                </Button>
+              <div className="beyan-form-buttons">
+                <div className="beyan-form-dialog">
+                  <Button variant="contained" onClick={handleClickOpen}>
+                    Choose Stakeholder
+                  </Button>
+                  {stakeholders && (
+                    <SimpleDialog
+                      selectedValue={selectedValue}
+                      open={open}
+                      onClose={handleClose}
+                    />
+                  )}
+                </div>
+                <div className="beyan-send-button">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    endIcon={<SendIcon />}
+                  >
+                    Send For Approval
+                  </Button>
+                </div>
               </div>
+
               {failAlert && display && (
                 <Alert severity="error">
                   Bir Hata ile Karşılaşıldı. Bilgilerinizi Kontrol Ediniz

@@ -271,7 +271,7 @@ const ShowIsverenForm = () => {
       .then((data) => {
         if (data.ok) {
           //   window.localStorage.setItem("token", data.data.token);
-          history.push("/forms");
+          history.push("/studentforms");
         } else {
           console.log(data.message);
         }
@@ -409,7 +409,7 @@ const ShowIsverenForm = () => {
                     <label className="show-isveren-student-label border">
                       STAJYER ÖĞRENCİYE ÜCRET ÖDENECEK Mİ?
                     </label>
-                    {!data.StakeholderId && (
+                    {isUserStakeholder && (
                       <FormControl
                         component="fieldset"
                         className="isveren-form-control"

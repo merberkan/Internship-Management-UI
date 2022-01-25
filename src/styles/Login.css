@@ -48,7 +48,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  max-width: 250px;
+  max-width: 350px;
 }
 
 .form label{
@@ -61,6 +61,19 @@
   border: 1px solid #ddd;
   box-sizing: border-box;
   height: 1.75rem;
+}
+
+.login-inputs{
+  min-height: 2.5rem;
+  font-size: 17px;
+}
+
+.form input:hover {
+  box-shadow: 0 0 5pt 0.5pt #d3d3d3;
+}
+.form input:focus {
+  box-shadow: 0 0 5pt 2pt #d3d3d3;
+  outline-width: 0px;
 }
 
 .form button{

@@ -28,6 +28,8 @@ import Alert from "@mui/material/Alert";
 
 const IsVerenForm = () => {
   const token = window.localStorage.getItem("token");
+  let companyData = window.localStorage.getItem("company")
+  companyData = companyData ? JSON.parse(companyData):null;
   var decoded = jwt_decode(token);
   //* Company Part
   const [companyName, setCompanyName] = useState("");
@@ -140,36 +142,24 @@ const IsVerenForm = () => {
     setOpen(false);
     const selectedData = stakeholders.find((w) => w.fullname === value);
     console.log("selected data is here:", selectedData);
-    setCompanyName(selectedData.companyName);
-    setCompanyAddress(selectedData.companyAddress);
-    setCompanySector(selectedData.companySector);
-    setCompanyPhone(selectedData.companyPhoneNo);
-    setCompanyFax(selectedData.companyFaxNo);
-    setCompanyMail(selectedData.companyEmail);
-    setCompanyWeb(selectedData.companyWebAddress);
-    setCompanyEmployeeNo(selectedData.companyCompanyEmployeeNo);
-    setCompanyPersonFullName(selectedData.companyEmployeeName);
-    setCompanyPersonTitle(selectedData.title);
-    setCompanyPersonMail(selectedData.email);
-    setCompanyPersonDate(null);
-    setIsInputsDisabled(true);
+    window.localStorage.setItem("company", JSON.stringify(selectedData));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = {
-      companyName,
-      companyAddress,
-      companySector,
-      companyPhone,
-      companyFax,
-      companyMail,
-      companyWeb,
-      companyEmployeeNo,
-      companyPersonFullName,
-      companyPersonTitle,
-      companyPersonMail,
+      companyName:companyData.companyName,
+      companyAddress:companyData.companyAddress,
+      companySector: companyData.companySector,
+      companyPhone : companyData.companyPhoneNo,
+      companyFax: companyData.companyFaxNo,
+      companyMail : companyData.companyEmail,
+      companyWeb: companyData.companyWebAddress,
+      companyEmployeeNo: companyData.companyCompanyEmployeeNo,
+      companyPersonFullName: companyData.companyEmployeeName,
+      companyPersonTitle: companyData.title,
+      companyPersonMail: companyData.email,
       companyPersonDate,
       fullName: decoded.fullName,
       studentBirth: decoded.birth,
@@ -253,8 +243,7 @@ const IsVerenForm = () => {
                     disabled={isInputsDisabled}
                     type="text"
                     className="isveren-company-input input"
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
+                    value={companyData ? companyData.companyName: ""}
                   ></input>
                 </div>
                 <div className="isveren-company-row">
@@ -263,8 +252,7 @@ const IsVerenForm = () => {
                     disabled={isInputsDisabled}
                     type="text"
                     className="isveren-company-input input"
-                    value={companyAddress}
-                    onChange={(e) => setCompanyAddress(e.target.value)}
+                    value={companyData ? companyData.companyAddress:""}
                   ></input>
                 </div>
                 <div className="isveren-company-row">
@@ -275,8 +263,7 @@ const IsVerenForm = () => {
                     disabled={isInputsDisabled}
                     type="text"
                     className="isveren-company-input input"
-                    value={companySector}
-                    onChange={(e) => setCompanySector(e.target.value)}
+                    value={companyData ? companyData.companySector: ""}
                   ></input>
                 </div>
                 <div className="isveren-company-row">
@@ -286,8 +273,7 @@ const IsVerenForm = () => {
                       disabled={isInputsDisabled}
                       type="text"
                       className="isveren-company-input input border"
-                      value={companyPhone}
-                      onChange={(e) => setCompanyPhone(e.target.value)}
+                      value={companyData ? companyData.companyPhoneNo:""}
                     ></input>
                   </div>
                   <div className="isveren-company-row-right">
@@ -296,8 +282,7 @@ const IsVerenForm = () => {
                       disabled={isInputsDisabled}
                       type="text"
                       className="isveren-company-input input"
-                      value={companyFax}
-                      onChange={(e) => setCompanyFax(e.target.value)}
+                      value={companyData ? companyData.companyFaxNo:""}
                     ></input>
                   </div>
                 </div>
@@ -310,8 +295,7 @@ const IsVerenForm = () => {
                       disabled={isInputsDisabled}
                       type="text"
                       className="isveren-company-input input border"
-                      value={companyMail}
-                      onChange={(e) => setCompanyMail(e.target.value)}
+                      value={companyData ? companyData.companyEmail:""}
                     ></input>
                   </div>
                   <div className="isveren-company-row-right">
@@ -320,8 +304,7 @@ const IsVerenForm = () => {
                       disabled={isInputsDisabled}
                       type="text"
                       className="isveren-company-input input"
-                      value={companyWeb}
-                      onChange={(e) => setCompanyWeb(e.target.value)}
+                      value={companyData ? companyData.companyWebAddress:""}
                     ></input>
                   </div>
                 </div>
@@ -333,8 +316,7 @@ const IsVerenForm = () => {
                     disabled={isInputsDisabled}
                     type="text"
                     className="isveren-company-input input"
-                    value={companyEmployeeNo}
-                    onChange={(e) => setCompanyEmployeeNo(e.target.value)}
+                    value={companyData ? companyData.companyCompanyEmployeeNo:""}
                   ></input>
                 </div>
               </div>
@@ -348,8 +330,7 @@ const IsVerenForm = () => {
                     disabled={isInputsDisabled}
                     type="text"
                     className="isveren-part-input input"
-                    value={companyPersonFullName}
-                    onChange={(e) => setCompanyPersonFullName(e.target.value)}
+                    value={companyData ? companyData.companyEmployeeName:""}
                   ></input>
                 </div>
                 <div className="isveren-part-row">
@@ -358,8 +339,7 @@ const IsVerenForm = () => {
                     disabled={isInputsDisabled}
                     type="text"
                     className="isveren-part-input input"
-                    value={companyPersonTitle}
-                    onChange={(e) => setCompanyPersonTitle(e.target.value)}
+                    value={companyData ? companyData.title:""}
                   ></input>
                 </div>
                 <div className="isveren-part-row">
@@ -368,8 +348,7 @@ const IsVerenForm = () => {
                     disabled={isInputsDisabled}
                     type="text"
                     className="isveren-part-input input"
-                    value={companyPersonMail}
-                    onChange={(e) => setCompanyPersonMail(e.target.value)}
+                    value={companyData ? companyData.email:""}
                   ></input>
                 </div>
                 <div className="isveren-part-row">
@@ -378,7 +357,7 @@ const IsVerenForm = () => {
                     disabled={isInputsDisabled}
                     type="text"
                     className="isveren-part-input input"
-                    value={companyPersonDate}
+                    value={companyData ? companyPersonDate:""}
                     onChange={(e) => setCompanyPersonDate(e.target.value)}
                   ></input>
                 </div>
@@ -413,16 +392,16 @@ const IsVerenForm = () => {
                     ÖĞRENCİNİN STAJ TARİHLERİ
                   </label>
                   <input
-                    type="text"
+                    type="date"
                     className="isveren-student-input input border"
-                    placeholder="Başlangıç(GG/AA/YYYY)"
+                    placeholder="Başlangıç"
                     value={studentInternStart}
                     onChange={(e) => setStudentInternStart(e.target.value)}
                   ></input>
                   <input
-                    type="text"
+                    type="date"
                     className="isveren-student-input input"
-                    placeholder="Bitiş(GG/AA/YYYY)"
+                    placeholder="Bitiş"
                     value={studentInternEnd}
                     onChange={(e) => setStudentInternEnd(e.target.value)}
                   ></input>

@@ -10,6 +10,23 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import useFetch from "../helpers/useFetch";
 
+import PropTypes from "prop-types";
+import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import PersonIcon from "@mui/icons-material/Person";
+import { blue } from "@mui/material/colors";
+
+const rejectReasons = [
+  "Şirket Bilgileri Yetersiz",
+  "Bu Şirkette Staj Kabul Edilemez",
+  "Eksik Öğrenci Bilgisi",
+];
+
 const ShowZorunluForm = () => {
   const token = window.localStorage.getItem("token");
   var decoded = jwt_decode(token);
@@ -19,6 +36,9 @@ const ShowZorunluForm = () => {
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const [isUserStudent, setIsUserStudent] = useState(null);
+
+  const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
 
 
   const [ifControl, setIfControl] = useState(true);
@@ -58,6 +78,77 @@ const ShowZorunluForm = () => {
     //* cleans state for abort warnings while fetching for data
     return () => abortCont.abort();
   }, [ifControl]);
+
+  function SimpleDialog(props) {
+    const { onClose, selectedValue, open } = props;
+
+    const handleClose = () => {
+      onClose(selectedValue);
+    };
+
+    const handleListItemClick = (value) => {
+      onClose(value);
+    };
+
+    return (
+      <Dialog onClose={handleClose} open={open}>
+        <DialogTitle>Choose Reject Reason</DialogTitle>
+        <List sx={{ pt: 0 }}>
+          {rejectReasons.map((reason) => (
+            <ListItem
+              button
+              onClick={() => handleListItemClick(reason)}
+              key={reason}
+            >
+              <ListItemText primary={reason} />
+            </ListItem>
+          ))}
+        </List>
+      </Dialog>
+    );
+  }
+  SimpleDialog.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    selectedValue: PropTypes.string.isRequired,
+  };
+
+  const handleClickOpen = () => {
+    console.log("opened");
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    console.log("closed");
+    setSelectedValue(value);
+    setOpen(false);
+    if (value != "") {
+      const model = {
+        uniqueKey: key,
+        status: "0",
+        rejectReason: value,
+      };
+      fetch("http://localhost:3001/api/form-status", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(model),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.ok) {
+            window.location.reload();
+          }
+        })
+        .catch((e) => {
+          console.log("cannot logged:", e.message);
+        });
+      console.log("clicked reject");
+    }
+  };
 
   const handleApprove = () => {
     const model = {
@@ -411,18 +502,24 @@ const ShowZorunluForm = () => {
               </div>
             </div>
           </div>
-          {!data.IsConfirmed && !isUserStudent && (
+          {!data.IsConfirmed && !isUserStudent && !data.IsRejected && (
             <div className="staj-button-part">
               <div className="show-staj-reject">
-                <Button
-                  variant="contained"
-                  color="error"
-                  endIcon={<ThumbDownIcon />}
-                  onClick={handleReject}
-                >
-                  Reject
-                </Button>
-              </div>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={handleClickOpen}
+                    >
+                      Reject
+                    </Button>
+                    {data && (
+                      <SimpleDialog
+                        selectedValue={selectedValue}
+                        open={open}
+                        onClose={handleClose}
+                      />
+                    )}
+                  </div>
               <div className="show-staj-approve">
                 <Button
                   variant="contained"
