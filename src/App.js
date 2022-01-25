@@ -18,6 +18,7 @@ import ShowZorunluForm from './components/ShowZorunluForm';
 import Rapor from './components/Rapor';
 import ShowRapor from './components/ShowRapor';
 import Profile from './components/Profile';
+import ForgetPassword from './components/ForgetPassword';
 
 
 function App() {
@@ -73,6 +74,9 @@ function App() {
           </Route>
           <Route path="/profile">
             <Profile></Profile>
+          </Route>
+          <Route path="/forgetPassword">
+            <ForgetPassword></ForgetPassword>
           </Route>
           <Route component={NotFound} />
         </Switch>

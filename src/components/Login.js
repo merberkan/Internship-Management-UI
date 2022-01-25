@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import logo from "../images/mesale.png";
 import loginImg from "../images/login.svg";
-import '../styles/Login.css'
+import "../styles/Login.css";
 
 const Login = () => {
-  console.log("geldi")
+  console.log("geldi");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [isPending, setIsPending] = useState(false);
@@ -25,13 +25,12 @@ const Login = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if(data.ok){
+        if (data.ok) {
           window.localStorage.setItem("token", data.data.token);
           history.push("/");
-        }else{
+        } else {
           setIsLoginFail(true);
         }
-        
       })
       .catch((e) => {
         console.log("cannot logged:", e.message);
@@ -53,30 +52,38 @@ const Login = () => {
           <img src={loginImg}></img>
         </div>
         <div className="form-part">
-        <form onSubmit={handleSubmit} className="form">
-          {isLoginFail && <p>Email veya Şifre Hatalı</p>}
-          <label>Email</label>
-          <input
-            type="text"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-          <label>Password</label>
-          <input
-            type="password"
-            required
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-          ></input>
-          <button>Login</button>
-          <p>{email}</p>
-          <p>{pass}</p>
-        </form>
-      </div>
+          <form onSubmit={handleSubmit} className="form">
+            {isLoginFail && <p>Email veya Şifre Hatalı</p>}
+            <label>Email</label>
+            <input
+              type={"email"}
+              required
+              value={email}
+              className="login-inputs"
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+            <label>Password</label>
+            <input
+              type="password"
+              required
+              value={pass}
+              className="login-inputs"
+              onChange={(e) => setPass(e.target.value)}
+            ></input>
+            <button>Login</button>
+            <p>
+              Şifrenizi mi unuttunuz? {" "}
+              <Link to={`/forgetPassword`}>
+                  buraya
+              </Link>
+              {" "}
+              tıklayınız
+            </p>
+            
+          </form>
+        </div>
       </div>
       <div className="login-footer-part"></div>
-
     </div>
   );
 };
