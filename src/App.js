@@ -23,6 +23,7 @@ import Degerlendirme from './components/DegerlendirmeBelgesi';
 import ShowDegerlendirme from './components/ShowDegerlendirmeBelgesi';
 import BeyanForm43 from './components/BeyanForm43';
 import ShowBeyanForm43 from './components/ShowBeyanForm43';
+import CompanyUpdate from './components/CompanyUpdate';
 
 
 function App() {
@@ -87,6 +88,9 @@ function App() {
           </Route>
           <Route path="/profile">
             <Profile></Profile>
+          </Route>
+          <Route path="/company/update">
+            <CompanyUpdate></CompanyUpdate>
           </Route>
           <Route path="/forgetPassword">
             <ForgetPassword></ForgetPassword>

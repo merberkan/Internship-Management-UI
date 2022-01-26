@@ -78,6 +78,13 @@ const Navbar = (props) => {
               </Link>
             </div>
           )}
+          {role === "Stakeholder" ? (
+            <div className="item">
+              <Link to={`/company/update`}>
+                <p>Update Company</p>
+              </Link>
+            </div>
+          ) : null}
           <div className="item">
             <Link to={`/profile`}>
               <p>Profile</p>
