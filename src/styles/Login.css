@@ -18,7 +18,7 @@
   align-items: center;
   font-size: 24px;
 }
-.logo-part{
+.login-logo-part{
   display: flex;
   max-width: 160px;
   flex: 2;

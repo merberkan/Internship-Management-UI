@@ -27,7 +27,23 @@ import { blue } from "@mui/material/colors";
 import Alert from "@mui/material/Alert";
 
 const IsVerenForm = () => {
-  const token = window.localStorage.getItem("token");
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   let companyData = window.localStorage.getItem("company")
   companyData = companyData ? JSON.parse(companyData):null;
   var decoded = jwt_decode(token);
@@ -61,7 +77,6 @@ const IsVerenForm = () => {
   const [companyIBAN, setCompanyIBAN] = useState("");
   const [companyAccountNo, setCompanyAccountNo] = useState("");
   const [companyBankName, setCompanyBankName] = useState("");
-  const history = useHistory();
 
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
@@ -75,6 +90,18 @@ const IsVerenForm = () => {
   const [successfulAlert, setSuccessfulAlert] = useState();
   const [failAlert, setFailAlert] = useState();
   const [display, setDisplay] = useState(true);
+
+  const [isUserStudent, setIsUserStudent] = useState(null);
+
+
+  if (isUserStudent === null) {
+    if (decoded.role === 1) {
+      setIsUserStudent(true);
+    } else {
+      setIsUserStudent(false);
+      history.push('/login')
+    }
+  }
 
   const {
     data: stakeholdersList,
@@ -357,6 +384,7 @@ const IsVerenForm = () => {
                     disabled={isInputsDisabled}
                     type="text"
                     className="isveren-part-input input"
+                    disabled={true}
                     value={companyData ? companyPersonDate:""}
                     onChange={(e) => setCompanyPersonDate(e.target.value)}
                   ></input>

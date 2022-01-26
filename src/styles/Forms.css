@@ -38,6 +38,11 @@
   flex: 1;
 }
 
+.forms-page-part-mid {
+  display: flex;
+  flex: 1;
+}
+
 .forms-page-part-bottom {
   display: flex;
   flex: 1;

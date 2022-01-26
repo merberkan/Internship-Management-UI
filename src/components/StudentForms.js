@@ -39,7 +39,23 @@ const headColumns = [
 ];
 
 const StudentForms = () => {
-  const token = window.localStorage.getItem("token");
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   var decoded = jwt_decode(token);
   const {
     data: formList,
@@ -47,12 +63,14 @@ const StudentForms = () => {
     error,
   } = useFetch("http://localhost:3001/api/forms/" + decoded.usercode, "GET");
 
-  const history = useHistory();
   // const dataGridColumns = userList.data.columns;
   const [selectedRow, setSelectedRow] = React.useState();
   const [selectedRowFormTypeId, setSelectedRowFormTypeId ]= React.useState();
   const [isUserHead, setIsUserHead] = React.useState(null);
   const [isUserGrader, setIsUserGrader] = React.useState(null);
+
+
+  
 
   const handleDelete = () => {
     console.log("geliyor mu?", selectedRow);
@@ -86,6 +104,10 @@ const StudentForms = () => {
       history.push(`/user/zorunluform/${selectedRow}`)
     }else if(selectedRowFormTypeId === 5){
       history.push(`/user/rapor/${selectedRow}`)
+    }else if(selectedRowFormTypeId === 6){
+      history.push(`/user/degerlendirme/${selectedRow}`)
+    }else if(selectedRowFormTypeId === 4){
+      history.push(`/user/beyanform43/${selectedRow}`)
     }else{
       console.log("hop tıkladın:", selectedRow);
       console.log("tıklanan form type ıd:",selectedRowFormTypeId)

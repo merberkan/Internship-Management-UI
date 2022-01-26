@@ -34,10 +34,25 @@ const Input = styled("input")({
 });
 
 const Rapor = () => {
-  const token = window.localStorage.getItem("token");
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   var decoded = jwt_decode(token);
   console.log("decoded code:", decoded);
-  const history = useHistory();
   const [isFileSubmitted, setIsFileSubmitted] = React.useState(false);
   // const dataGridColumns = userList.data.columns;
   const [selectedRow, setSelectedRow] = React.useState();
@@ -57,6 +72,18 @@ const Rapor = () => {
   const [failAlert, setFailAlert] = useState();
   const [display, setDisplay] = useState(true);
   const [successfulAlert2, setSuccessfulAlert2] = useState();
+  const [isUserStudent, setIsUserStudent] = useState(null);
+
+
+  if (isUserStudent === null) {
+    if (decoded.role === 1) {
+      setIsUserStudent(true);
+    } else {
+      setIsUserStudent(false);
+      history.push('/login')
+    }
+  }
+
 
 
 

@@ -28,10 +28,25 @@ const rejectReasons = [
 ];
 
 const ShowZorunluForm = () => {
-  const token = window.localStorage.getItem("token");
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   var decoded = jwt_decode(token);
   const { key } = useParams();
-  const history = useHistory();
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -154,7 +169,9 @@ const ShowZorunluForm = () => {
     const model = {
       uniqueKey: key,
       status: "1",
+      studentEmail: data.Value.studentEmail
     };
+    console.log("model:",model)
     fetch("http://localhost:3001/api/form-status", {
       method: "PUT",
       headers: {

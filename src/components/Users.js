@@ -27,15 +27,33 @@ const columns = [
 ];
 
 const Users = () => {
+  const history = useHistory();
+  let token = null;
+  try {
+    token = window.localStorage.getItem("token");
+    console.log("errorsüz geçti")
+  } catch (error) {
+    history.push('/notfound')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/notfound')
+    }
+  }
+  var decoded = jwt_decode(token);
+
   const {
     data: userList,
     isPending,
     error,
   } = useFetch("http://localhost:3001/api/users");
-  const token = window.localStorage.getItem("token");
-  var decoded = jwt_decode(token);
+
   console.log("decoded code:", decoded);
-  const history = useHistory();
   const [isFileSubmitted, setIsFileSubmitted] = React.useState(false);
   // const dataGridColumns = userList.data.columns;
   const [selectedRow, setSelectedRow] = React.useState();

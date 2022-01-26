@@ -43,7 +43,7 @@ const Login = () => {
         <div className="Header">
           <h2>Login</h2>
         </div>
-        <div className="logo-part">
+        <div className="login-logo-part">
           <img src={logo}></img>
         </div>
       </div>

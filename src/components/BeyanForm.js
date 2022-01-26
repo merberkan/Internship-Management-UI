@@ -29,7 +29,23 @@ import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
 
 const BeyanForm = () => {
-  const token = window.localStorage.getItem("token");
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   var decoded = jwt_decode(token);
   let companyData = window.localStorage.getItem("company")
   companyData = companyData ? JSON.parse(companyData):null;
@@ -40,7 +56,6 @@ const BeyanForm = () => {
   const [department2, setDepartment2] = useState("");
   const [company, setCompany] = useState("");
   const [lessonCode, setLessonCode] = useState("");
-  const history = useHistory();
   const [successfulAlert, setSuccessfulAlert] = useState();
   const [failAlert, setFailAlert] = useState();
   const [display, setDisplay] = useState(true);
@@ -48,6 +63,17 @@ const BeyanForm = () => {
   const [ifControl, setIfControl] = useState(true);
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
+  const [isUserStudent, setIsUserStudent] = useState(null);
+
+
+  if (isUserStudent === null) {
+    if (decoded.role === 1) {
+      setIsUserStudent(true);
+    } else {
+      setIsUserStudent(false);
+      history.push('/login')
+    }
+  }
 
   const {
     data: stakeholdersList,
@@ -191,6 +217,7 @@ const BeyanForm = () => {
                 <input
                   type="text"
                   required
+                  disabled={true}
                   className="desc-inputs"
                   value={companyData ? companyData.companyName:""}
                   onChange={(e) => setCompany(e.target.value)}

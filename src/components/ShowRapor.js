@@ -37,12 +37,27 @@ const rejectReasons = [
 ];
 
 const ShowRapor = () => {
-  const token = window.localStorage.getItem("token");
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   var decoded = jwt_decode(token);
   const { key } = useParams();
 
   console.log("decoded code:", decoded);
-  const history = useHistory();
   // const dataGridColumns = userList.data.columns;
   const [isFileUploaded, setIsFileUploaded] = useState();
   const [ifControl, setIfControl] = useState(true);
@@ -54,6 +69,7 @@ const ShowRapor = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [isUserStakeholder, setIsUserStakeholder] = useState(null);
   const [isUserStudent, setIsUserStudent] = useState(null);
+
 
 
   useEffect(() => {

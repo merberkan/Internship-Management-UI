@@ -31,15 +31,31 @@ const rejectReasons = [
 ];
 
 const ShowIsverenForm = () => {
-  const token = window.localStorage.getItem("token");
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   var decoded = jwt_decode(token);
   const { key } = useParams();
-  const history = useHistory();
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   const [isUserStakeholder, setIsUserStakeholder] = useState(null);
   const [isUserStudent, setIsUserStudent] = useState(null);
+  const [isUserUniversityPerson, setIsUserUniversityPerson] = useState(null);
 
   //* Company Bank Infos
   const [companyTitle, setCompanyTitle] = useState("");
@@ -199,6 +215,13 @@ const ShowIsverenForm = () => {
       setIsUserStudent(true);
     } else {
       setIsUserStudent(false);
+    }
+  }
+  if (isUserUniversityPerson === null) {
+    if (decoded.role === 2 || decoded.role === 3 || decoded.role === 4 || decoded.role === 5) {
+      setIsUserUniversityPerson(true);
+    } else {
+      setIsUserUniversityPerson(false);
     }
   }
 
@@ -522,7 +545,7 @@ const ShowIsverenForm = () => {
                 </Button>
               </div>
             )}
-            {!data.IsConfirmed && !isUserStakeholder && !isUserStudent && (
+            {!data.IsConfirmed && !isUserStakeholder && !isUserStudent && !isUserUniversityPerson && (
               <div className="show-isveren-buttons-part">
                 <div className="show-isveren-reject">
                   <div className="isveren-dialog">

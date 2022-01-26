@@ -26,13 +26,29 @@ const rejectReasons = [
 ];
 
 const ShowBeyanForm = () => {
-  let token = window.localStorage.getItem("token");
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   const [detailData, setDetailData] = useState(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
   var decoded = jwt_decode(token);
   const { key } = useParams();
-  const history = useHistory();
   const [isUserStudent, setIsUserStudent] = useState(null);
+  const [isUserUniversityPerson, setIsUserUniversityPerson] = useState(null);
 
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
@@ -68,6 +84,13 @@ const ShowBeyanForm = () => {
       setIsUserStudent(true);
     } else {
       setIsUserStudent(false);
+    }
+  }
+  if (isUserUniversityPerson === null) {
+    if (decoded.role === 2 || decoded.role === 3 || decoded.role === 4 || decoded.role === 5) {
+      setIsUserUniversityPerson(true);
+    } else {
+      setIsUserUniversityPerson(false);
     }
   }
 
@@ -302,7 +325,7 @@ const ShowBeyanForm = () => {
               </div>
             </form>
           </div>
-          {!detailData.IsConfirmed && !isUserStudent && !detailData.IsRejected && !detailData.IsConfirmed && (
+          {!detailData.IsConfirmed && !isUserStudent && !detailData.IsRejected && !detailData.IsConfirmed && !isUserUniversityPerson &&(
             <div className="show-beyan-content-buttons-part">
               <div className="show-beyan-reject">
                     <Button

@@ -31,9 +31,26 @@ import Alert from '@mui/material/Alert';
 import useFetch from "../helpers/useFetch";
 
 const ZorunluForm = () => {
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
+  var decoded = jwt_decode(token);
   let companyData = window.localStorage.getItem("company")
   companyData = companyData ? JSON.parse(companyData):null;
-  const history = useHistory();
   const [tokenData, setTokenData] = useState(null);
   const [ifControl, setIfControl] = useState(true);
   const [isLoginFail, setIsLoginFail] = useState();
@@ -76,8 +93,6 @@ const ZorunluForm = () => {
   const [isLoading, setIsPending] = useState(false);
   const [stakeholders, setStakeholders] = useState();
   const [isInputsDisabled, setIsInputsDisabled] = useState(false);
-  const token = window.localStorage.getItem("token");
-  var decoded = jwt_decode(token);
 
   const [lessonCode, setLessonCode] = useState("");
 
@@ -335,7 +350,7 @@ const ZorunluForm = () => {
             <div className="staj-company-row">
               <label className="staj-company-label">Adı</label>
               <input
-                disabled={isInputsDisabled}
+                disabled={true}
                 type="text"
                 className="staj-company-input input"
                 value={companyData ? companyData.companyName:""}
@@ -345,7 +360,7 @@ const ZorunluForm = () => {
             <div className="staj-company-row">
               <label className="staj-company-label">Adresi</label>
               <input
-                disabled={isInputsDisabled}
+                disabled={true}
                 type="text"
                 className="staj-company-input input"
                 value={companyData ? companyData.companyAddress:""}
@@ -355,7 +370,7 @@ const ZorunluForm = () => {
             <div className="staj-company-row">
               <label className="staj-company-label">Üretim/Hizmet Alanı</label>
               <input
-                disabled={isInputsDisabled}
+                disabled={true}
                 type="text"
                 className="staj-company-input input"
                 value={companyData ? companyData.companySector:""}
@@ -366,7 +381,7 @@ const ZorunluForm = () => {
               <div className="staj-company-row-left">
                 <label className="staj-company-label">Telefon</label>
                 <input
-                  disabled={isInputsDisabled}
+                  disabled={true}
                   type="text"
                   className="staj-company-input input border"
                   value={companyData ? companyData.companyPhoneNo:""}
@@ -376,7 +391,7 @@ const ZorunluForm = () => {
               <div className="staj-company-row-right">
                 <label className="staj-company-label">Faks</label>
                 <input
-                  disabled={isInputsDisabled}
+                  disabled={true}
                   type="text"
                   className="staj-company-input input"
                   value={companyData ? companyData.companyFaxNo:""}
@@ -388,7 +403,7 @@ const ZorunluForm = () => {
               <div className="staj-company-row-left">
                 <label className="staj-company-label">E-posta adresi</label>
                 <input
-                  disabled={isInputsDisabled}
+                  disabled={true}
                   type="text"
                   className="staj-company-input input border"
                   value={companyData ? companyData.companyEmail : ""}
@@ -398,7 +413,7 @@ const ZorunluForm = () => {
               <div className="staj-company-row-right">
                 <label className="staj-company-label">Web Adresi</label>
                 <input
-                  disabled={isInputsDisabled}
+                  disabled={true}
                   type="text"
                   className="staj-company-input input"
                   value={companyData ? companyData.companyWebAddress:""}
@@ -522,7 +537,7 @@ const ZorunluForm = () => {
             <div className="staj-stakeholder-part-row">
               <label className="staj-stakeholder-part-label">Tarih</label>
               <input
-                disabled={isInputsDisabled}
+                disabled={true}
                 type="text"
                 className="staj-stakeholder-part-input input"
                 value={companyPersonDate}

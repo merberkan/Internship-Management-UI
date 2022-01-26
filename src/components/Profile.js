@@ -24,12 +24,27 @@ const studentColumns = [
 ];
 
 const Profile = () => {
-  const token = window.localStorage.getItem("token");
+  const history = useHistory();
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   var decoded = jwt_decode(token);
   console.log(decoded);
   const [selectedRow, setSelectedRow] = React.useState();
   const [selectedRowFormTypeId, setSelectedRowFormTypeId] = React.useState();
-  const history = useHistory();
 
   const [users, setUsers] = useState(null);
   const [isPending2, setIsPending2] = useState(true);
@@ -119,6 +134,9 @@ const Profile = () => {
       history.push(`/user/zorunluform/${selectedRow}`);
     } else if (selectedRowFormTypeId === 5) {
       history.push(`/user/rapor/${selectedRow}`);
+    }else if(selectedRowFormTypeId === 6){
+      console.log("girdi şu an")
+      history.push(`/user/degerlendirme/${selectedRow}`)
     } else {
       console.log("hop tıkladın:", selectedRow);
       console.log("tıklanan form type ıd:", selectedRowFormTypeId);
@@ -166,7 +184,7 @@ const Profile = () => {
       <div className="profile-content">
         <div className="profile-user-detail">
           <div className="profile-header">
-            <h3>Kullanıcı Bilgileri</h3>
+            <h3>User Information</h3>
           </div>
           <div className="profile-user-form">
             {users && (
@@ -202,7 +220,7 @@ const Profile = () => {
                     ></input>
                   </div>
                   <div className="profile-form-row">
-                    <label>Okul No:</label>
+                    <label>School Id:</label>
                     <input
                       type="text"
                       required
@@ -214,7 +232,7 @@ const Profile = () => {
                 </div>
                 <div className="profile-user-form-right">
                   <div className="profile-form-row">
-                    <label>T.C Kimlik No:</label>
+                    <label>Citizenship No:</label>
                     <input
                       type="text"
                       required
@@ -279,7 +297,7 @@ const Profile = () => {
               {formList && (
                 <div
                   className="user-forms-datagrid-container"
-                  style={{ height: 600, width: "70%" }}
+                  style={{ height: 600, width: "80%" }}
                 >
                   <DataGrid
                     rows={formList.list}

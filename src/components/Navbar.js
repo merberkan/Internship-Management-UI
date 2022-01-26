@@ -43,23 +43,23 @@ const Navbar = (props) => {
         <div className="menu-items">
           <div className="item">
             <Link to={`/`}>
-              <p>Anasayfa</p>
+              <p>Homepage</p>
             </Link>
           </div>
           {role === "Student" ? (
             <div className="item">
               <Link to={`/forms`}>
-                <p>Formlar</p>
+                <p>Forms</p>
               </Link>
             </div>
           ) : (
             ""
           )}
 
-          {role === "Admin" ? (
+          {role === "Student" ? (
             <div className="item">
               <Link to={`/users`}>
-                <p>Kullanıcı Paneli</p>
+                <p>Users Panel</p>
               </Link>
             </div>
           ) : null}
@@ -67,20 +67,20 @@ const Navbar = (props) => {
           {role === "Student" ? (
             <div className="item">
               <Link to={`/stakeholder`}>
-                <p>Paydaş Oluştur</p>
+                <p>Invite Stakeholder</p>
               </Link>
             </div>
           ) : null}
           {role === "Student" ? null : (
             <div className="item">
               <Link to={`/studentforms`}>
-                <p>Öğrenci Formları</p>
+                <p>Students Forms</p>
               </Link>
             </div>
           )}
           <div className="item">
             <Link to={`/profile`}>
-              <p>Profilim</p>
+              <p>Profile</p>
             </Link>
           </div>
         </div>

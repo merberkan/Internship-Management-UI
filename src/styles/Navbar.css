@@ -28,6 +28,8 @@ body{
     display: flex;
     flex: 1;
     margin-top: 3%;
+    margin: auto;
+    align-items: center;
 }
 
 .logo{

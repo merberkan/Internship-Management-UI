@@ -19,6 +19,10 @@ import Rapor from './components/Rapor';
 import ShowRapor from './components/ShowRapor';
 import Profile from './components/Profile';
 import ForgetPassword from './components/ForgetPassword';
+import Degerlendirme from './components/DegerlendirmeBelgesi';
+import ShowDegerlendirme from './components/ShowDegerlendirmeBelgesi';
+import BeyanForm43 from './components/BeyanForm43';
+import ShowBeyanForm43 from './components/ShowBeyanForm43';
 
 
 function App() {
@@ -48,6 +52,9 @@ function App() {
           <Route path="/forms/beyan">
             <BeyanForm></BeyanForm>
           </Route>
+          <Route path="/forms/beyan43">
+            <BeyanForm43></BeyanForm43>
+          </Route>
           <Route path="/forms/isveren">
             <IsVerenForm></IsVerenForm>
           </Route>
@@ -63,6 +70,9 @@ function App() {
           <Route path="/user/beyanform/:key">
             <ShowBeyanForm></ShowBeyanForm>
           </Route>
+          <Route path="/user/beyanform43/:key">
+            <ShowBeyanForm43></ShowBeyanForm43>
+          </Route>
           <Route path="/user/isverenform/:key">
             <ShowIsVerenForm></ShowIsVerenForm>
           </Route>
@@ -72,11 +82,20 @@ function App() {
           <Route path="/user/rapor/:key">
             <ShowRapor></ShowRapor>
           </Route>
+          <Route path="/user/degerlendirme/:key">
+            <ShowDegerlendirme></ShowDegerlendirme>
+          </Route>
           <Route path="/profile">
             <Profile></Profile>
           </Route>
           <Route path="/forgetPassword">
             <ForgetPassword></ForgetPassword>
+          </Route>
+          <Route path="/forms/degerlendirme">
+            <Degerlendirme></Degerlendirme>
+          </Route>
+          <Route path="/notfound">
+            <NotFound></NotFound>
           </Route>
           <Route component={NotFound} />
         </Switch>

@@ -20,7 +20,22 @@ const CreateStakeHolder = () => {
   const [stakeholder, setStakeholder] = useState('');
   const [isLoading, setIsPending] = useState(false);
   const history = useHistory();
-  const token = window.localStorage.getItem("token");
+  let token;
+  try {
+    token = window.localStorage.getItem("token");
+  } catch (error) {
+    history.push('/login')
+  }
+  const [isUserLogged, setIsUserLogged] = useState(null);
+
+  if (isUserLogged === null) {
+    if (token) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+      history.push('/login')
+    }
+  }
   var decoded = jwt_decode(token);
   const [stakeholders, setStakeholders] = useState();
   const [ifControl, setIfControl] = useState(true);
