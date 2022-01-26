@@ -1,0 +1,267 @@
+.degerlendirme-container {
+    display: flex;
+    flex: 1;
+    min-height: 100vh;
+  }
+  
+  .Navbar-Part {
+    display: flex;
+    flex: 1;
+    max-width: 10%;
+  }
+  
+  .degerlendirme-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .degerlendirme-header{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    max-height: 50px;
+  }
+
+  .degerlendirme-students-part{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .degerlendirme-student-details{
+    display: flex;
+    flex: 1 1;
+    flex-direction: column;
+    margin: 1rem 3rem 1rem 3rem;
+  }
+
+  .degerlendirme-student-row{
+    display: flex;
+    flex: 1;
+    display: flex;
+    flex: 1;
+    border: 1px solid black;
+  }
+
+.degerlendirme-student-label{
+  display: flex;
+  flex: 1;
+  max-width: 150px;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid black;
+}
+
+.degerlendirme-student{
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.degerlendirme-radio{
+  margin-left: 1rem;
+}
+
+  .degerlendirme-company-part{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .degerlendirme-company-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 1rem 3rem 1rem 3rem;
+  }
+
+  .degerlendirme-company-row {
+    display: flex;
+    flex: 1;
+    border: 1px solid black;
+  }
+
+  .degerlendirme-company-row {
+    display: flex;
+    flex: 1;
+    border: 1px solid black;
+  }
+
+  .degerlendirme-company-row-left {
+    display: flex;
+    flex: 1;
+    min-width: 50%;
+  }
+  
+  .degerlendirme-company-row-mid {
+    display: flex;
+    flex: 1;
+    border-right: 1px solid black;
+  }
+  .degerlendirme-company-row-right {
+    display: flex;
+    flex: 1;
+  }
+  .degerlendirme-company-label {
+    display: flex;
+    flex: 1;
+    max-width: 400px;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 600;
+    border-right: 1px solid black;
+  }
+  .degerlendirme-company-input {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .degerlendirme-form-control {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .degerlendirme-evaluate-part{
+    display: flex;
+    flex: 1;
+    margin: 1rem 3rem 1rem 3rem;
+  }
+  .degerlendirme-evaluate-left-part{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+  }
+  .degerlendirme-evaluate-row{
+    display: flex;
+    flex: 1;
+    display: flex;
+    flex: 1;
+    border: 1px solid black;
+    max-width: 40%;
+  }
+
+.degerlendirme-evaluate-label{
+  display: flex;
+  flex: 1;
+  max-width: 250px;
+  min-width: 250px;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid black;
+}
+
+.label{
+  padding-left: 1rem;
+  text-align: left;
+}
+
+.degerlendirme-evaluate{
+  display: flex;
+  flex: 1;
+  max-width: 100px;
+  min-width: 100px;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+  .degerlendirme-evaluate-right-part{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    border: 1px solid black;
+  }
+
+  .degerlendirme-evaluate-opinion{
+    display: flex;
+    flex: 1;
+  }
+
+  .degerlendirme-evalueate-textarea{
+    display: flex;
+    flex: 1;
+    resize: none;
+  }
+
+  .degerlendirme-evalueate-textarea:hover {
+    box-shadow: 0 0 5pt 0.5pt #d3d3d3;
+  }
+  .degerlendirme-evalueate-textarea:focus {
+    box-shadow: 0 0 5pt 2pt #d3d3d3;
+    outline-width: 0px;
+  }
+
+  .company-person-part{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 1rem 3rem 1rem 3rem;
+  }
+
+  .company-person-part-details{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.company-person-part-row {
+  display: flex;
+  flex: 1;
+  border: 1px solid black;
+}
+
+.company-person-part-label {
+  display: flex;
+  flex: 1;
+  max-width: 400px;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  border-right: 1px solid black;
+}
+
+.company-person-part-input {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.company-button-part{
+  display: flex;
+  flex: 1;
+  max-height: 70px;
+  margin-bottom: 2rem;
+}
+
+.company-dialog{
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  height: 60px;
+  margin: auto;
+}
+
+.center{
+  justify-content: center;
+}
+
+.degerlendirme-company-center{
+  margin: auto 0;
+  margin-left: 1rem;
+}
+
+.degerlendirme-student-center{
+  margin-top: 1rem;
+}
