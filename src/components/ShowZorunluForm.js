@@ -33,7 +33,7 @@ const ShowZorunluForm = () => {
   try {
     token = window.localStorage.getItem("token");
   } catch (error) {
-    history.push('/login')
+    history.push("/login");
   }
   const [isUserLogged, setIsUserLogged] = useState(null);
 
@@ -42,7 +42,7 @@ const ShowZorunluForm = () => {
       setIsUserLogged(true);
     } else {
       setIsUserLogged(false);
-      history.push('/login')
+      history.push("/login");
     }
   }
   var decoded = jwt_decode(token);
@@ -54,7 +54,6 @@ const ShowZorunluForm = () => {
 
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
-
 
   const [ifControl, setIfControl] = useState(true);
 
@@ -171,7 +170,6 @@ const ShowZorunluForm = () => {
       status: "1",
       studentEmail: data.Value.studentEmail
     };
-    console.log("model:",model)
     fetch("http://localhost:3001/api/form-status", {
       method: "PUT",
       headers: {
@@ -230,8 +228,6 @@ const ShowZorunluForm = () => {
     }
   }
 
-
-
   return (
     <div className="staj-container">
       <div className="Navbar-Part">
@@ -248,24 +244,24 @@ const ShowZorunluForm = () => {
               ></img>
             </div>
             <div className="staj-header">
-              <h1>Zorunlu Staj Formu</h1>
+              <h1>Compulsory Internship Form</h1>
             </div>
           </div>
           <div className="staj-content-entry-part">
             <p>
-              <h4>İlgili Makam’a,</h4>
-              {data.Value.studentDepartment} &nbsp; Bölümü/Programı
-              öğrencilerinin öğrenim süresi sonuna kadar kuruluş ve işletmelerde
-              staj yapma zorunluluğu vardır. Aşağıda bilgileri yer alan
-              öğrencimizin stajını {data.Value.studentInternTotalDay} gün
-              süreyle kuruluşunuzda yapmasında göstereceğiniz ilgiye teşekkür
-              eder, çalışmalarınızda başarılar dileriz.
+              <h4>To the Relevant Authority,</h4>
+              {data.Value.studentDepartment} &nbsp; Department/Program students
+              are obliged to do internships in organizations and enterprises
+              until the end of the study period. We would like to thank you for
+              your interest in doing the internship of our student in your
+              organization for {data.Value.studentInternTotalDay} days and wish
+              you success in your studies.
             </p>
           </div>
           <div className="staj-student-info-part">
-            <h3>ÖĞRENCİNİN BİLGİLERİ</h3>
+            <h3>STUDENT'S INFORMATION</h3>
             <div className="staj-company-row">
-              <label className="staj-company-label">T.C Kimlik No:</label>
+              <label className="staj-company-label">Citizenship No:</label>
               <input
                 disabled={true}
                 type="text"
@@ -275,7 +271,7 @@ const ShowZorunluForm = () => {
             </div>
             <div className="staj-company-row">
               <div className="staj-company-row-left">
-                <label className="staj-company-label">Adı Soyadı:</label>
+                <label className="staj-company-label">Full Name:</label>
                 <input
                   disabled={true}
                   type="text"
@@ -284,7 +280,7 @@ const ShowZorunluForm = () => {
                 ></input>
               </div>
               <div className="staj-company-row-right">
-                <label className="staj-company-label">Öğrenci No:</label>
+                <label className="staj-company-label">School Id:</label>
                 <input
                   disabled={true}
                   type="text"
@@ -295,7 +291,7 @@ const ShowZorunluForm = () => {
             </div>
             <div className="staj-company-row">
               <div className="staj-company-row-left">
-                <label className="staj-company-label">Bölüm/Program</label>
+                <label className="staj-company-label">Department/Program</label>
                 <input
                   disabled={true}
                   type="text"
@@ -305,7 +301,7 @@ const ShowZorunluForm = () => {
               </div>
               <div className="staj-company-row-right">
                 <label className="staj-company-label border">
-                  Staj Ders Kodu:
+                Internship Course Code:
                 </label>
                 <input
                   disabled={true}
@@ -317,7 +313,7 @@ const ShowZorunluForm = () => {
             </div>
             <div className="staj-company-row">
               <div className="staj-company-row-left">
-                <label className="staj-company-label">E-Posta Adresi:</label>
+                <label className="staj-company-label">E-Mail:</label>
                 <input
                   disabled={true}
                   type="text"
@@ -326,7 +322,7 @@ const ShowZorunluForm = () => {
                 ></input>
               </div>
               <div className="staj-company-row-right">
-                <label className="staj-company-label">Telefon No:</label>
+                <label className="staj-company-label">Phone:</label>
                 <input
                   disabled={true}
                   type="text"
@@ -336,7 +332,7 @@ const ShowZorunluForm = () => {
               </div>
             </div>
             <div className="staj-company-row">
-              <label className="staj-company-label">İkametgah Adresi:</label>
+              <label className="staj-company-label">Residence Address:</label>
               <input
                 disabled={true}
                 type="text"
@@ -346,10 +342,10 @@ const ShowZorunluForm = () => {
             </div>
           </div>
           <div className="staj-company-info-part">
-            <h3>STAJ YAPILAN KURUMUN</h3>
+            <h3>INTERNSHIP INSTITUTION</h3>
             <div className="staj-company-details">
               <div className="staj-company-row">
-                <label className="staj-company-label">Adı</label>
+                <label className="staj-company-label">Name</label>
                 <input
                   disabled={true}
                   type="text"
@@ -358,7 +354,7 @@ const ShowZorunluForm = () => {
                 ></input>
               </div>
               <div className="staj-company-row">
-                <label className="staj-company-label">Adresi</label>
+                <label className="staj-company-label">Address</label>
                 <input
                   disabled={true}
                   type="text"
@@ -368,7 +364,7 @@ const ShowZorunluForm = () => {
               </div>
               <div className="staj-company-row">
                 <label className="staj-company-label">
-                  Üretim/Hizmet Alanı
+                Production/Service Area
                 </label>
                 <input
                   disabled={true}
@@ -379,7 +375,7 @@ const ShowZorunluForm = () => {
               </div>
               <div className="staj-company-row">
                 <div className="staj-company-row-left">
-                  <label className="staj-company-label">Telefon</label>
+                  <label className="staj-company-label">Phone</label>
                   <input
                     disabled={true}
                     type="text"
@@ -388,7 +384,7 @@ const ShowZorunluForm = () => {
                   ></input>
                 </div>
                 <div className="staj-company-row-right">
-                  <label className="staj-company-label">Faks</label>
+                  <label className="staj-company-label">Fax</label>
                   <input
                     disabled={true}
                     type="text"
@@ -399,7 +395,7 @@ const ShowZorunluForm = () => {
               </div>
               <div className="staj-company-row">
                 <div className="staj-company-row-left">
-                  <label className="staj-company-label">E-posta adresi</label>
+                  <label className="staj-company-label">E-Mail</label>
                   <input
                     disabled={true}
                     type="text"
@@ -408,7 +404,7 @@ const ShowZorunluForm = () => {
                   ></input>
                 </div>
                 <div className="staj-company-row-right">
-                  <label className="staj-company-label">Web Adresi</label>
+                  <label className="staj-company-label">Web Address</label>
                   <input
                     disabled={true}
                     type="text"
@@ -420,7 +416,7 @@ const ShowZorunluForm = () => {
               <div className="staj-company-row">
                 <div className="staj-company-row-left">
                   <label className="staj-company-label">
-                    Staj Başlangıç Tarihi:
+                  Internship Start Date:
                   </label>
                   <input
                     disabled={true}
@@ -430,7 +426,7 @@ const ShowZorunluForm = () => {
                   ></input>
                 </div>
                 <div className="staj-company-row-mid">
-                  <label className="staj-company-label">Bitiş Tarihi:</label>
+                  <label className="staj-company-label">Internship End Date:</label>
                   <input
                     disabled={true}
                     type="text"
@@ -439,7 +435,7 @@ const ShowZorunluForm = () => {
                   ></input>
                 </div>
                 <div className="staj-company-row-right">
-                  <label className="staj-company-label">Süresi (gün)</label>
+                  <label className="staj-company-label">Duration (days)</label>
                   <input
                     disabled={true}
                     type="text"
@@ -450,7 +446,7 @@ const ShowZorunluForm = () => {
               </div>
               <div className="staj-company-row">
                 <label className="staj-company-label">
-                  Staja Çıkılacak Günler
+                Internship Days
                 </label>
                 <input
                   disabled={true}
@@ -461,7 +457,7 @@ const ShowZorunluForm = () => {
               </div>
               <div className="staj-company-row">
                 <label className="staj-company-label border">
-                  Staj Uygulama Türü:
+                Internship Type:
                 </label>
                 <input
                   disabled={true}
@@ -473,11 +469,11 @@ const ShowZorunluForm = () => {
             </div>
           </div>
           <div className="staj-stakeholder-part">
-            <h3>İŞVEREN VEYA YETKİLİNİN</h3>
+            <h3>EMPLOYEE OF COMPANY</h3>
             <div className="staj-stakeholder-part-details">
               <div className="staj-stakeholder-part-row">
                 <label className="staj-stakeholder-part-label ">
-                  Adı Soyadı
+                Full Name
                 </label>
                 <input
                   disabled={true}
@@ -488,7 +484,7 @@ const ShowZorunluForm = () => {
               </div>
               <div className="staj-stakeholder-part-row">
                 <label className="staj-stakeholder-part-label">
-                  Görev ve Unvanı
+                Title
                 </label>
                 <input
                   disabled={true}
@@ -499,7 +495,7 @@ const ShowZorunluForm = () => {
               </div>
               <div className="staj-stakeholder-part-row">
                 <label className="staj-stakeholder-part-label">
-                  E-posta adresi
+                E-Mail
                 </label>
                 <input
                   disabled={true}
@@ -509,7 +505,7 @@ const ShowZorunluForm = () => {
                 ></input>
               </div>
               <div className="staj-stakeholder-part-row">
-                <label className="staj-stakeholder-part-label">Tarih</label>
+                <label className="staj-stakeholder-part-label">Date</label>
                 <input
                   disabled={true}
                   type="text"
@@ -522,21 +518,21 @@ const ShowZorunluForm = () => {
           {!data.IsConfirmed && !isUserStudent && !data.IsRejected && (
             <div className="staj-button-part">
               <div className="show-staj-reject">
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={handleClickOpen}
-                    >
-                      Reject
-                    </Button>
-                    {data && (
-                      <SimpleDialog
-                        selectedValue={selectedValue}
-                        open={open}
-                        onClose={handleClose}
-                      />
-                    )}
-                  </div>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={handleClickOpen}
+                >
+                  Reject
+                </Button>
+                {data && (
+                  <SimpleDialog
+                    selectedValue={selectedValue}
+                    open={open}
+                    onClose={handleClose}
+                  />
+                )}
+              </div>
               <div className="show-staj-approve">
                 <Button
                   variant="contained"
@@ -549,16 +545,16 @@ const ShowZorunluForm = () => {
               </div>
             </div>
           )}
-          {data.IsConfirmed && !data.IsRejected  && 
-          <div className="show-staj-approved-info">
-            <h2>Approved</h2>
-          </div>
-          }
-          {data.IsRejected && 
-          <div className="show-staj-rejected-info">
-            <h2>Rejected</h2>
-          </div>
-          }
+          {data.IsConfirmed && !data.IsRejected && (
+            <div className="show-staj-approved-info">
+              <h2>Approved</h2>
+            </div>
+          )}
+          {data.IsRejected && (
+            <div className="show-staj-rejected-info">
+              <h2>Rejected</h2>
+            </div>
+          )}
         </div>
       )}
     </div>

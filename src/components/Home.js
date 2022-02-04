@@ -12,6 +12,7 @@ const Home = () => {
   const [ifControl, setIfControl] = useState(true);
   const [isUserStudent, setIsUserStudent] = useState(null);
   const [isUserUniversityPerson, setIsUserUniversityPerson] = useState(null);
+  const [isUserStakeholder, setIsUserStakeholder] = useState(null);
 
   var decoded;
   if (!token) {
@@ -41,6 +42,13 @@ const Home = () => {
         setIsUserUniversityPerson(false);
       }
     }
+    if (isUserStakeholder === null) {
+      if (decoded.role === 6) {
+        setIsUserStakeholder(true);
+      } else {
+        setIsUserStakeholder(false);
+      }
+    }
   }
   return (
     <div className="home-container">
@@ -55,47 +63,53 @@ const Home = () => {
               {isUserStudent && (
                 <div className="home-student-description">
                   <p>
-                    <h4>Staj saşvuru sistemine hoş geldiniz </h4>
-                    {"->"} Forms başlığı altında 6 tane belge bulunmaktadır ve
-                    staj öncesinde her bir stajınız için , İş Veren Bilgi Formu
-                    ve Zorunlu Staj Formunu doldurma zorunluluğunuz
-                    bulunmaktadır.<br></br>
+                    <h4>Welcome To The Internship Application System </h4>
+                    {"->"} There are 6 documents under the heading Forms and you
+                    are obliged to fill out the Employer Information Form and
+                    Compulsory Internship Form for each of your internships
+                    prior to the placement.<br></br>
                     <br></br>
-                    {"->"} Doldurmak istediğiniz forma girdiğinizde choose
-                    stakeholder butonunu kullanarak sisteme kayıtlı olan şirket
-                    paydaşlarını görüntüleyebilir.ve seçebilirsiniz. Seçiminiz sonucunda şirket paydaşına ait
-                    bilgiler formunuza eklenecektir. Şirket paydaşınızın
-                    bölümlerine bir ekleme yapmanıza ihtiyaç yoktur.<br></br>
+                    {"->"} When you enter the form you want to fill out, you can
+                    use the choose stakeholder button to select the company
+                    stakeholders registered in the system görüntüleyebilir.ve.
+                    As a result of your selection, information about the company
+                    stakeholder will be added to your form. You don't need to
+                    add to your company stakeholder's sections.<br></br>
                     <br></br>
-                    {"->"} Gerekli eklemeleri formunuzu onaya yolladıktan sonra şirket
-                    paydaşına ait boş olan alanları şirket paydaşınız doldurup,
-                    onaylayacaktır.<br></br>
+                    {"->"} After filling out the necessary additions and sending
+                    your form for approval, your company stakeholder will fill
+                    in and approve the empty fields belonging to the company
+                    stakeholder.<br></br>
                     <br></br>
-                    {"->"} Doldurduğunuz belgelerinizin durumlarını profilim
-                    sayfasından detaylı bir şekilde görüntüleyebilirsiniz.
-                    <br></br>
-                    <br></br>
-                    {"->"} Gerekli olan 3 staj evrağınızın onaylanması sonucunda
-                    stajınız kabul edilmiştir.<br></br>
-                    <br></br>
-                    {"->"} Red edilen belgeleriniz için tekrardan reddedilen
-                    belge için yeni bir belge oluşturup onaya yollayabilirsiniz.
+                    {"->"} You can view the status of your completed documents
+                    in detail on the my profile page.
                     <br></br>
                     <br></br>
-                    <h4>Staj Bitimi Sonrasında</h4>
-                    {"->"} Staj raporunuzu formlar sayfası altından Staj
-                    Raporunu seçerek sisteme yükleyebilirsiniz.<br></br>
-                    <br></br>
-                    {"->"} Staj raporunuzu sisteme yüklerken şirket paydaşınızın
-                    onayına gitmesi için şirket paydaşı seçmeniz gerekmektedir.
+                    {"->"} As a result of the approval of the required
+                    internship documents, your internship has been accepted.
                     <br></br>
                     <br></br>
-                    Staj raporunuzu sisteme yükledikten sonra,<br></br>
+                    {"->"} You can create and submit a new document for your
+                    rejected documents for the re-rejected document.
                     <br></br>
-                    {"->"} Değerlendirme belgesini doldurmanız beklenmektedir.
-                    Şirket paydaş seçiminizi yaptıktan sonra sistemde açık
-                    alanları doldurup şirket paydaşınızın onayına
-                    sunabilirsiniz.<br></br>
+                    <br></br>
+                    <h4>After The End of The Internship</h4>
+                    {"->"} You can upload your internship report to the system
+                    by selecting the Internship Report under the forms page.
+                    <br></br>
+                    <br></br>
+                    {"->"} When uploading your internship report to the system,
+                    you need to select a company stakeholder to go to the
+                    approval of your company stakeholder.
+                    <br></br>
+                    <br></br>
+                    After uploading your internship report to the system,
+                    <br></br>
+                    <br></br>
+                    {"->"} You are expected to complete the evaluation document.
+                    After the company has made your stakeholder selection, you
+                    can fill in the open areas in the system and submit it for
+                    the approval of your company stakeholder.<br></br>
                     <br></br>
                   </p>
                 </div>
@@ -103,25 +117,62 @@ const Home = () => {
               {isUserUniversityPerson && (
                 <div className="home-university-description">
                   <p>
-                    <h4>Staj saşvuru sistemine hoş geldiniz </h4>
-                    {"->"} Student forms başlığı altında staj belgelerini
-                    doldurmuş ve gerekli onaylardan geçmiş belgelerin listesine
-                    ulaşabilirsiniz<br></br>
+                    <h4>Welcome to the internship application system </h4>
+                    {"->"} Under the heading Student forms, you can reach the
+                    list of documents that have completed the internship
+                    documents and passed the necessary approvals<br></br>
                     <br></br>
-                    {"->"} Student forms sayfası altında incelemek istediğiniz
-                    formu listeden seçip show butonuna bastıdığınızda öğrencinin
-                    doldurmuş olduğu formu inceleyebilirsiniz<br></br>
+                    {"->"} Under student forms page, you can select the form you
+                    want to examine from the list and press the show button and
+                    examine the form that the student has filled out<br></br>
                     <br></br>
-                    {"->"} Formda yeterli gereksinimler karşılanıyorsa approve
-                    butonuna basarak formu onaylayabilirsiniz<br></br>
+                    {"->"} If sufficient requirements are met on the form, you
+                    can confirm the form by pressing the approve button<br></br>
                     <br></br>
-                    {"->"} Formda yeterli gereksinimler karşılanmıyorsa reject
-                    butonuna basarak açılan pop-up'tan hangi gereksinimi
-                    karşılamadığını seçerek formu reddedebilirsiniz<br></br>
+                    {"->"} If the form does not meet sufficient requirements,
+                    you can reject the form by selecting which requirement it
+                    does not meet from the pop-up that opens by pressing the
+                    reject button<br></br>
                     <br></br>
-                    {"->"} Kişisel bilgilerinizi güncellemek istiyorsanız
-                    profile başlığı altından değiştirilebilir alanları
-                    değiştirip update butonuna basabilirsiniz.<br></br>
+                    {"->"} If you want to update your personal information, you
+                    can change the interchangeable areas under the profile title
+                    and press the update button.<br></br>
+                    <br></br>
+                  </p>
+                </div>
+              )}
+              {isUserStakeholder && (
+                <div className="home-university-description">
+                  <p>
+                    <h4>Welcome to the internship application system </h4>
+                    {"->"} Under the heading Student forms, you can reach the
+                    list of documents that have completed the internship
+                    documents and passed the necessary approvals<br></br>
+                    <br></br>
+                    {"->"} Under student forms page, you can select the form you
+                    want to examine from the list and press the show button and
+                    examine the form that the student has filled out<br></br>
+                    <br></br>
+                    {"->"} For forms that do not have the Approve button, you
+                    are expected to fill in the blank fields. After filling in
+                    the required fields, you can click send for approval button.
+                    <br></br>
+                    <br></br>
+                    {"->"} If sufficient requirements are met on the form, you
+                    can confirm the form by pressing the approve button<br></br>
+                    <br></br>
+                    {"->"} If the form does not meet sufficient requirements,
+                    you can reject the form by selecting which requirement it
+                    does not meet from the pop-up that opens by pressing the
+                    reject button<br></br>
+                    <br></br>
+                    {"->"} If you want to update your personal information, you
+                    can change the interchangeable areas under the profile title
+                    and press the update button.<br></br>
+                    <br></br>
+                    {"->"} In addition, you can update your company information
+                    by pressing the Update Company button in the sidebar.
+                    <br></br>
                     <br></br>
                   </p>
                 </div>

@@ -14,13 +14,13 @@ import Alert from "@mui/material/Alert";
 
 const studentColumns = [
   { field: "id", hide: true },
-  { field: "FormName", headerName: "Öğrenci", width: 250 },
-  { field: "FormType", headerName: "Form İsmi", width: 200 },
-  { field: "LessonCode", headerName: "Ders Kodu", width: 100 },
-  { field: "InsertedDate", headerName: "Eklenme Tarihi", width: 150 },
-  { field: "FormStatus", headerName: "Belge Durumu", width: 250 },
-  { field: "ApproveStatus", headerName: "Onaylanma Durumu", width: 200 },
-  { field: "RejectReason", headerName: "Reddedilme Sebebi", width: 170 },
+  { field: "FormName", headerName: "Student", width: 250 },
+  { field: "FormType", headerName: "Form Name", width: 250 },
+  { field: "LessonCode", headerName: "Lesson Code", width: 200 },
+  { field: "InsertedDate", headerName: "Inserted Date", width: 150 },
+  { field: "FormStatus", headerName: "Form Status", width: 350 },
+  { field: "ApproveStatus", headerName: "Approval Status", width: 200 },
+  { field: "RejectReason", headerName: "Reject Reason", width: 250 },
 ];
 
 const Profile = () => {
@@ -272,16 +272,16 @@ const Profile = () => {
             )}
             <div className="profile-user-form-buttons">
               <Button type="submit" variant="contained" onClick={handleUpdate}>
-                Güncelle
+                Update
               </Button>
               {failAlert && display && (
                 <Alert severity="error">
-                  Bir Hata ile Karşılaşıldı. Bilgilerinizi Kontrol Ediniz
+                  An Error was Encountered. Please Check Your Information
                 </Alert>
               )}
               {successfulAlert && display && (
                 <Alert severity="success">
-                  Bilgileriniz Başarıyla Güncellendi
+                  Your Information Has Been Successfully Updated
                 </Alert>
               )}
             </div>

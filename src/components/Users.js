@@ -187,11 +187,11 @@ const Users = () => {
           </div>
           {failAlert && display && (
             <Alert severity="error">
-              Bir Hata ile Karşılaşıldı. Tekrar Deneyiniz
+              An Error was Encountered. Please Check Your Information
             </Alert>
           )}
           {successfulAlert && display && (
-            <Alert severity="success">Kullanıcı Başarıyla Silindi</Alert>
+            <Alert severity="success">User Deleted Successfully</Alert>
           )}
         </div>
         <div className="user-content-mid">
@@ -240,11 +240,11 @@ const Users = () => {
             </div>
             {failAlert2 && display2 && (
             <Alert severity="error">
-              Bir Hata ile Karşılaşıldı. Tekrar Deneyiniz
+              An Error was Encountered. Please Check Your Information
             </Alert>
           )}
           {successfulAlert2 && display2 && (
-            <Alert severity="success">İşleminiz Başarıyla Tamamlandı</Alert>
+            <Alert severity="success">Your Operation Completed Successfully</Alert>
           )}
           </div>
         </div>

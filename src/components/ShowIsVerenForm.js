@@ -322,86 +322,86 @@ const ShowIsverenForm = () => {
         </div>
         <div className="show-isveren-header-part">
           <p>
-            T.C. <br></br> FMV IŞIK ÜNİVERSİTESİ <br></br> İŞVEREN BİLGİ FORMU
+          T.C. <br></br> FMV ISIK UNIVERSITY <br></br> EMPLOYER INFORMATION FORM
           </p>
         </div>
         {data && (
           <div className="show-isveren-form-part">
             <form className="show-isveren-form">
               <div className="show-isveren-company-part">
-                <h3>STAJ YAPILAN KURUMUN</h3>
+                <h3>INTERNSHIP INSTITUTION</h3>
                 <div className="show-isveren-company-details">
                   <div className="show-isveren-company-row">
-                    <label className="show-isveren-company-label">Adı</label>
+                    <label className="show-isveren-company-label">Name</label>
                     <p>{data.Value.companyName}</p>
                   </div>
                   <div className="show-isveren-company-row">
-                    <label className="show-isveren-company-label">Adresi</label>
+                    <label className="show-isveren-company-label">Address</label>
                     <p>{data.Value.companyAddress}</p>
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
-                      Üretim/Hizmet Alanı
+                    Production/Service Area
                     </label>
                     <p>{data.Value.companySector}</p>
                   </div>
                   <div className="show-isveren-company-row">
                     <div className="show-isveren-company-row-left">
                       <label className="show-isveren-company-label">
-                        Telefon
+                      Phone
                       </label>
                       <p>{data.Value.companyPhone}</p>
                     </div>
                     <div className="show-isveren-company-row-right">
-                      <label className="show-isveren-company-label">Faks</label>
+                      <label className="show-isveren-company-label">Fax</label>
                       <p>{data.Value.companyFax}</p>
                     </div>
                   </div>
                   <div className="show-isveren-company-row">
                     <div className="show-isveren-company-row-left">
                       <label className="show-isveren-company-label">
-                        E-posta adresi
+                        E-Mail
                       </label>
                       <p>{data.Value.companyMail}</p>
                     </div>
                     <div className="show-isveren-company-row-right">
                       <label className="show-isveren-company-label">
-                        Web Adresi
+                        Web Address
                       </label>
                       <p>{data.Value.companyWeb}</p>
                     </div>
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
-                      Kurumda Çalışan Personel Sayısı
+                    Number of Employees Working in the Institution
                     </label>
                     <p>{data.Value.companyEmployeeNo}</p>
                   </div>
                 </div>
               </div>
               <div className="show-isveren-part">
-                <h3>İŞVEREN VEYA YETKİLİNİN</h3>
+                <h3>EMPLOYEE OF COMPANY</h3>
                 <div className="show-isveren-part-details">
                   <div className="show-isveren-part-row">
                     <label className="show-isveren-part-label ">
-                      Adı Soyadı
+                    Full Name
                     </label>
                     <p>{data.Value.companyPersonFullName}</p>
                   </div>
                   <div className="show-isveren-part-row">
                     <label className="show-isveren-part-label">
-                      Görev ve Unvanı
+                    Title
                     </label>
                     <p>{data.Value.companyPersonTitle}</p>
                   </div>
                   <div className="show-isveren-part-row">
                     <label className="show-isveren-part-label">
-                      E-posta adresi
+                      E-Mail
                     </label>
                     <p>{data.Value.companyPersonMail}</p>
                   </div>
                   <div className="show-isveren-part-row">
-                    <label className="show-isveren-part-label">Tarih</label>
+                    <label className="show-isveren-part-label">Date</label>
                     <p>{data.Value.companyPersonDate}</p>
                   </div>
                 </div>
@@ -410,27 +410,27 @@ const ShowIsverenForm = () => {
                 <div className="show-isveren-student-details">
                   <div className="show-isveren-student-row">
                     <label className="show-isveren-student-label">
-                      STAJYER ÖĞRENCİNİN ADI - SOYADI
+                    NAME AND SURNAME OF THE TRAINEE STUDENT
                     </label>
                     <p>{data.Value.fullName}</p>
                   </div>
                   <div className="show-isveren-student-row">
                     <label className="show-isveren-student-label">
-                      ÖĞRENCİNİN DOĞUM TARİHİ - ÖĞRENCİ NO
+                    DATE OF BIRTH OF THE STUDENT - SCHOOL ID
                     </label>
                     <p>{data.Value.studentBirth}</p>
                     <p>{data.Value.studentSchoolId}</p>
                   </div>
                   <div className="show-isveren-student-row">
                     <label className="show-isveren-student-label">
-                      ÖĞRENCİNİN STAJ TARİHLERİ
+                    STUDENT'S INTERNSHIP DATES
                     </label>
                     <p>{data.Value.studentInternStart}</p>
                     <p>{data.Value.studentInternEnd}</p>
                   </div>
                   <div className="show-isveren-student-row">
                     <label className="show-isveren-student-label border">
-                      STAJYER ÖĞRENCİYE ÜCRET ÖDENECEK Mİ?
+                    WILL THE TRAINEE STUDENT BE PAID?
                     </label>
                     {isUserStakeholder && (
                       <FormControl
@@ -443,23 +443,23 @@ const ShowIsverenForm = () => {
                           name="row-radio-buttons-group"
                         >
                           <FormControlLabel
-                            value="evet"
+                            value="yes"
                             control={<Radio />}
-                            label="Evet"
+                            label="Yes"
                             onChange={(e) => setStudentGetWage(1)}
                           />
                           <FormControlLabel
                             style={{ marginLeft: 300 }}
-                            value="hayır"
+                            value="no"
                             control={<Radio />}
-                            label="Hayır"
+                            label="No"
                             onChange={(e) => setStudentGetWage(0)}
                           />
                         </RadioGroup>
                       </FormControl>
                     )}
                     {data.StakeholderId && (
-                      <p>{data.Value.studentGetWage == 1 ? "Evet" : "Hayır"}</p>
+                      <p>{data.Value.studentGetWage == 1 ? "Yes" : "No"}</p>
                     )}
                   </div>
                 </div>
@@ -468,7 +468,7 @@ const ShowIsverenForm = () => {
                 <div className="show-isveren-company-details">
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
-                      KURUMUN UNVANI
+                    TITLE OF THE INSTITUTION
                     </label>
                     {isUserStakeholder && !data.StakeholderId && (
                       <input
@@ -500,7 +500,7 @@ const ShowIsverenForm = () => {
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
-                      HESAP NO
+                    ACCOUNT NO
                     </label>
                     {isUserStakeholder && !data.StakeholderId && (
                       <input
@@ -516,7 +516,7 @@ const ShowIsverenForm = () => {
                   </div>
                   <div className="show-isveren-company-row">
                     <label className="show-isveren-company-label">
-                      BANKA ADI - ŞUBE KODU
+                    BANK NAME - BRANCH CODE
                     </label>
                     {isUserStakeholder && !data.StakeholderId && (
                       <input

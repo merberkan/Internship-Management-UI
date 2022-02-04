@@ -290,41 +290,41 @@ const ShowBeyanForm43 = () => {
               </div>
               <div className="show-beyan-form-detail-part">
                 <p>
-                  &nbsp;&nbsp; Üniversitemizin &nbsp;
-                  <span>{detailData.Value.faculty}</span>
-                  &nbsp; Fakültesi/Enstitüsü &nbsp;
-                  <span>{detailData.Value.department1}</span> &nbsp; Bölümü
-                  öğrencisiyim &nbsp;
-                  <span>{detailData.Value.company}</span> &nbsp;
+                  &nbsp;&nbsp; I am a student of &nbsp;
+                  <span>{detailData.Value.department1}</span>
+                  &nbsp; department of the Faculty of &nbsp;
+                  <span>{detailData.Value.faculty}</span> &nbsp; of the
+                  University
+                  <span>{detailData.Value.company}</span> &nbsp; Akdeniz Holding
                   biriminde/işyerinde Kısmi Zamanlı Öğrenci olarak / Stajyer
                   Öğrenci olarak 5510 sayılı Kanunun 5/b maddesi uyarınca
                   çalışmak istiyorum. Ailemden, annem / babam üzerinden genel
                   sağlık sigortası kapsamında sağlık hizmeti almıyorum. Bu
                   nedenle kısmi zamanlı çalışmam veya stajım boyunca genel
                   sağlık sigortası kapsamında olmayı kabul ediyorum. <br></br>{" "}
-                  &nbsp;&nbsp; Beyanımın doğruluğunu, durumumda değişiklik
-                  olması durumunda değişikliği hemen bildireceğimi kabul eder,
-                  beyanımın hatalı veya eksik olmasından kaynaklanacak prim,
-                  idari para cezası, gecikme zammı ve gecikme faizinin tarafımca
-                  ödeneceğini taahhüt ederim.
+                  &nbsp;&nbsp; I agree that I will notify
+                you immediately of the accuracy of my statement and if there is
+                a change in my status, I undertake that I will pay the premium,
+                administrative fine, delay increase and late interest resulting
+                from the inaccurate or incompleteness of my statement.
                 </p>
                 <p></p>
               </div>
               <div className="show-beyan-form-student-inputs">
                 <div className="show-beyan-input-part">
-                  <label>Adı Soyad: </label>
+                  <label>Full Name: </label>
                   <span>{detailData.Value.fullName}</span>
                 </div>
                 <div className="show-beyan-input-part">
-                  <label>T.C.Kimlik No: </label>
+                  <label>Citizenship No: </label>
                   <span>{detailData.Value.id}</span>
                 </div>
                 <div className="show-beyan-input-part">
-                  <label>Bölümü :</label>
+                  <label>Department:</label>
                   <span>{detailData.Value.department2}</span>
                 </div>
                 <div className="show-beyan-input-part">
-                  <label>Öğrenci No :</label>
+                  <label>School Id:</label>
                   <span>{detailData.Value.schoolId}</span>
                 </div>
               </div>

@@ -51,6 +51,8 @@ const CompanyUpdate = () => {
   useEffect(() => {
     setTimeout(() => {
       setDisplay(false);
+      setSuccessfulAlert(false);
+      setFailAlert(false);
     }, 5000);
   }, [display]);
 
@@ -241,12 +243,12 @@ const CompanyUpdate = () => {
               </Button>
               {failAlert && display && (
                 <Alert severity="error">
-                  Bir Hata ile Karşılaşıldı. Bilgilerinizi Kontrol Ediniz
+                  Check the Missing Information Detected Form.
                 </Alert>
               )}
               {successfulAlert && display && (
                 <Alert severity="success">
-                  Bilgileriniz Başarıyla Güncellendi
+                  Your Information Has Been Successfully Updated
                 </Alert>
               )}
             </div>

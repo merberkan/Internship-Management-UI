@@ -34,7 +34,7 @@ const BeyanForm = () => {
   try {
     token = window.localStorage.getItem("token");
   } catch (error) {
-    history.push('/login')
+    history.push("/login");
   }
   const [isUserLogged, setIsUserLogged] = useState(null);
 
@@ -43,12 +43,12 @@ const BeyanForm = () => {
       setIsUserLogged(true);
     } else {
       setIsUserLogged(false);
-      history.push('/login')
+      history.push("/login");
     }
   }
   var decoded = jwt_decode(token);
-  let companyData = window.localStorage.getItem("company")
-  companyData = companyData ? JSON.parse(companyData):null;
+  let companyData = window.localStorage.getItem("company");
+  companyData = companyData ? JSON.parse(companyData) : null;
   const [fullName, setFullName] = useState("");
   const [id, setId] = useState("");
   const [department1, setDepartment1] = useState("");
@@ -65,13 +65,12 @@ const BeyanForm = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [isUserStudent, setIsUserStudent] = useState(null);
 
-
   if (isUserStudent === null) {
     if (decoded.role === 1) {
       setIsUserStudent(true);
     } else {
       setIsUserStudent(false);
-      history.push('/login')
+      history.push("/login");
     }
   }
 
@@ -145,53 +144,64 @@ const BeyanForm = () => {
   useEffect(() => {
     setTimeout(() => {
       setDisplay(false);
+      setFailAlert(false);
+      setSuccessfulAlert(false);
     }, 3000);
   }, [display]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("lesson code geldi:", lessonCode);
-    const data = {
-      fullName: decoded.fullName,
-      id: decoded.citizenshipNo,
-      department1: decoded.department,
-      schoolId: decoded.studentNo,
-      faculty: decoded.faculty,
-      department2: decoded.department,
-      company: companyData.companyName,
-      formType: 3,
-      lessonCode: lessonCode,
-    };
-
-    console.log("giden model:", JSON.stringify(data));
-
-    fetch("http://localhost:3001/api/form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.ok) {
-          //   window.localStorage.setItem("token", data.data.token);
-          setSuccessfulAlert(true);
-          setDisplay(true);
-          setTimeout(() => {
-            setDisplay(false);
-            history.push("/forms");
-          }, 2000);
-        } else {
+    if (
+      lessonCode === "" ||
+      !companyData
+    ) {
+      setFailAlert(true);
+      setDisplay(true);
+    }else{
+      console.log("lesson code geldi:", lessonCode);
+      const data = {
+        fullName: decoded.fullName,
+        id: decoded.citizenshipNo,
+        department1: decoded.department,
+        schoolId: decoded.studentNo,
+        faculty: decoded.faculty,
+        department2: decoded.department,
+        company: companyData.companyName,
+        formType: 3,
+        lessonCode: lessonCode,
+      };
+  
+      console.log("giden model:", JSON.stringify(data));
+  
+      fetch("http://localhost:3001/api/form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.ok) {
+            //   window.localStorage.setItem("token", data.data.token);
+            setSuccessfulAlert(true);
+            setDisplay(true);
+            setTimeout(() => {
+              setDisplay(false);
+              history.push("/forms");
+            }, 2000);
+          } else {
+            setFailAlert(true);
+            setDisplay(true);
+          }
+        })
+        .catch((e) => {
           setFailAlert(true);
           setDisplay(true);
-        }
-      })
-      .catch((e) => {
-        setFailAlert(true);
-        setDisplay(true);
-      });
+        });
+    }
+    
   };
 
   return (
@@ -208,52 +218,51 @@ const BeyanForm = () => {
         <div className="content-form-part">
           <form onSubmit={handleSubmit}>
             <div className="form-header">
-              <h2>BEYAN VE TAAHHÜTNAME (22)</h2>
+              <h2>DECLARATION AND COMMITMENT (22)</h2>
             </div>
             <div className="form-detail-part">
               <p>
-                &nbsp;&nbsp; Üniversitemizin {decoded.faculty}
-                Fakültesi/Enstitüsü {decoded.department} Bölümü öğrencisiyim{" "}
+                &nbsp;&nbsp; I am a student of {decoded.department} department
+                of the Faculty of {decoded.faculty} of the University I would
+                like to work as a Part-Time Student / Trainee Student in{" "}
                 <input
                   type="text"
                   required
                   disabled={true}
                   className="desc-inputs"
-                  value={companyData ? companyData.companyName:""}
+                  value={companyData ? companyData.companyName : ""}
                   onChange={(e) => setCompany(e.target.value)}
                 ></input>{" "}
-                biriminde/işyerinde Kısmi Zamanlı Öğrenci olarak / Stajyer
-                Öğrenci olarak 5510 sayılı Kanunun 5/b maddesi uyarınca çalışmak
-                istiyorum. Ailemden, annem / babam üzerinden genel sağlık
-                sigortası kapsamında sağlık hizmeti alıyorum. Bu nedenle kısmi
-                zamanlı çalışmam veya stajım boyunca genel sağlık sigortası
-                kapsamında olmayı kabul etmiyorum. <br></br> &nbsp;&nbsp;
-                Beyanımın doğruluğunu, durumumda değişiklik olması durumunda
-                değişikliği hemen bildireceğimi kabul eder, beyanımın hatalı
-                veya eksik olmasından kaynaklanacak prim, idari para cezası,
-                gecikme zammı ve gecikme faizinin tarafımca ödeneceğini taahhüt
-                ederim.
+                &nbsp; unit/workplace in accordance with Article 5/b of the Law
+                No. 5510. I get health care from my family through my parents
+                under general health insurance. Therefore, I do not agree to be
+                covered by general health insurance during my part-time work or
+                internship. <br></br> &nbsp;&nbsp; I agree that I will notify
+                you immediately of the accuracy of my statement and if there is
+                a change in my status, I undertake that I will pay the premium,
+                administrative fine, delay increase and late interest resulting
+                from the inaccurate or incompleteness of my statement.
               </p>
             </div>
             <div className="form-student-inputs">
               <div className="input-part">
-                <label>Adı Soyad: </label>
+                <label>Full Name: </label>
                 <p className="form-student-text">{decoded.fullName}</p>
               </div>
               <div className="input-part">
-                <label>T.C.Kimlik No: </label>
+                <label>Citizenship No: </label>
                 <p className="form-student-text">{decoded.citizenshipNo}</p>
               </div>
               <div className="input-part">
-                <label>Bölümü :</label>
+                <label>Department:</label>
                 <p className="form-student-text">{decoded.department}</p>
               </div>
               <div className="input-part">
-                <label>Öğrenci No :</label>
+                <label>School Id:</label>
                 <p className="form-student-text">{decoded.studentNo}</p>
               </div>
               <div className="input-part">
-                <label>STAJ No:</label>
+                <label>Internship No:</label>
                 <FormControl component="fieldset" required={true}>
                   <RadioGroup
                     row
@@ -309,12 +318,12 @@ const BeyanForm = () => {
 
               {failAlert && display && (
                 <Alert severity="error">
-                  Bir Hata ile Karşılaşıldı. Bilgilerinizi Kontrol Ediniz
+                  Check the Missing Information Detected Form.
                 </Alert>
               )}
               {successfulAlert && display && (
                 <Alert severity="success">
-                  Formunuz Başarılı Bir Şekilde Kayıt Edildi
+                  Your Form Has Been Successfully Saved
                 </Alert>
               )}
             </div>

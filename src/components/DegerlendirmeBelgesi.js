@@ -58,6 +58,7 @@ const Degerlendirme = () => {
   const [isInputsDisabled, setIsInputsDisabled] = useState(false);
   const [ifControl, setIfControl] = useState(true);
   const [isLoginFail, setIsLoginFail] = useState();
+  const [successfulAlert, setSuccessfulAlert] = useState();
   const [failAlert, setFailAlert] = useState();
   const [display, setDisplay] = useState(true);
   const [lessonCode, setLessonCode] = useState("");
@@ -197,70 +198,87 @@ const Degerlendirme = () => {
   useEffect(() => {
     setTimeout(() => {
       setDisplay(false);
+      setFailAlert(false);
+      setSuccessfulAlert(false);
     }, 5000);
   }, [display]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const data = {
-      companyName:companyData.companyName,
-      companyAddress:companyData.companyAddress,
-      companySector: companyData.companySector,
-      companyPhone : companyData.companyPhoneNo,
-      companyFax: companyData.companyFaxNo,
-      companyMail : companyData.companyEmail,
-      companyWeb: companyData.companyWebAddress,
-      companyEmployeeNo: companyData.companyCompanyEmployeeNo,
-      companyPersonFullName: companyData.companyEmployeeName,
-      companyPersonTitle: companyData.title,
-      companyPersonMail: companyData.email,
-      companyPersonDate,
-      studentCitizenshipNo: decoded.citizenshipNo,
-      fullName: decoded.fullName,
-      studentSchoolId:  decoded.studentNo,
-      studentDepartment:  decoded.department,
-      lessonCode,
-      studentEmail:  decoded.email,
-      studentPhone: decoded.phone,
-      studentAddress: decoded.address,
-      studentInternInfo,
-      studentInternStart,
-      studentInternEnd,
-      studentInternTotalDay,
-      studentsInternDays,
-      companyPersonQ1,
-      companyPersonQ2,
-      companyPersonQ3,
-      companyPersonQ4,
-      companyPersonQ5,
-      companyPersonOpinion,
-      formType: 6,
-    };
-
-    console.log("giden model:", JSON.stringify(data));
-    fetch("http://localhost:3001/api/form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.ok) {
-          //   window.localStorage.setItem("token", data.data.token);
-          history.push("/forms");
-        } else {
-          setIsLoginFail(data.message);
-          setFailAlert(true);
-          setDisplay(true);
-        }
+    if (
+      studentInternStart === "" ||
+      studentInternStart === "" ||
+      studentInternEnd === "" ||
+      studentInternTotalDay === "" ||
+      lessonCode === ""
+    ) {
+      setFailAlert(true);
+      setDisplay(true);
+    }else{
+      const data = {
+        companyName:companyData.companyName,
+        companyAddress:companyData.companyAddress,
+        companySector: companyData.companySector,
+        companyPhone : companyData.companyPhoneNo,
+        companyFax: companyData.companyFaxNo,
+        companyMail : companyData.companyEmail,
+        companyWeb: companyData.companyWebAddress,
+        companyEmployeeNo: companyData.companyCompanyEmployeeNo,
+        companyPersonFullName: companyData.companyEmployeeName,
+        companyPersonTitle: companyData.title,
+        companyPersonMail: companyData.email,
+        companyPersonDate,
+        studentCitizenshipNo: decoded.citizenshipNo,
+        fullName: decoded.fullName,
+        studentSchoolId:  decoded.studentNo,
+        studentDepartment:  decoded.department,
+        lessonCode,
+        studentEmail:  decoded.email,
+        studentPhone: decoded.phone,
+        studentAddress: decoded.address,
+        studentInternInfo,
+        studentInternStart,
+        studentInternEnd,
+        studentInternTotalDay,
+        studentsInternDays,
+        companyPersonQ1,
+        companyPersonQ2,
+        companyPersonQ3,
+        companyPersonQ4,
+        companyPersonQ5,
+        companyPersonOpinion,
+        formType: 6,
+      };
+  
+      console.log("giden model:", JSON.stringify(data));
+      fetch("http://localhost:3001/api/form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(data),
       })
-      .catch((e) => {
-        console.log("cannot logged:", e.message);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.ok) {
+            //   window.localStorage.setItem("token", data.data.token);
+            setSuccessfulAlert(true);
+            setDisplay(true);
+            setTimeout(() => {
+              setDisplay(false);
+              history.push("/forms");
+            }, 2000);
+          } else {
+            setIsLoginFail(data.message);
+            setFailAlert(true);
+            setDisplay(true);
+          }
+        })
+        .catch((e) => {
+          console.log("cannot logged:", e.message);
+        });
+    }
   };
 
   return (
@@ -270,29 +288,39 @@ const Degerlendirme = () => {
       </div>
       <div className="degerlendirme-content">
         <div className="degerlendirme-header">
-          <h2>Staj Değerlendirme Belgesi</h2>
+          <h2>Internship Evaluation Form</h2>
         </div>
+        {failAlert && display && (
+                <Alert severity="error">
+                  Check the Missing Information Detected Form.
+                </Alert>
+              )}
+              {successfulAlert && display && (
+                <Alert severity="success">
+                  Your Form Has Been Successfully Saved
+                </Alert>
+              )}
         <div className="degerlendirme-students-part">
-          <h3 className="label">Staj Çalışması Yapan Öğrenciye İlişkin Bilgiler:</h3>
+          <h3 className="label">Information about the Student Doing Internship Work:</h3>
           <div className="degerlendirme-student-details">
             <div className="degerlendirme-student-row">
               <label className="degerlendirme-student-label ">
-                Adı ve Soyadı
+                Full Name
               </label>
               <p className="degerlendirme-student">{decoded.fullName}</p>
             </div>
             <div className="degerlendirme-student-row">
-              <label className="degerlendirme-student-label ">Numarası</label>
+              <label className="degerlendirme-student-label ">Phone</label>
               <p className="degerlendirme-student">{decoded.studentNo}</p>
             </div>
             <div className="degerlendirme-student-row">
               <label className="degerlendirme-student-label ">
-                Bölüm/Program
+              Department/Program
               </label>
               <p className="degerlendirme-student">{decoded.department}</p>
             </div>
             <div className="degerlendirme-student-row">
-              <label className="degerlendirme-student-label ">Staj No</label>
+              <label className="degerlendirme-student-label ">Internship No</label>
               <div className="degerlendirme-radio">
                 <FormControl component="fieldset" required={true}>
                   <RadioGroup
@@ -327,10 +355,10 @@ const Degerlendirme = () => {
           </div>
         </div>
         <div className="degerlendirme-company-part">
-          <h3 className="label">STAJ YAPILAN KURUMUN</h3>
+          <h3 className="label">INTERNSHIP INSTITUTION</h3>
           <div className="degerlendirme-company-details">
             <div className="degerlendirme-company-row">
-              <label className="degerlendirme-company-label">Adı</label>
+              <label className="degerlendirme-company-label">Name</label>
               <input
                 disabled={true}
                 type="text"
@@ -340,7 +368,7 @@ const Degerlendirme = () => {
               ></input>
             </div>
             <div className="degerlendirme-company-row">
-              <label className="degerlendirme-company-label">Adresi</label>
+              <label className="degerlendirme-company-label">Address</label>
               <input
                 disabled={true}
                 type="text"
@@ -352,7 +380,7 @@ const Degerlendirme = () => {
             <div className="degerlendirme-company-row">
               <div className="degerlendirme-company-row-left">
                 <label className="degerlendirme-company-label">
-                  Staj Başlangıç Tarihi:
+                Internship Start Date:
                 </label>
                 <input
                   disabled={false}
@@ -365,7 +393,7 @@ const Degerlendirme = () => {
               </div>
               <div className="degerlendirme-company-row-mid">
                 <label className="degerlendirme-company-label">
-                  Bitiş Tarihi:
+                Internship End Date:
                 </label>
                 <input
                   disabled={false}
@@ -378,7 +406,7 @@ const Degerlendirme = () => {
               </div>
               <div className="degerlendirme-company-row-right">
                 <label className="degerlendirme-company-label">
-                  Süresi (gün)
+                Duration (days)
                 </label>
                 <input
                   disabled={false}
@@ -391,7 +419,7 @@ const Degerlendirme = () => {
             </div>
             <div className="degerlendirme-company-row">
               <label className="degerlendirme-company-label border">
-                Cumartesi Günü Staj Yapıldı mı ?
+              Was there an internship on Saturday?
               </label>
               <FormControl
                 component="fieldset"
@@ -403,17 +431,17 @@ const Degerlendirme = () => {
                   name="row-radio-buttons-group"
                 >
                   <FormControlLabel
-                    value="evet"
+                    value="yes"
                     control={<Radio />}
-                    label="Evet"
-                    onChange={(e) => setStudentInternInfo("Evet")}
+                    label="Yes"
+                    onChange={(e) => setStudentInternInfo("Yes")}
                   />
                   <FormControlLabel
                     style={{ marginLeft: 300 }}
-                    value="hayır"
+                    value="no"
                     control={<Radio />}
-                    label="Hayır"
-                    onChange={(e) => setStudentInternInfo("Hayır")}
+                    label="No"
+                    onChange={(e) => setStudentInternInfo("No")}
                   />
                 </RadioGroup>
               </FormControl>
@@ -424,13 +452,13 @@ const Degerlendirme = () => {
           <div className="degerlendirme-evaluate-left-part">
             <div className="degerlendirme-evaluate-row">
               <label className="degerlendirme-evaluate-label ">
-                Değerlendirme
+               Evaluations
               </label>
-              <p className="degerlendirme-evaluate">Not(1-5)</p>
+              <p className="degerlendirme-evaluate">Grade(1-5)</p>
             </div>{" "}
             <div className="degerlendirme-evaluate-row">
               <label className="degerlendirme-evaluate-label ">
-                Devam durumu
+              Continuation Status
               </label>
               <input
                 type="text"
@@ -442,7 +470,7 @@ const Degerlendirme = () => {
             </div>{" "}
             <div className="degerlendirme-evaluate-row">
               <label className="degerlendirme-evaluate-label ">
-                Çalışma gayret ve disiplini
+              Work Diligence and Discipline
               </label>
               <input
                 type="text"
@@ -454,7 +482,7 @@ const Degerlendirme = () => {
             </div>{" "}
             <div className="degerlendirme-evaluate-row">
               <label className="degerlendirme-evaluate-label ">
-                Yeteneği ve başarı durumu
+              Ability and Success
               </label>
               <input
                 type="text"
@@ -466,7 +494,7 @@ const Degerlendirme = () => {
             </div>{" "}
             <div className="degerlendirme-evaluate-row">
               <label className="degerlendirme-evaluate-label ">
-                Amirlerine karşı tutumu
+              Attitude Towards His Superiors
               </label>
               <input
                 type="text"
@@ -478,7 +506,7 @@ const Degerlendirme = () => {
             </div>
             <div className="degerlendirme-evaluate-row">
               <label className="degerlendirme-evaluate-label ">
-                Arkadaşlarına davranışı
+              Behavior Status of Colleague
               </label>
               <input
                 type="text"
@@ -490,7 +518,7 @@ const Degerlendirme = () => {
             </div>
           </div>
           <div className="degerlendirme-evaluate-right-part">
-            <h3 className="label">Stajyer hakkında görüşleriniz</h3>
+            <h3 className="label">Your Views on The Interner</h3>
             <div className="degerlendirme-evaluate-opinion">
             <input
                   type="text"
@@ -503,10 +531,10 @@ const Degerlendirme = () => {
           </div>
         </div>
         <div className="company-person-part">
-          <h3 className="label">İŞVEREN VEYA YETKİLİNİN</h3>
+          <h3 className="label">EMPLOYER</h3>
           <div className="company-person-part-details">
             <div className="company-person-part-row">
-              <label className="company-person-part-label ">Adı Soyadı</label>
+              <label className="company-person-part-label ">Full Name</label>
               <input
                 disabled={true}
                 type="text"
@@ -517,7 +545,7 @@ const Degerlendirme = () => {
             </div>
             <div className="company-person-part-row">
               <label className="company-person-part-label">
-                Görev ve Unvanı
+                Title
               </label>
               <input
                 disabled={true}
@@ -529,7 +557,7 @@ const Degerlendirme = () => {
             </div>
             <div className="company-person-part-row">
               <label className="company-person-part-label">
-                E-posta adresi
+                E-Mail
               </label>
               <input
                 disabled={true}
@@ -540,7 +568,7 @@ const Degerlendirme = () => {
               ></input>
             </div>
             <div className="company-person-part-row">
-              <label className="company-person-part-label">Tarih</label>
+              <label className="company-person-part-label">Date</label>
               <input
                 disabled={true}
                 type="text"

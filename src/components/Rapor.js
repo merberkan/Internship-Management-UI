@@ -73,6 +73,7 @@ const Rapor = () => {
   const [display, setDisplay] = useState(true);
   const [successfulAlert2, setSuccessfulAlert2] = useState();
   const [isUserStudent, setIsUserStudent] = useState(null);
+  const [uploadedFileName, setUploadedFileName] = useState("");
 
 
   if (isUserStudent === null) {
@@ -90,6 +91,8 @@ const Rapor = () => {
   useEffect(() => {
     setTimeout(() => {
       setDisplay(false);
+      setFailAlert(false);
+      setSuccessfulAlert(false);
     }, 3000);
   }, [display]);
 
@@ -162,14 +165,20 @@ const Rapor = () => {
     setCompanyPersonId(selectedData.id);
   };
 
+  const setFileInfo = (file) => {
+    setUploadedFileName(file.name);
+  }
+
   let formData = new FormData();
   const onFileChange = (e) => {
     if (e.target && e.target.files[0]) {
       formData.append("file", e.target.files[0]);
     }
+    console.log("after:",formData)
   };
 
   const handleFileSubmit = () => {
+
     fetch("http://localhost:3001/api/upload/report/"+companyPersonId, {
       method: "POST",
       headers: { Authorization: "Bearer " + token },
@@ -216,6 +225,9 @@ const Rapor = () => {
               />
             )}
           </div>
+          <div className="rapor-upload-name-part">
+            <h3 style={{marginBottom:'1rem'}}>Uploaded File Name:{uploadedFileName}</h3>
+          </div>
           <div className="rapor-upload-file-part">
             {/* <label style={{marginBottom:'1rem'}}>Uploaded File Name: {fileName}</label> */}
             <label className="user-file" htmlFor="icon-button-file">
@@ -245,12 +257,12 @@ const Rapor = () => {
             </div>
             {failAlert && display && (
                 <Alert severity="error">
-                  Bir Hata ile Karşılaşıldı. Bilgilerinizi Kontrol Ediniz
+                  An Error was Encountered. Please Check Your Information
                 </Alert>
               )}
               {successfulAlert && display && (
                 <Alert severity="success">
-                  Formunuz Başarılı Bir Şekilde Kayıt Edildi
+                  Your Form Has Been Successfully Saved
                 </Alert>
               )}
           </div>

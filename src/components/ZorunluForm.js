@@ -26,7 +26,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 
 import useFetch from "../helpers/useFetch";
 
@@ -36,7 +36,7 @@ const ZorunluForm = () => {
   try {
     token = window.localStorage.getItem("token");
   } catch (error) {
-    history.push('/login')
+    history.push("/login");
   }
   const [isUserLogged, setIsUserLogged] = useState(null);
 
@@ -45,19 +45,18 @@ const ZorunluForm = () => {
       setIsUserLogged(true);
     } else {
       setIsUserLogged(false);
-      history.push('/login')
+      history.push("/login");
     }
   }
   var decoded = jwt_decode(token);
-  let companyData = window.localStorage.getItem("company")
-  companyData = companyData ? JSON.parse(companyData):null;
+  let companyData = window.localStorage.getItem("company");
+  companyData = companyData ? JSON.parse(companyData) : null;
   const [tokenData, setTokenData] = useState(null);
   const [ifControl, setIfControl] = useState(true);
   const [isLoginFail, setIsLoginFail] = useState();
+  const [successfulAlert, setSuccessfulAlert] = useState();
   const [failAlert, setFailAlert] = useState();
   const [display, setDisplay] = useState(true);
-
-
 
   //* Company Part
   const [companyName, setCompanyName] = useState("");
@@ -177,65 +176,82 @@ const ZorunluForm = () => {
   useEffect(() => {
     setTimeout(() => {
       setDisplay(false);
+      setSuccessfulAlert(false);
+      setFailAlert(false);
     }, 5000);
-  }, [display])
+  }, [display]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("studentGetWage Value:", studentGetWage);
-    const data = {
-      companyName:companyData.companyName,
-      companyAddress:companyData.companyAddress,
-      companySector: companyData.companySector,
-      companyPhone : companyData.companyPhoneNo,
-      companyFax: companyData.companyFaxNo,
-      companyMail : companyData.companyEmail,
-      companyWeb: companyData.companyWebAddress,
-      companyEmployeeNo: companyData.companyCompanyEmployeeNo,
-      companyPersonFullName: companyData.companyEmployeeName,
-      companyPersonTitle: companyData.title,
-      companyPersonMail: companyData.email,
-      companyPersonDate,
-      studentCitizenshipNo: decoded.citizenshipNo,
-      fullName: decoded.fullName,
-      studentSchoolId:  decoded.studentNo,
-      studentDepartment:  decoded.department,
-      lessonCode,
-      studentEmail:  decoded.email,
-      studentPhone: decoded.phone,
-      studentAddress: decoded.address,
-      studentInternInfo,
-      studentInternStart,
-      studentInternEnd,
-      studentInternTotalDay,
-      studentsInternDays,
-      formType: 1,
-    };
+    if (
+      lessonCode === "" ||
+      studentInternStart === "" ||
+      studentInternEnd === "" ||
+      studentInternTotalDay === "" ||
+      studentsInternDays === ""
+    ) {
+      setFailAlert(true);
+      setDisplay(true);
+    } else {
+      const data = {
+        companyName: companyData.companyName,
+        companyAddress: companyData.companyAddress,
+        companySector: companyData.companySector,
+        companyPhone: companyData.companyPhoneNo,
+        companyFax: companyData.companyFaxNo,
+        companyMail: companyData.companyEmail,
+        companyWeb: companyData.companyWebAddress,
+        companyEmployeeNo: companyData.companyCompanyEmployeeNo,
+        companyPersonFullName: companyData.companyEmployeeName,
+        companyPersonTitle: companyData.title,
+        companyPersonMail: companyData.email,
+        companyPersonDate,
+        studentCitizenshipNo: decoded.citizenshipNo,
+        fullName: decoded.fullName,
+        studentSchoolId: decoded.studentNo,
+        studentDepartment: decoded.department,
+        lessonCode,
+        studentEmail: decoded.email,
+        studentPhone: decoded.phone,
+        studentAddress: decoded.address,
+        studentInternInfo,
+        studentInternStart,
+        studentInternEnd,
+        studentInternTotalDay,
+        studentsInternDays,
+        formType: 1,
+      };
 
-    console.log("giden model:", JSON.stringify(data));
-    fetch("http://localhost:3001/api/form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.ok) {
-          //   window.localStorage.setItem("token", data.data.token);
-          history.push("/forms");
-        } else {
-          setIsLoginFail(data.message);
-          setFailAlert(true);
-          setDisplay(true);
-        }
+      console.log("giden model:", JSON.stringify(data));
+      fetch("http://localhost:3001/api/form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(data),
       })
-      .catch((e) => {
-        console.log("cannot logged:", e.message);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.ok) {
+            setSuccessfulAlert(true);
+            setDisplay(true);
+            setTimeout(() => {
+              setDisplay(false);
+              setSuccessfulAlert(false);
+              history.push("/forms");
+            }, 2000);
+          } else {
+            setIsLoginFail(data.message);
+            setFailAlert(true);
+            setDisplay(true);
+          }
+        })
+        .catch((e) => {
+          console.log("cannot logged:", e.message);
+        });
+    }
   };
 
   return (
@@ -253,16 +269,29 @@ const ZorunluForm = () => {
             ></img>
           </div>
           <div className="staj-header">
-            <h1>Zorunlu Staj Formu</h1>
+            <h1>Compulsory Internship Form</h1>
           </div>
-          {failAlert && display && <Alert severity="error">{isLoginFail}</Alert>}
+          {successfulAlert && display && (
+            <Alert severity="success">
+              Your Form Has Been Successfully Saved.
+            </Alert>
+          )}
+          {failAlert && display && !isLoginFail && (
+            <Alert severity="error">
+              Check the Missing Information Detected Form.
+            </Alert>
+          )}
+          {failAlert && display && isLoginFail && (
+            <Alert severity="error">{isLoginFail}</Alert>
+          )}
         </div>
         <div className="staj-content-entry-part">
           <p>
-            <h4>İlgili Makam’a,</h4>
-            {decoded.department} &nbsp; Bölümü/Programı öğrencilerinin öğrenim
-            süresi sonuna kadar kuruluş ve işletmelerde staj yapma zorunluluğu
-            vardır. Aşağıda bilgileri yer alan öğrencimizin stajını{" "}
+            <h4>To the Relevant Authority,</h4>
+            {decoded.department} &nbsp; Department/Program students are obliged
+            to do internships in organizations and enterprises until the end of
+            the study period. We would like to thank you for your interest in
+            doing the internship of our student in your organization for{" "}
             <input
               type="text"
               required
@@ -270,34 +299,33 @@ const ZorunluForm = () => {
               value={studentInternTotalDay}
               onChange={(e) => setStudentInternTotalDay(e.target.value)}
             ></input>{" "}
-            gün süreyle kuruluşunuzda yapmasında göstereceğiniz ilgiye teşekkür
-            eder, çalışmalarınızda başarılar dileriz.
+            days and wish you success in your studies.
           </p>
         </div>
         <div className="staj-student-info-part">
-          <h3>ÖĞRENCİNİN BİLGİLERİ</h3>
+          <h3>STUDENT'S INFORMATION</h3>
           <div className="staj-company-row">
-            <label className="staj-company-label">T.C Kimlik No:</label>
+            <label className="staj-company-label">Citizenship No:</label>
             <p className="staj-company-input input">{decoded.citizenshipNo}</p>
           </div>
           <div className="staj-company-row">
             <div className="staj-company-row-left">
-              <label className="staj-company-label">Adı Soyadı:</label>
+              <label className="staj-company-label">Full Name:</label>
               <p className="staj-company-input input">{decoded.fullName}</p>
             </div>
             <div className="staj-company-row-right">
-              <label className="staj-company-label">Öğrenci No:</label>
+              <label className="staj-company-label">School Id:</label>
               <p className="staj-company-input input">{decoded.studentNo}</p>
             </div>
           </div>
           <div className="staj-company-row">
             <div className="staj-company-row-left">
-              <label className="staj-company-label">Bölüm/Program</label>
+              <label className="staj-company-label">Department/Program</label>
               <p className="staj-company-input input">{decoded.department}</p>
             </div>
             <div className="staj-company-row-right">
               <label className="staj-company-label border">
-                Staj Uygulama Türü:
+              Internship Course Code:
               </label>
               <FormControl component="fieldset" className="staj-form-control">
                 <RadioGroup
@@ -331,77 +359,77 @@ const ZorunluForm = () => {
           </div>
           <div className="staj-company-row">
             <div className="staj-company-row-left">
-              <label className="staj-company-label">E-Posta Adresi:</label>
+              <label className="staj-company-label">E-Mail:</label>
               <p className="staj-company-input input">{decoded.email}</p>
             </div>
             <div className="staj-company-row-right">
-              <label className="staj-company-label">Telefon No:</label>
+              <label className="staj-company-label">Phone:</label>
               <p className="staj-company-input input">{decoded.phone}</p>
             </div>
           </div>
           <div className="staj-company-row">
-            <label className="staj-company-label">İkametgah Adresi:</label>
+            <label className="staj-company-label">Residence Address:</label>
             <p className="staj-company-input input">{decoded.address}</p>
           </div>
         </div>
         <div className="staj-company-info-part">
-          <h3>STAJ YAPILAN KURUMUN</h3>
+          <h3>INTERNSHIP INSTITUTION</h3>
           <div className="staj-company-details">
             <div className="staj-company-row">
-              <label className="staj-company-label">Adı</label>
+              <label className="staj-company-label">Name</label>
               <input
                 disabled={true}
                 type="text"
                 className="staj-company-input input"
-                value={companyData ? companyData.companyName:""}
+                value={companyData ? companyData.companyName : ""}
                 onChange={(e) => setCompanyName(e.target.value)}
               ></input>
             </div>
             <div className="staj-company-row">
-              <label className="staj-company-label">Adresi</label>
+              <label className="staj-company-label">Address</label>
               <input
                 disabled={true}
                 type="text"
                 className="staj-company-input input"
-                value={companyData ? companyData.companyAddress:""}
+                value={companyData ? companyData.companyAddress : ""}
                 onChange={(e) => setCompanyAddress(e.target.value)}
               ></input>
             </div>
             <div className="staj-company-row">
-              <label className="staj-company-label">Üretim/Hizmet Alanı</label>
+              <label className="staj-company-label">Production/Service Area</label>
               <input
                 disabled={true}
                 type="text"
                 className="staj-company-input input"
-                value={companyData ? companyData.companySector:""}
+                value={companyData ? companyData.companySector : ""}
                 onChange={(e) => setCompanySector(e.target.value)}
               ></input>
             </div>
             <div className="staj-company-row">
               <div className="staj-company-row-left">
-                <label className="staj-company-label">Telefon</label>
+                <label className="staj-company-label">Phone</label>
                 <input
                   disabled={true}
                   type="text"
                   className="staj-company-input input border"
-                  value={companyData ? companyData.companyPhoneNo:""}
+                  value={companyData ? companyData.companyPhoneNo : ""}
                   onChange={(e) => setCompanyPhone(e.target.value)}
                 ></input>
               </div>
               <div className="staj-company-row-right">
-                <label className="staj-company-label">Faks</label>
+                <label className="staj-company-label">Fax</label>
                 <input
                   disabled={true}
                   type="text"
                   className="staj-company-input input"
-                  value={companyData ? companyData.companyFaxNo:""}
+                  value={companyData ? companyData.companyFaxNo : ""}
                   onChange={(e) => setCompanyFax(e.target.value)}
                 ></input>
               </div>
             </div>
             <div className="staj-company-row">
               <div className="staj-company-row-left">
-                <label className="staj-company-label">E-posta adresi</label>
+                <label className="staj-company-label">E-Mail</label>
                 <input
                   disabled={true}
                   type="text"
@@ -411,12 +439,12 @@ const ZorunluForm = () => {
                 ></input>
               </div>
               <div className="staj-company-row-right">
-                <label className="staj-company-label">Web Adresi</label>
+                <label className="staj-company-label">Web Address</label>
                 <input
                   disabled={true}
                   type="text"
                   className="staj-company-input input"
-                  value={companyData ? companyData.companyWebAddress:""}
+                  value={companyData ? companyData.companyWebAddress : ""}
                   onChange={(e) => setCompanyWeb(e.target.value)}
                 ></input>
               </div>
@@ -424,11 +452,11 @@ const ZorunluForm = () => {
             <div className="staj-company-row">
               <div className="staj-company-row-left">
                 <label className="staj-company-label">
-                  Staj Başlangıç Tarihi:
+                Internship Start Date:
                 </label>
                 <input
                   disabled={false}
-                  type={'date'}
+                  type={"date"}
                   className="staj-company-input input border"
                   placeholder="Başlangıç"
                   value={studentInternStart}
@@ -436,10 +464,10 @@ const ZorunluForm = () => {
                 ></input>
               </div>
               <div className="staj-company-row-mid">
-                <label className="staj-company-label">Bitiş Tarihi:</label>
+                <label className="staj-company-label">Internship End Date:</label>
                 <input
                   disabled={false}
-                  type={'date'}
+                  type={"date"}
                   className="staj-company-input input"
                   placeholder="Bitiş"
                   value={studentInternEnd}
@@ -447,7 +475,7 @@ const ZorunluForm = () => {
                 ></input>
               </div>
               <div className="staj-company-row-right">
-                <label className="staj-company-label">Süresi (gün)</label>
+                <label className="staj-company-label">Duration (days)</label>
                 <input
                   disabled={false}
                   type="text"
@@ -459,7 +487,7 @@ const ZorunluForm = () => {
             </div>
             <div className="staj-company-row">
               <label className="staj-company-label">
-                Staja Çıkılacak Günler
+              Internship Days
               </label>
               <input
                 disabled={false}
@@ -471,7 +499,7 @@ const ZorunluForm = () => {
             </div>
             <div className="staj-company-row">
               <label className="staj-company-label border">
-                Staj Uygulama Türü:
+              Internship Type:
               </label>
               <FormControl component="fieldset" className="staj-form-control">
                 <RadioGroup
@@ -480,17 +508,17 @@ const ZorunluForm = () => {
                   name="row-radio-buttons-group"
                 >
                   <FormControlLabel
-                    value="zorunlu"
+                    value="compulsory"
                     control={<Radio />}
-                    label="Zorunlu"
-                    onChange={(e) => setStudentInternInfo("Zorunlu")}
+                    label="Compulsory"
+                    onChange={(e) => setStudentInternInfo("Compulsory")}
                   />
                   <FormControlLabel
                     style={{ marginLeft: 300 }}
-                    value="gonullu"
+                    value="volunteer"
                     control={<Radio />}
-                    label="Gönüllü"
-                    onChange={(e) => setStudentInternInfo("Gönüllü")}
+                    label="Volunteer"
+                    onChange={(e) => setStudentInternInfo("Volunteer")}
                   />
                 </RadioGroup>
               </FormControl>
@@ -498,44 +526,44 @@ const ZorunluForm = () => {
           </div>
         </div>
         <div className="staj-stakeholder-part">
-          <h3>İŞVEREN VEYA YETKİLİNİN</h3>
+          <h3>EMPLOYEE OF COMPANY</h3>
           <div className="staj-stakeholder-part-details">
             <div className="staj-stakeholder-part-row">
-              <label className="staj-stakeholder-part-label ">Adı Soyadı</label>
+              <label className="staj-stakeholder-part-label ">Full Name</label>
               <input
                 disabled={isInputsDisabled}
                 type="text"
                 className="staj-stakeholder-part-input input"
-                value={companyData ? companyData.companyEmployeeName:""}
+                value={companyData ? companyData.companyEmployeeName : ""}
                 onChange={(e) => setCompanyPersonFullName(e.target.value)}
               ></input>
             </div>
             <div className="staj-stakeholder-part-row">
               <label className="staj-stakeholder-part-label">
-                Görev ve Unvanı
+                Title
               </label>
               <input
                 disabled={isInputsDisabled}
                 type="text"
                 className="staj-stakeholder-part-input input"
-                value={companyData ? companyData.title:""}
+                value={companyData ? companyData.title : ""}
                 onChange={(e) => setCompanyPersonTitle(e.target.value)}
               ></input>
             </div>
             <div className="staj-stakeholder-part-row">
               <label className="staj-stakeholder-part-label">
-                E-posta adresi
+                E-Mail
               </label>
               <input
                 disabled={isInputsDisabled}
                 type="text"
                 className="staj-stakeholder-part-input input"
-                value={companyData ? companyData.email:""}
+                value={companyData ? companyData.email : ""}
                 onChange={(e) => setCompanyPersonMail(e.target.value)}
               ></input>
             </div>
             <div className="staj-stakeholder-part-row">
-              <label className="staj-stakeholder-part-label">Tarih</label>
+              <label className="staj-stakeholder-part-label">Date</label>
               <input
                 disabled={true}
                 type="text"
@@ -560,7 +588,12 @@ const ZorunluForm = () => {
             )}
           </div>
           <div className="staj-button">
-            <Button onClick={handleSubmit} type="submit" variant="contained" endIcon={<SendIcon />}>
+            <Button
+              onClick={handleSubmit}
+              type="submit"
+              variant="contained"
+              endIcon={<SendIcon />}
+            >
               Send For Approval
             </Button>
           </div>

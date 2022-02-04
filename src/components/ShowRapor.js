@@ -182,7 +182,7 @@ const ShowRapor = () => {
       uniqueKey: key,
       status: "1",
     };
-    console.log("approved fired")
+    console.log("approved clicked")
     fetch("http://localhost:3001/api/form-status", {
       method: "PUT",
       headers: {
@@ -201,6 +201,7 @@ const ShowRapor = () => {
       .catch((e) => {
         console.log("cannot logged:", e.message);
       });
+    console.log("clicked approved");
   };
 
   if (data && ifControl) {

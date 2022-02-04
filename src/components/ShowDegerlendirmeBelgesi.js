@@ -325,35 +325,35 @@ const ShowDegerlendirme = () => {
       {data && (
         <div className="degerlendirme-content">
           <div className="degerlendirme-header">
-            <h2>Staj Değerlendirme Belgesi</h2>
+            <h2>Internship Evaluation Form</h2>
           </div>
           <div className="degerlendirme-students-part">
             <h3 className="label">
-              Staj Çalışması Yapan Öğrenciye İlişkin Bilgiler:
+            Information about the Student Doing Internship Work:
             </h3>
             <div className="degerlendirme-student-details">
               <div className="degerlendirme-student-row">
                 <label className="degerlendirme-student-label ">
-                  Adı ve Soyadı
+                Full Name
                 </label>
                 <p className="degerlendirme-student">{data.Value.fullName}</p>
               </div>
               <div className="degerlendirme-student-row">
-                <label className="degerlendirme-student-label ">Numarası</label>
+                <label className="degerlendirme-student-label ">Phone</label>
                 <p className="degerlendirme-student">
                   {data.Value.studentSchoolId}
                 </p>
               </div>
               <div className="degerlendirme-student-row">
                 <label className="degerlendirme-student-label ">
-                  Bölüm/Program
+                Department/Program
                 </label>
                 <p className="degerlendirme-student">
                   {data.Value.studentDepartment}
                 </p>
               </div>
               <div className="degerlendirme-student-row">
-                <label className="degerlendirme-student-label ">Staj No</label>
+                <label className="degerlendirme-student-label ">Internship No</label>
                 <div className="degerlendirme-radio">
                   <p className="degerlendirme-student-center">
                     {data.Value.lessonCode}
@@ -363,16 +363,16 @@ const ShowDegerlendirme = () => {
             </div>
           </div>
           <div className="degerlendirme-company-part">
-            <h3 className="label">STAJ YAPILAN KURUMUN</h3>
+            <h3 className="label">INTERNSHIP INSTITUTION</h3>
             <div className="degerlendirme-company-details">
               <div className="degerlendirme-company-row">
-                <label className="degerlendirme-company-label">Adı</label>
+                <label className="degerlendirme-company-label">Name</label>
                 <p className="degerlendirme-company-center">
                   {data.Value.companyName}
                 </p>
               </div>
               <div className="degerlendirme-company-row">
-                <label className="degerlendirme-company-label">Adresi</label>
+                <label className="degerlendirme-company-label">Address</label>
                 <p className="degerlendirme-company-center">
                   {data.Value.companyAddress}
                 </p>
@@ -380,7 +380,7 @@ const ShowDegerlendirme = () => {
               <div className="degerlendirme-company-row">
                 <div className="degerlendirme-company-row-left">
                   <label className="degerlendirme-company-label">
-                    Staj Başlangıç Tarihi:
+                  Internship Start Date:
                   </label>
                   <p className="degerlendirme-company-center">
                     {data.Value.studentInternStart}
@@ -388,7 +388,7 @@ const ShowDegerlendirme = () => {
                 </div>
                 <div className="degerlendirme-company-row-mid">
                   <label className="degerlendirme-company-label">
-                    Bitiş Tarihi:
+                  Internship End Date:
                   </label>
                   <p className="degerlendirme-company-center">
                     {data.Value.studentInternEnd}
@@ -396,7 +396,7 @@ const ShowDegerlendirme = () => {
                 </div>
                 <div className="degerlendirme-company-row-right">
                   <label className="degerlendirme-company-label">
-                    Süresi (gün)
+                  Duration (days)
                   </label>
                   <p className="degerlendirme-company-center">
                     {data.Value.studentInternTotalDay}
@@ -405,7 +405,7 @@ const ShowDegerlendirme = () => {
               </div>
               <div className="degerlendirme-company-row">
                 <label className="degerlendirme-company-label border">
-                  Cumartesi Günü Staj Yapıldı mı ?
+                Was there an internship on Saturday?
                 </label>
                 <p className="degerlendirme-company-center">
                   {data.Value.studentInternInfo}
@@ -417,13 +417,13 @@ const ShowDegerlendirme = () => {
             <div className="degerlendirme-evaluate-left-part">
               <div className="degerlendirme-evaluate-row">
                 <label className="degerlendirme-evaluate-label ">
-                  Değerlendirme
+                Evaluations
                 </label>
-                <p className="degerlendirme-evaluate">Not(1-5)</p>
+                <p className="degerlendirme-evaluate">Grade(1-5)</p>
               </div>{" "}
               <div className="degerlendirme-evaluate-row">
                 <label className="degerlendirme-evaluate-label ">
-                  Devam durumu
+                Continuation Status
                 </label>
                 {!isUserGrader && (
                   <input
@@ -451,7 +451,7 @@ const ShowDegerlendirme = () => {
               </div>{" "}
               <div className="degerlendirme-evaluate-row">
                 <label className="degerlendirme-evaluate-label ">
-                  Çalışma gayret ve disiplini
+                Work Diligence and Discipline
                 </label>
                 {!isUserGrader && (
                   <input
@@ -479,7 +479,7 @@ const ShowDegerlendirme = () => {
               </div>{" "}
               <div className="degerlendirme-evaluate-row">
                 <label className="degerlendirme-evaluate-label ">
-                  Yeteneği ve başarı durumu
+                Ability and Success
                 </label>
                 {!isUserGrader && (
                   <input
@@ -507,7 +507,7 @@ const ShowDegerlendirme = () => {
               </div>{" "}
               <div className="degerlendirme-evaluate-row">
                 <label className="degerlendirme-evaluate-label ">
-                  Amirlerine karşı tutumu
+                Attitude Towards His Superiors
                 </label>
                 {!isUserGrader && (
                   <input
@@ -535,7 +535,7 @@ const ShowDegerlendirme = () => {
               </div>
               <div className="degerlendirme-evaluate-row">
                 <label className="degerlendirme-evaluate-label ">
-                  Arkadaşlarına davranışı
+                Behavior Status of Colleague
                 </label>
                 {!isUserGrader && (
                   <input
@@ -564,7 +564,7 @@ const ShowDegerlendirme = () => {
             </div>
             <div className="degerlendirme-evaluate-right-part">
               <h3 style={{ borderBottom: "1px solid black" }} className="label">
-                Stajyer hakkında görüşleriniz
+              Your Views on The Interner
               </h3>
               <div className="degerlendirme-evaluate-opinion">
                 {!isUserGrader && (
@@ -594,17 +594,17 @@ const ShowDegerlendirme = () => {
             </div>
           </div>
           <div className="company-person-part">
-            <h3 className="label">İŞVEREN VEYA YETKİLİNİN</h3>
+            <h3 className="label">EMPLOYER</h3>
             <div className="company-person-part-details">
               <div className="company-person-part-row">
-                <label className="company-person-part-label ">Adı Soyadı</label>
+                <label className="company-person-part-label ">Full Name</label>
                 <p className="degerlendirme-company-center">
                   {data.Value.companyPersonFullName}
                 </p>
               </div>
               <div className="company-person-part-row">
                 <label className="company-person-part-label">
-                  Görev ve Unvanı
+                Title
                 </label>
                 <p className="degerlendirme-company-center">
                   {data.Value.companyPersonTitle}
@@ -612,14 +612,14 @@ const ShowDegerlendirme = () => {
               </div>
               <div className="company-person-part-row">
                 <label className="company-person-part-label">
-                  E-posta adresi
+                E-Mail
                 </label>
                 <p className="degerlendirme-company-center">
                   {data.Value.companyPersonMail}
                 </p>
               </div>
               <div className="company-person-part-row">
-                <label className="company-person-part-label">Tarih</label>
+                <label className="company-person-part-label">Date</label>
                 <p className="degerlendirme-company-center">
                   {data.Value.companyPersonDate}
                 </p>

@@ -90,6 +90,7 @@ const IsVerenForm = () => {
   const [successfulAlert, setSuccessfulAlert] = useState();
   const [failAlert, setFailAlert] = useState();
   const [display, setDisplay] = useState(true);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const [isUserStudent, setIsUserStudent] = useState(null);
 
@@ -119,6 +120,8 @@ const IsVerenForm = () => {
   useEffect(() => {
     setTimeout(() => {
       setDisplay(false);
+      setFailAlert(false);
+      setSuccessfulAlert(false);
     }, 5000);
   }, [display]);
   function SimpleDialog(props) {
@@ -174,62 +177,70 @@ const IsVerenForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const data = {
-      companyName:companyData.companyName,
-      companyAddress:companyData.companyAddress,
-      companySector: companyData.companySector,
-      companyPhone : companyData.companyPhoneNo,
-      companyFax: companyData.companyFaxNo,
-      companyMail : companyData.companyEmail,
-      companyWeb: companyData.companyWebAddress,
-      companyEmployeeNo: companyData.companyCompanyEmployeeNo,
-      companyPersonFullName: companyData.companyEmployeeName,
-      companyPersonTitle: companyData.title,
-      companyPersonMail: companyData.email,
-      companyPersonDate,
-      fullName: decoded.fullName,
-      studentBirth: decoded.birth,
-      studentSchoolId: decoded.studentNo,
-      studentInternStart,
-      studentInternEnd,
-      studentGetWage,
-      companyTitle,
-      companyIBAN,
-      companyAccountNo,
-      companyBankName,
-      formType: 2,
-      lessonCode,
-    };
-
-    console.log("giden model:", JSON.stringify(data));
-    fetch("http://localhost:3001/api/form", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.ok) {
-          //   window.localStorage.setItem("token", data.data.token);
-          setSuccessfulAlert(true);
-          setDisplay(true);
-          setTimeout(() => {
-            setDisplay(false);
-            history.push("/forms");
-          }, 2000);
-        } else {
-          setIsLoginFail(data.message);
-          setFailAlert(true);
-          setDisplay(true);
-        }
+    console.log(lessonCode,studentInternStart,setStudentInternEnd)
+    if(lessonCode === "" || studentInternStart === "" || studentInternEnd === "" )
+    {
+      setFailAlert(true);
+      setDisplay(true);
+    }else{
+      const data = {
+        companyName:companyData.companyName,
+        companyAddress:companyData.companyAddress,
+        companySector: companyData.companySector,
+        companyPhone : companyData.companyPhoneNo,
+        companyFax: companyData.companyFaxNo,
+        companyMail : companyData.companyEmail,
+        companyWeb: companyData.companyWebAddress,
+        companyEmployeeNo: companyData.companyCompanyEmployeeNo,
+        companyPersonFullName: companyData.companyEmployeeName,
+        companyPersonTitle: companyData.title,
+        companyPersonMail: companyData.email,
+        companyPersonDate,
+        fullName: decoded.fullName,
+        studentBirth: decoded.birth,
+        studentSchoolId: decoded.studentNo,
+        studentInternStart,
+        studentInternEnd,
+        studentGetWage,
+        companyTitle,
+        companyIBAN,
+        companyAccountNo,
+        companyBankName,
+        formType: 2,
+        lessonCode,
+      };
+  
+      console.log("giden model:", JSON.stringify(data));
+      fetch("http://localhost:3001/api/form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify(data),
       })
-      .catch((e) => {
-        console.log("cannot logged:", e.message);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.ok) {
+            //   window.localStorage.setItem("token", data.data.token);
+            setSuccessfulAlert(true);
+            setDisplay(true);
+            setTimeout(() => {
+              setDisplay(false);
+              history.push("/forms");
+            }, 2000);
+          } else {
+            setIsLoginFail(data.message);
+            setFailAlert(true);
+            setDisplay(true);
+          }
+        })
+        .catch((e) => {
+          console.log("cannot logged:", e.message);
+        });
+    }
+
+
   };
 
   return (
@@ -250,22 +261,24 @@ const IsVerenForm = () => {
         </div>
         <div className="isveren-header-part">
           <p>
-            T.C. <br></br> FMV IŞIK ÜNİVERSİTESİ <br></br> İŞVEREN BİLGİ FORMU
+            T.C. <br></br> FMV ISIK UNIVERSITY <br></br> EMPLOYER INFORMATION FORM
           </p>
         </div>
         {successfulAlert && display && (
           <Alert severity="success">
-            Formunuz Başarılı Bir Şekilde Kayıt Edildi
+            Your Form Has Been Successfully Saved.
           </Alert>
         )}
-        {failAlert && display && <Alert severity="error">Bir hatayla karşılaşıldı. Tekrar Deneyiniz</Alert>}
+        {failAlert && display && !isLoginFail && <Alert severity="error">Check the Missing Information Detected Form.</Alert>}
+        {failAlert && display && isLoginFail && <Alert severity="error">{isLoginFail}</Alert>}
+
         <div className="isveren-form-part">
           <form className="isveren-form" onSubmit={handleSubmit}>
             <div className="isveren-company-part">
-              <h3>STAJ YAPILAN KURUMUN</h3>
+              <h3>INTERNSHIP INSTITUTION</h3>
               <div className="isveren-company-details">
                 <div className="isveren-company-row">
-                  <label className="isveren-company-label">Adı</label>
+                  <label className="isveren-company-label">Name</label>
                   <input
                     disabled={isInputsDisabled}
                     type="text"
@@ -274,7 +287,7 @@ const IsVerenForm = () => {
                   ></input>
                 </div>
                 <div className="isveren-company-row">
-                  <label className="isveren-company-label">Adresi</label>
+                  <label className="isveren-company-label">Address</label>
                   <input
                     disabled={isInputsDisabled}
                     type="text"
@@ -284,7 +297,7 @@ const IsVerenForm = () => {
                 </div>
                 <div className="isveren-company-row">
                   <label className="isveren-company-label">
-                    Üretim/Hizmet Alanı
+                  Production/Service Area
                   </label>
                   <input
                     disabled={isInputsDisabled}
@@ -295,7 +308,7 @@ const IsVerenForm = () => {
                 </div>
                 <div className="isveren-company-row">
                   <div className="isveren-company-row-left">
-                    <label className="isveren-company-label">Telefon</label>
+                    <label className="isveren-company-label">Phone</label>
                     <input
                       disabled={isInputsDisabled}
                       type="text"
@@ -304,7 +317,7 @@ const IsVerenForm = () => {
                     ></input>
                   </div>
                   <div className="isveren-company-row-right">
-                    <label className="isveren-company-label">Faks</label>
+                    <label className="isveren-company-label">Fax</label>
                     <input
                       disabled={isInputsDisabled}
                       type="text"
@@ -316,7 +329,7 @@ const IsVerenForm = () => {
                 <div className="isveren-company-row">
                   <div className="isveren-company-row-left">
                     <label className="isveren-company-label">
-                      E-posta adresi
+                      E-Mail
                     </label>
                     <input
                       disabled={isInputsDisabled}
@@ -326,7 +339,7 @@ const IsVerenForm = () => {
                     ></input>
                   </div>
                   <div className="isveren-company-row-right">
-                    <label className="isveren-company-label">Web Adresi</label>
+                    <label className="isveren-company-label">Web Address</label>
                     <input
                       disabled={isInputsDisabled}
                       type="text"
@@ -337,7 +350,7 @@ const IsVerenForm = () => {
                 </div>
                 <div className="isveren-company-row">
                   <label className="isveren-company-label">
-                    Kurumda Çalışan Personel Sayısı
+                  Number of Employees Working in the Institution
                   </label>
                   <input
                     disabled={isInputsDisabled}
@@ -349,10 +362,10 @@ const IsVerenForm = () => {
               </div>
             </div>
             <div className="isveren-part">
-              <h3>İŞVEREN VEYA YETKİLİNİN</h3>
+              <h3>EMPLOYEE OF COMPANY</h3>
               <div className="isveren-part-details">
                 <div className="isveren-part-row">
-                  <label className="isveren-part-label ">Adı Soyadı</label>
+                  <label className="isveren-part-label ">Full Name</label>
                   <input
                     disabled={isInputsDisabled}
                     type="text"
@@ -361,7 +374,7 @@ const IsVerenForm = () => {
                   ></input>
                 </div>
                 <div className="isveren-part-row">
-                  <label className="isveren-part-label">Görev ve Unvanı</label>
+                  <label className="isveren-part-label">Title</label>
                   <input
                     disabled={isInputsDisabled}
                     type="text"
@@ -370,7 +383,7 @@ const IsVerenForm = () => {
                   ></input>
                 </div>
                 <div className="isveren-part-row">
-                  <label className="isveren-part-label">E-posta adresi</label>
+                  <label className="isveren-part-label">E-Mail</label>
                   <input
                     disabled={isInputsDisabled}
                     type="text"
@@ -379,7 +392,7 @@ const IsVerenForm = () => {
                   ></input>
                 </div>
                 <div className="isveren-part-row">
-                  <label className="isveren-part-label">Tarih</label>
+                  <label className="isveren-part-label">Date</label>
                   <input
                     disabled={isInputsDisabled}
                     type="text"
@@ -395,7 +408,7 @@ const IsVerenForm = () => {
               <div className="isveren-student-details">
                 <div className="isveren-student-row">
                   <label className="isveren-student-label">
-                    STAJYER ÖĞRENCİNİN ADI - SOYADI
+                  NAME AND SURNAME OF THE TRAINEE STUDENT
                   </label>
                   <input
                     disabled={true}
@@ -406,7 +419,7 @@ const IsVerenForm = () => {
                 </div>
                 <div className="isveren-student-row">
                   <label className="isveren-student-label">
-                    ÖĞRENCİNİN DOĞUM TARİHİ - ÖĞRENCİ NO
+                  DATE OF BIRTH OF THE STUDENT - SCHOOL ID
                   </label>
                   <input
                     type="text"
@@ -417,26 +430,26 @@ const IsVerenForm = () => {
                 </div>
                 <div className="isveren-student-row">
                   <label className="isveren-student-label">
-                    ÖĞRENCİNİN STAJ TARİHLERİ
+                  STUDENT'S INTERNSHIP DATES
                   </label>
                   <input
                     type="date"
                     className="isveren-student-input input border"
-                    placeholder="Başlangıç"
+                    placeholder="Start"
                     value={studentInternStart}
                     onChange={(e) => setStudentInternStart(e.target.value)}
                   ></input>
                   <input
                     type="date"
                     className="isveren-student-input input"
-                    placeholder="Bitiş"
+                    placeholder="End"
                     value={studentInternEnd}
                     onChange={(e) => setStudentInternEnd(e.target.value)}
                   ></input>
                 </div>
                 <div className="isveren-student-row">
                   <label className="isveren-student-label border">
-                    STAJYER ÖĞRENCİYE ÜCRET ÖDENECEK Mİ?
+                  WILL THE TRAINEE STUDENT BE PAID?
                   </label>
                   <FormControl
                     component="fieldset"
@@ -449,16 +462,16 @@ const IsVerenForm = () => {
                       name="row-radio-buttons-group"
                     >
                       <FormControlLabel
-                        value="evet"
+                        value="yes"
                         control={<Radio />}
-                        label="Evet"
+                        label="Yes"
                         onChange={(e) => setStudentGetWage(1)}
                       />
                       <FormControlLabel
                         style={{ marginLeft: 300 }}
-                        value="evet"
+                        value="no"
                         control={<Radio />}
-                        label="Evet"
+                        label="No"
                         onChange={(e) => setStudentGetWage(0)}
                       />
                     </RadioGroup>
@@ -466,7 +479,7 @@ const IsVerenForm = () => {
                 </div>
                 <div className="isveren-student-row">
                   <label className="isveren-student-label border">
-                    STAJ NO:
+                  Internship Course Code:
                   </label>
                   <FormControl
                     component="fieldset"
@@ -506,7 +519,7 @@ const IsVerenForm = () => {
               <div className="isveren-company-details">
                 <div className="isveren-company-row">
                   <label className="isveren-company-label">
-                    KURUMUN UNVANI
+                  TITLE OF THE INSTITUTION
                   </label>
                   <input
                     type="text"
@@ -527,7 +540,7 @@ const IsVerenForm = () => {
                   ></input>
                 </div>
                 <div className="isveren-company-row">
-                  <label className="isveren-company-label">HESAP NO</label>
+                  <label className="isveren-company-label">ACCOUNT NO</label>
                   <input
                     type="text"
                     className="isveren-company-input input"
@@ -538,7 +551,7 @@ const IsVerenForm = () => {
                 </div>
                 <div className="isveren-company-row">
                   <label className="isveren-company-label">
-                    BANKA ADI - ŞUBE KODU
+                  BANK NAME - BRANCH CODE
                   </label>
                   <input
                     type="text"

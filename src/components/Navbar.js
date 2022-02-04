@@ -24,6 +24,8 @@ const Navbar = (props) => {
     role = "Grader";
   } else if (role === 6) {
     role = "Stakeholder";
+  }else if( role === 7){
+    role = "Admin"
   }
 
   const handleLogout = (e) => {
@@ -56,7 +58,7 @@ const Navbar = (props) => {
             ""
           )}
 
-          {role === "Student" ? (
+          {role === "Admin" ? (
             <div className="item">
               <Link to={`/users`}>
                 <p>Users Panel</p>

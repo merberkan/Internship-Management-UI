@@ -38,7 +38,7 @@ const Forms = () => {
         <Navbar token={decoded}></Navbar>
       </div>
       <div className="forms-page-content">
-        <div className="forms-page-header">Formlar</div>
+        <div className="forms-page-header">Forms</div>
         <div className="forms-page-part">
           <div className="forms-page-part-top">
             <div className="forms-page-item">
@@ -49,7 +49,7 @@ const Forms = () => {
                     src={beyan}
                   ></img>
               </Link>
-              <div className="forms-page-text">Beyan(22)</div>
+              <div className="forms-page-text">DECLARATION AND COMMITMENT (22)</div>
             </div>
             <div className="forms-page-item">
             <Link to={`/forms/isveren`} className="forms-page-box">
@@ -59,7 +59,7 @@ const Forms = () => {
                     src={isveren}
                   ></img>
               </Link>
-              <div className="forms-page-text">İs Veren Bilgi Formu</div>
+              <div className="forms-page-text">Employer Information Form</div>
             </div>
           </div>
           <div className="forms-page-part-mid">
@@ -71,7 +71,7 @@ const Forms = () => {
                     src={staj}
                   ></img>
               </Link>
-              <div className="forms-page-text">Zorunlu Staj Formu</div>
+              <div className="forms-page-text">Compulsory Internship Form</div>
             </div>
             <div className="forms-page-item">
               <Link to={`/rapor`} className="forms-page-box">
@@ -81,7 +81,7 @@ const Forms = () => {
                     src={rapor}
                   ></img>
               </Link>
-              <div className="forms-page-text">Staj Raporu</div>
+              <div className="forms-page-text">Internship Report</div>
             </div>
           </div>
           <div className="forms-page-part-bottom">
@@ -93,7 +93,7 @@ const Forms = () => {
                     src={beyan}
                   ></img>
               </Link>
-              <div className="forms-page-text">Beyan(43)</div>
+              <div className="forms-page-text">DECLARATION AND COMMITMENT (43)</div>
             </div>
             <div className="forms-page-item">
               <Link to={`/forms/degerlendirme`} className="forms-page-box">
@@ -103,7 +103,7 @@ const Forms = () => {
                     src={degerlendirme}
                   ></img>
               </Link>
-              <div className="forms-page-text">Degerlendirme Belgesi</div>
+              <div className="forms-page-text">Evaluation Form</div>
             </div>
           </div>
         </div>

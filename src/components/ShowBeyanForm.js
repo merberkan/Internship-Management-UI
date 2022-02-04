@@ -31,7 +31,7 @@ const ShowBeyanForm = () => {
   try {
     token = window.localStorage.getItem("token");
   } catch (error) {
-    history.push('/login')
+    history.push("/login");
   }
   const [isUserLogged, setIsUserLogged] = useState(null);
 
@@ -40,7 +40,7 @@ const ShowBeyanForm = () => {
       setIsUserLogged(true);
     } else {
       setIsUserLogged(false);
-      history.push('/login')
+      history.push("/login");
     }
   }
   const [detailData, setDetailData] = useState(null);
@@ -87,7 +87,12 @@ const ShowBeyanForm = () => {
     }
   }
   if (isUserUniversityPerson === null) {
-    if (decoded.role === 2 || decoded.role === 3 || decoded.role === 4 || decoded.role === 5) {
+    if (
+      decoded.role === 2 ||
+      decoded.role === 3 ||
+      decoded.role === 4 ||
+      decoded.role === 5
+    ) {
       setIsUserUniversityPerson(true);
     } else {
       setIsUserUniversityPerson(false);
@@ -281,90 +286,93 @@ const ShowBeyanForm = () => {
           <div className="show-beyan-content-form-part">
             <form>
               <div className="show-beyan-form-header">
-                <h2>BEYAN VE TAAHHÜTNAME (22)</h2>
+                <h2>DECLARATION AND COMMITMENT (22)</h2>
               </div>
               <div className="show-beyan-form-detail-part">
                 <p>
-                  &nbsp;&nbsp; Üniversitemizin &nbsp;
-                  <span>{detailData.Value.faculty}</span>
-                  &nbsp; Fakültesi/Enstitüsü &nbsp;
-                  <span>{detailData.Value.department1}</span> &nbsp; Bölümü
-                  öğrencisiyim &nbsp;
-                  <span>{detailData.Value.company}</span> &nbsp;
-                  biriminde/işyerinde Kısmi Zamanlı Öğrenci olarak / Stajyer
-                  Öğrenci olarak 5510 sayılı Kanunun 5/b maddesi uyarınca
-                  çalışmak istiyorum. Ailemden, annem / babam üzerinden genel
-                  sağlık sigortası kapsamında sağlık hizmeti alıyorum. Bu
-                  nedenle kısmi zamanlı çalışmam veya stajım boyunca genel
-                  sağlık sigortası kapsamında olmayı kabul etmiyorum. <br></br>{" "}
-                  &nbsp;&nbsp; Beyanımın doğruluğunu, durumumda değişiklik
-                  olması durumunda değişikliği hemen bildireceğimi kabul eder,
-                  beyanımın hatalı veya eksik olmasından kaynaklanacak prim,
-                  idari para cezası, gecikme zammı ve gecikme faizinin tarafımca
-                  ödeneceğini taahhüt ederim.
+                  &nbsp;&nbsp; I am a student of &nbsp;
+                  <span>{detailData.Value.department1}</span>
+                  &nbsp; department of the Faculty of &nbsp;
+                  <span>{detailData.Value.faculty}</span> &nbsp; of the
+                  University &nbsp; I would like to work as a Part-Time Student
+                  / Trainee Student in <span>{detailData.Value.company}</span>{" "}
+                  &nbsp; unit/workplace in accordance with Article 5/b of the
+                  Law No. 5510. I get health care from my family through my
+                  parents under general health insurance. Therefore, I do not
+                  agree to be covered by general health insurance during my
+                  part-time work or internship. <br></br> &nbsp;&nbsp; I agree
+                  that I will notify you immediately of the accuracy of my
+                  statement and if there is a change in my status, I undertake
+                  that I will pay the premium, administrative fine, delay
+                  increase and late interest resulting from the inaccurate or
+                  incompleteness of my statement.
                 </p>
                 <p></p>
               </div>
               <div className="show-beyan-form-student-inputs">
                 <div className="show-beyan-input-part">
-                  <label>Adı Soyad: </label>
+                  <label>Full Name: </label>
                   <span>{detailData.Value.fullName}</span>
                 </div>
                 <div className="show-beyan-input-part">
-                  <label>T.C.Kimlik No: </label>
+                  <label>Citizenship No: </label>
                   <span>{detailData.Value.id}</span>
                 </div>
                 <div className="show-beyan-input-part">
-                  <label>Bölümü :</label>
+                  <label>Department:</label>
                   <span>{detailData.Value.department2}</span>
                 </div>
                 <div className="show-beyan-input-part">
-                  <label>Öğrenci No :</label>
+                  <label>School Id:</label>
                   <span>{detailData.Value.schoolId}</span>
                 </div>
               </div>
             </form>
           </div>
-          {!detailData.IsConfirmed && !isUserStudent && !detailData.IsRejected && !detailData.IsConfirmed && !isUserUniversityPerson &&(
-            <div className="show-beyan-content-buttons-part">
-              <div className="show-beyan-reject">
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={handleClickOpen}
-                    >
-                      Reject
-                    </Button>
-                    {detailData && (
-                      <SimpleDialog
-                        selectedValue={selectedValue}
-                        open={open}
-                        onClose={handleClose}
-                      />
-                    )}
-                  </div>
-              <div className="show-beyan-approve">
-                <Button
-                  variant="contained"
-                  color="success"
-                  endIcon={<ThumbUpIcon />}
-                  onClick={handleApprove}
-                >
-                  Approve
-                </Button>
+          {!detailData.IsConfirmed &&
+            !isUserStudent &&
+            !detailData.IsRejected &&
+            !detailData.IsConfirmed &&
+            !isUserUniversityPerson && (
+              <div className="show-beyan-content-buttons-part">
+                <div className="show-beyan-reject">
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleClickOpen}
+                  >
+                    Reject
+                  </Button>
+                  {detailData && (
+                    <SimpleDialog
+                      selectedValue={selectedValue}
+                      open={open}
+                      onClose={handleClose}
+                    />
+                  )}
+                </div>
+                <div className="show-beyan-approve">
+                  <Button
+                    variant="contained"
+                    color="success"
+                    endIcon={<ThumbUpIcon />}
+                    onClick={handleApprove}
+                  >
+                    Approve
+                  </Button>
+                </div>
               </div>
+            )}
+          {detailData.IsConfirmed && !detailData.IsRejected && (
+            <div className="show-beyan-content-approved-info">
+              <h2>Approved</h2>
             </div>
           )}
-          {detailData.IsConfirmed && !detailData.IsRejected  && 
-          <div className="show-beyan-content-approved-info">
-            <h2>Approved</h2>
-          </div>
-          }
-          {detailData.IsRejected && 
-          <div className="show-beyan-content-rejected-info">
-            <h2>Rejected</h2>
-          </div>
-          }
+          {detailData.IsRejected && (
+            <div className="show-beyan-content-rejected-info">
+              <h2>Rejected</h2>
+            </div>
+          )}
         </div>
       )}
     </div>

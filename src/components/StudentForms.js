@@ -29,13 +29,13 @@ const studentColumns = [
 
 const headColumns = [
   { field: "id", hide: true },
-  { field: "FormName", headerName: "Öğrenci", width: 250 },
-  { field: "FormType", headerName: "Form İsmi", width: 300 },
-  { field: "LessonCode", headerName: "Ders Kodu", width: 100 },
-  { field: "InsertedDate", headerName: "Eklenme Tarihi", width: 150 },
-  { field: "FormStatus", headerName: "Belge Durumu", width: 300 },
-  { field: "ApproveStatus", headerName: "Onaylanma Durumu", width: 200 },
-  { field: "RejectReason", headerName: "Reddedilme Sebebi", width: 170 },
+  { field: "FormName", headerName: "Student Name", width: 250 },
+  { field: "FormType", headerName: "Form Type", width: 300 },
+  { field: "LessonCode", headerName: "Lesson Code", width: 125 },
+  { field: "InsertedDate", headerName: "Inserted Date", width: 150 },
+  { field: "FormStatus", headerName: "Form Status", width: 350 },
+  { field: "ApproveStatus", headerName: "Approval Status", width: 200 },
+  { field: "RejectReason", headerName: "Reject Reason", width: 250 },
 ];
 
 const StudentForms = () => {
@@ -145,7 +145,7 @@ const StudentForms = () => {
           {formList && (!isUserHead && !isUserGrader) && (
             <div
               className="student-forms-datagrid-container"
-              style={{ height: 600, width: "70%" }}
+              style={{ height: 600 }}
             >
               <DataGrid
                 rows={formList.list}
