@@ -36,6 +36,8 @@ const headColumns = [
   { field: "FormStatus", headerName: "Form Status", width: 350 },
   { field: "ApproveStatus", headerName: "Approval Status", width: 200 },
   { field: "RejectReason", headerName: "Reject Reason", width: 250 },
+  { field: "SendedEmail", headerName: "Sended Email", width: 250, hide:true },
+
 ];
 
 const StudentForms = () => {
