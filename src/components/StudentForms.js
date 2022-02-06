@@ -74,29 +74,29 @@ const StudentForms = () => {
 
   
 
-  const handleDelete = () => {
-    console.log("geliyor mu?", selectedRow);
-    const data = { email: selectedRow };
-    fetch("http://localhost:3001/api/admin/delete-user", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("gelen response data:", data);
-        if (data.data.ok) {
-          // setIsFileSubmitted(true);
-          // history.push("/users");
-          window.location.reload();
-        } else {
-          console.log("aceyip birsey oldu");
-        }
-      })
-      .catch((e) => {
-        console.log("cannot logged:", e.message);
-      });
-  };
+  // const handleDelete = () => {
+  //   console.log("geliyor mu?", selectedRow);
+  //   const data = { email: selectedRow };
+  //   fetch("http://localhost:3001/api/admin/delete-user", {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("gelen response data:", data);
+  //       if (data.data.ok) {
+  //         // setIsFileSubmitted(true);
+  //         // history.push("/users");
+  //         window.location.reload();
+  //       } else {
+  //         console.log("aceyip birsey oldu");
+  //       }
+  //     })
+  //     .catch((e) => {
+  //       console.log("cannot logged:", e.message);
+  //     });
+  // };
   const handleDisplay = () => {
     if(selectedRowFormTypeId === 3){
       history.push(`/user/beyanform/${selectedRow}`)
@@ -197,7 +197,7 @@ const StudentForms = () => {
             </div>
           )}
           <div className="student-forms-datagrid-button">
-            <div className="btn-delete">
+            {/* <div className="btn-delete">
               <Button
                 style={{ maxWidth: 100 }}
                 variant="contained"
@@ -207,7 +207,7 @@ const StudentForms = () => {
               >
                 Delete
               </Button>
-            </div>
+            </div> */}
             <div className="btn-show">
               <Button
                 style={{ maxWidth: 100 }}

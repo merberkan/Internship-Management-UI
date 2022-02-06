@@ -75,7 +75,7 @@ const ForgetPassword = () => {
           <h2>Şifremi Unuttum</h2>
         </div>
         <div className="logo-part">
-          <img src={logo}></img>
+          <img className="forget-password-img" src={logo}></img>
         </div>
       </div>
       <div className="forget-password-content-part">

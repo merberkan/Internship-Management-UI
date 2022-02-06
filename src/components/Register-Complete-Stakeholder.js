@@ -78,6 +78,7 @@ const RegisterCompleteStakeholder = () => {
     setCompanyWebsite("");
     setCompanyEmployeeNumber("");
     setIsInputsDisabled(false);
+    setSelectedCompany("");
   }
 
   const handleSubmit = (e) => {
